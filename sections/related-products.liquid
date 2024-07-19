@@ -31,13 +31,14 @@ umair
       <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
         {{ section.settings.heading }}
       </h2>
- <ul
+<ul
     class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
     role="list"
 >
     {% assign skip_card_product_styles = false %}
     {% for recommendation in recommendations.products %}
-        {% unless recommendation.tags contains 'add-on' %}
+        {% assign product_tags = recommendation.tags | join: ',' | downcase %}
+        {% unless product_tags contains 'add-on' %}
             <li class="grid__item">
                 {% render 'card-product',
                     card_product: recommendation,
@@ -53,6 +54,7 @@ umair
         {% endunless %}
     {% endfor %}
 </ul>
+
     {% endif %}
   </product-recommendations>
   {% if section.settings.image_shape == 'arch' %}
