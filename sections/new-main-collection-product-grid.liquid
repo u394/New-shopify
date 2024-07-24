@@ -1,3 +1,6 @@
+ {% if product.available == false %}
+        <span class="sold-out-badge">Sold Out</span>
+      {% endif %}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
