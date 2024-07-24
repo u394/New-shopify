@@ -152,14 +152,6 @@
 >
   {% assign skip_card_product_styles = false %}
   {%- for product in collection.products -%}
-    <!-- Debug: Output entire product object -->
-    <script>
-      console.log({{ product | json }});
-    </script>
-    
-    <!-- Debug: Check if 'available' attribute exists and its value -->
-    <p>{{ product.title }} - Available: {{ product.available }} (Type: {{ product.available | type_of }})</p>
-
     {% if product.available %}
       {% assign lazy_load = false %}
       {%- if forloop.index > 2 -%}
