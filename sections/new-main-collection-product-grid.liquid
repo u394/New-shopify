@@ -141,7 +141,7 @@
             class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
           >
             <div class="loading-overlay gradient"></div>
-         <ul
+<ul
   id="product-grid"
   data-id="{{ section.id }}"
   class="
@@ -152,7 +152,11 @@
 >
   {% assign skip_card_product_styles = false %}
   {%- for product in collection.products -%}
-    {% unless product.available %}
+    {% assign total_inventory = 0 %}
+    {%- for variant in product.variants -%}
+      {% assign total_inventory = total_inventory | plus: variant.inventory_quantity %}
+    {%- endfor -%}
+    {% if product.available and total_inventory > 0 %}
       {% assign lazy_load = false %}
       {%- if forloop.index > 2 -%}
         {%- assign lazy_load = true -%}
@@ -178,9 +182,10 @@
         %}
       </li>
       {%- assign skip_card_product_styles = true -%}
-    {% endunless %}
+    {% endif %}
   {%- endfor -%}
 </ul>
+
 
 
             {%- if paginate.pages > 1 -%}
