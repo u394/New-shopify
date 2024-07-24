@@ -1,6 +1,3 @@
- {% if product.available == false %}
-        <span class="sold-out-badge">Sold Out</span>
-      {% endif %}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -155,6 +152,7 @@
             >
               {% assign skip_card_product_styles = false %}
               {%- for product in collection.products -%}
+                {% if product.available %}
                 {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
@@ -180,6 +178,7 @@
                   %}
                 </li>
                 {%- assign skip_card_product_styles = true -%}
+                  {% endif %}
               {%- endfor -%}
             </ul>
 
