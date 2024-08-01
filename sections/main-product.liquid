@@ -184,6 +184,10 @@
                     </h2>
                   </a>
                 </div>
+                         <div class="product-file-upload">
+                          <label for="file-upload">Upload your file:</label>
+                          <input type="file" id="file-upload" name="properties[File Upload]">
+                          </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
@@ -274,10 +278,7 @@
                     {%- endif -%}
                   {%- endif -%}
                 </p>
-                            <div class="product-file-upload">
-                          <label for="file-upload">Upload your file:</label>
-                          <input type="file" id="file-upload" name="properties[File Upload]">
-                          </div>
+                 
 
               {%- when 'description' -%}
                 {%- if product.description != blank -%}
