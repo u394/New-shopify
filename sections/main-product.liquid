@@ -1,4 +1,37 @@
-{{ product.inventory_quantity }}
+<style>
+  .availability {
+    color: red;
+    font-weight: bold;
+}
+
+.availability span {
+    display: block;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    background-color: red;
+    height: 5px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+</style>
+{% assign total_inventory_quantity = 0 %}
+{% for variant in product.variants %}
+  {% assign total_inventory_quantity = total_inventory_quantity | plus: variant.inventory_quantity %}
+{% endfor %}
+
+<div class="availability">
+    {% if total_inventory_quantity > 0 and total_inventory_quantity <= 10 %}
+        <p><span>⚠️ Only {{ total_inventory_quantity }} left. Order soon!</span></p>
+        <div class="progress-bar"></div>
+    {% elsif total_inventory_quantity > 10 %}
+        <p>In stock</p>
+    {% else %}
+        <p>Out of stock</p>
+    {% endif %}
+</div>
 
 {{ product.tags }}
 {% if product.tags == 'add-on' %}{% endif %}
