@@ -51,6 +51,17 @@
         novalidate: 'novalidate',
         data-type: 'add-to-cart-form'
       -%}
+        <p class="line-item-property__field">
+<label for="custom-name">Custom Name</label>
+<input
+required
+class="required"
+id="custom-name"
+type="text"
+name="properties[Custom Name]"
+form="product-form-{{ section.id }}"
+>
+</p>
         <input
           type="hidden"
           name="id"
