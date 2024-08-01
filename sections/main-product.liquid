@@ -2372,3 +2372,21 @@
   ]
 }
 {% endschema %}
+<script>
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+  var inventoryBar = document.getElementById("inventory-fill-{{ section.id }}");
+  var inventoryQuantity = {{ product.selected_or_first_available_variant.inventory_quantity }};
+  var maxQuantity = {{ block.settings.inventory_threshold }};
+  
+  var percentage = (inventoryQuantity / maxQuantity) * 100;
+  
+  if (percentage > 100) {
+    percentage = 100;
+  }
+  
+  inventoryBar.style.width = percentage + "%";
+});
+</script>
+
+</script>
