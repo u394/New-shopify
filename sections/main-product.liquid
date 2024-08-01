@@ -12,10 +12,17 @@
 }
 
 .inventory-fill {
-  background-color: #76c7c0;
   height: 100%;
   border-radius: 25px;
   transition: width 0.5s ease-in-out;
+}
+
+.inventory-fill.high {
+  background-color: #76c7c0; /* High inventory color */
+}
+
+.inventory-fill.low {
+  background-color: #ff6b6b; /* Low inventory color */
 }
 
 .inventory-text {
@@ -43,7 +50,19 @@
   var inventoryPercentage = (currentInventory / maxInventory) * 100;
   inventoryPercentage = inventoryPercentage > 100 ? 100 : inventoryPercentage; // Ensure it doesn't exceed 100%
 
+  // Set the width of the inventory bar
   inventoryBar.style.width = inventoryPercentage + '%';
+
+  // Change the color based on inventory level
+  if (currentInventory < 20) { // Adjust this threshold as needed
+    inventoryBar.classList.add('low');
+    inventoryBar.classList.remove('high');
+  } else {
+    inventoryBar.classList.add('high');
+    inventoryBar.classList.remove('low');
+  }
+
+  // Update the inventory text
   inventoryText.innerText = 'In Stock: ' + currentInventory + ' items';
 });
 
