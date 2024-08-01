@@ -1,3 +1,72 @@
+<style>
+  .inventory-status-bar {
+  margin: 20px 0;
+}
+
+.inventory-bar {
+  background-color: #e0e0e0;
+  border-radius: 25px;
+  position: relative;
+  height: 20px;
+  width: 100%;
+}
+
+.inventory-fill {
+  height: 100%;
+  border-radius: 25px;
+  transition: width 0.5s ease-in-out;
+}
+
+.inventory-fill.high {
+  background-color: #76c7c0; /* High inventory color */
+}
+
+.inventory-fill.low {
+  background-color: #ff6b6b; /* Low inventory color */
+}
+
+.inventory-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+</style>
+<div class="inventory-status-bar">
+  <div class="inventory-bar">
+    <div class="inventory-fill" style="width: 0%"></div>
+  </div>
+  <div class="inventory-text"></div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var inventoryBar = document.querySelector('.inventory-fill');
+  var inventoryText = document.querySelector('.inventory-text');
+
+  // Assuming you have access to the current product's inventory quantity
+  var maxInventory = 100; // Set this to the maximum inventory level you want to display
+  var currentInventory = {{ product.variants.first.inventory_quantity }}; // Adjust according to your Liquid code
+
+  var inventoryPercentage = (currentInventory / maxInventory) * 100;
+  inventoryPercentage = inventoryPercentage > 100 ? 100 : inventoryPercentage; // Ensure it doesn't exceed 100%
+
+  // Set the width of the inventory bar
+  inventoryBar.style.width = inventoryPercentage + '%';
+
+  // Change the color based on inventory level
+  if (currentInventory <= 30) { // Threshold for low inventory
+    inventoryBar.classList.add('low');
+    inventoryBar.classList.remove('high');
+  } else {
+    inventoryBar.classList.add('high');
+    inventoryBar.classList.remove('low');
+  }
+
+  // Update the inventory text
+  inventoryText.innerText = 'In Stock: ' + currentInventory + ' items';
+});
+
+</script>
 
 {{ product.tags }}
 {% if product.tags == 'add-on' %}{% endif %}
@@ -184,8 +253,6 @@
                     </h2>
                   </a>
                 </div>
-
-​
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
@@ -276,8 +343,6 @@
                     {%- endif -%}
                   {%- endif -%}
                 </p>
-                 
-
               {%- when 'description' -%}
                 {%- if product.description != blank -%}
                   <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
@@ -523,7 +588,6 @@
                     </volume-pricing>
                   {%- endif -%}
                 </div>
-                            
               {%- when 'popup' -%}
                 <modal-opener
                   class="product-popup-modal__opener quick-add-hidden"
