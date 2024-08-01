@@ -54,7 +54,7 @@
   inventoryBar.style.width = inventoryPercentage + '%';
 
   // Change the color based on inventory level
-  if (currentInventory < 20) { // Adjust this threshold as needed
+  if (currentInventory <= 30) { // Threshold for low inventory
     inventoryBar.classList.add('low');
     inventoryBar.classList.remove('high');
   } else {
