@@ -1,9 +1,4 @@
-{% assign total_inventory_quantity = 0 %}
-{% for variant in product.variants %}
-  {% assign total_inventory_quantity = total_inventory_quantity | plus: variant.inventory_quantity %}
-{% endfor %}
-
-<p>Total Quantity Available: {{ total_inventory_quantity }}</p>
+{{ product.inventory_quantity }}
 
 {{ product.tags }}
 {% if product.tags == 'add-on' %}{% endif %}
