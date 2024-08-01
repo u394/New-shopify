@@ -1,73 +1,54 @@
 <style>
-  .inventory-status-bar {
+.progress-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
   margin: 20px 0;
 }
 
-.inventory-bar {
-  background-color: #e0e0e0;
-  border-radius: 25px;
-  position: relative;
-  height: 20px;
-  width: 100%;
-}
-
-.inventory-fill {
-  height: 100%;
-  border-radius: 25px;
-  transition: width 0.5s ease-in-out;
-}
-
-.inventory-fill.high {
-  background-color: #76c7c0; /* High inventory color */
-}
-
-.inventory-fill.low {
-  background-color: #ff6b6b; /* Low inventory color */
-}
-
-.inventory-text {
+.progress-bar {
+  height: 30px;
+  width: 0;
+  background-color: #4caf50;
   text-align: center;
-  margin-top: 10px;
-  font-size: 16px;
+  line-height: 30px;
+  color: white;
 }
 
+.progress-status {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  line-height: 30px;
+  color: black;
+}
 </style>
-<div class="inventory-status-bar">
-  <div class="inventory-bar">
-    <div class="inventory-fill" style="width: 0%"></div>
+ <div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="progress-status" id="progress-status">0%</div>
   </div>
-  <div class="inventory-text"></div>
-</div>
+  <button onclick="startProgress()">Start Progress</button>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-  var inventoryBar = document.querySelector('.inventory-fill');
-  var inventoryText = document.querySelector('.inventory-text');
-
-  // Assuming you have access to the current product's inventory quantity
-  var maxInventory = 100; // Set this to the maximum inventory level you want to display
-  var currentInventory = {{ product.variants.first.inventory_quantity }}; // Adjust according to your Liquid code
-
-  var inventoryPercentage = (currentInventory / maxInventory) * 100;
-  inventoryPercentage = inventoryPercentage > 100 ? 100 : inventoryPercentage; // Ensure it doesn't exceed 100%
-
-  // Set the width of the inventory bar
-  inventoryBar.style.width = inventoryPercentage + '%';
-
-  // Change the color based on inventory level
-  if (currentInventory <= 30) { // Threshold for low inventory
-    inventoryBar.classList.add('low');
-    inventoryBar.classList.remove('high');
-  } else {
-    inventoryBar.classList.add('high');
-    inventoryBar.classList.remove('low');
-  }
-
-  // Update the inventory text
-  inventoryText.innerText = 'In Stock: ' + currentInventory + ' items';
-});
+  // script.js
+function startProgress() {
+  let progressBar = document.getElementById('progress-bar');
+  let progressStatus = document.getElementById('progress-status');
+  let width = 0;
+  
+  let interval = setInterval(() => {
+    if (width >= 100) {
+      clearInterval(interval);
+    } else {
+      width++;
+      progressBar.style.width = width + '%';
+      progressStatus.textContent = width + '%';
+    }
+  }, 100); // Adjust the interval timing to speed up or slow down the progress
+}
 
 </script>
-
 {{ product.tags }}
 {% if product.tags == 'add-on' %}{% endif %}
 <product-info
