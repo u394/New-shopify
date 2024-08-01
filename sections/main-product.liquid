@@ -274,6 +274,11 @@
                     {%- endif -%}
                   {%- endif -%}
                 </p>
+                            <div class="product-file-upload">
+                          <label for="file-upload">Upload your file:</label>
+                          <input type="file" id="file-upload" name="properties[File Upload]">
+                          </div>
+
               {%- when 'description' -%}
                 {%- if product.description != blank -%}
                   <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
@@ -519,6 +524,7 @@
                     </volume-pricing>
                   {%- endif -%}
                 </div>
+                            
               {%- when 'popup' -%}
                 <modal-opener
                   class="product-popup-modal__opener quick-add-hidden"
