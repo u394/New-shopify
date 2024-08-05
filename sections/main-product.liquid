@@ -245,6 +245,12 @@
                   {{- block.settings.text -}}
                 </p>
               {%- when 'title' -%}
+                 <form method="post" action="/cart/add" class="ContactForm center">
+                    <input type="hidden" name="id" value="{{ product_card_product.variants.first.id }}" />
+                    <input min="1" type="hidden" id="quantity" name="quantity" value="1"/>
+                    <input  type="text" id="quantity" name="propertries[saad]" />
+                    <input type="submit" value="Add to cart" class="button" style="margin-top:7px;" />
+                  </form>
                 <div class="product__title" {{ block.shopify_attributes }}>
                   <h1>{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
