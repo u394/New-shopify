@@ -36,39 +36,51 @@
 </style>
 <div class="inventory-status-bar">
   <div class="inventory-bar">
-    <div class="inventory-fill" style="width: 10%"></div>
+    <div class="inventory-fill" style="width: 0%"></div>
   </div>
   <div class="inventory-text"></div>
 </div>
+
+<script>
+  // Pass variant data to JavaScript
+  var variants = {{ product.variants | json }};
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-  var inventoryBar = document.querySelector('.inventory-fill');
-  var inventoryText = document.querySelector('.inventory-text');
+    var variantContainer = document.getElementById('variant-inventory');
 
-  // Assuming you have access to the current product's inventory quantity
-  var maxInventory = 100; // Set this to the maximum inventory level you want to display
-  var currentInventory = {{ product.variants.first.inventory_quantity }}; // Adjust according to your Liquid code
+    // Retrieve the JSON object with all product variants' inventory
+    var variants = window.variants;
 
-  var inventoryPercentage = (currentInventory / maxInventory) * 100;
-  inventoryPercentage = inventoryPercentage > 100 ? 100 : inventoryPercentage; // Ensure it doesn't exceed 100%
+    // Function to create and append inventory details for a single variant
+    function createVariantInventory(variant) {
+      var variantElement = document.createElement('div');
+      variantElement.classList.add('variant-inventory');
 
-  // Set the width of the inventory bar
-  inventoryBar.style.width = inventoryPercentage + '%';
+      var title = variant.title;
+      var inventoryQuantity = variant.inventory_quantity;
+      var maxInventory = 100; // Maximum inventory level for the display
+      var inventoryPercentage = (inventoryQuantity / maxInventory) * 100;
+      inventoryPercentage = inventoryPercentage > 100 ? 100 : inventoryPercentage; // Ensure it doesn't exceed 100%
 
-  // Change the color based on inventory level
-  if (currentInventory <= 30) { // Threshold for low inventory
-    inventoryBar.classList.add('low');
-    inventoryBar.classList.remove('high');
-  } else {
-    inventoryBar.classList.add('high');
-    inventoryBar.classList.remove('low');
-  }
+      variantElement.innerHTML = `
+        <h3>${title}</h3>
+        <div class="inventory-bar">
+          <div class="inventory-fill" style="width: ${inventoryPercentage}%;"></div>
+        </div>
+        <p>In Stock: ${inventoryQuantity} items</p>
+      `;
 
-  // Update the inventory text
-  inventoryText.innerText = 'In Stock: ' + currentInventory + ' items';
-});
+      variantContainer.appendChild(variantElement);
+    }
 
+    // Create and display inventory details for each variant
+    variants.forEach(function(variant) {
+      createVariantInventory(variant);
+    });
+  });
 </script>
+
 
 {{ product.tags }}
 {% if product.tags == 'add-on' %}{% endif %}
