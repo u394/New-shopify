@@ -457,10 +457,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
     const productList = document.getElementById('product-list');
 
-    // Function to add product details to local storage
+    // Function to add or update product details in local storage
     function addProductToLocalStorage(product) {
         let products = JSON.parse(localStorage.getItem('products')) || [];
-        products.push(product);
+        let productExists = false;
+
+        // Check if the product already exists and update quantity if it does
+        products = products.map(p => {
+            if (p.title === product.title && p.price === product.price) {
+                productExists = true;
+                return {
+                    ...p,
+                    quantity: p.quantity + product.quantity // Merge quantities
+                };
+            }
+            return p;
+        });
+
+        // If product does not exist, add it
+        if (!productExists) {
+            products.push(product);
+        }
+
         localStorage.setItem('products', JSON.stringify(products));
     }
 
@@ -509,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const price = (variant.price / 100).toFixed(2); // Convert price to decimal
                     const quantity = data.quantity;
 
-                    // Add product to local storage
+                    // Add or update product in local storage
                     addProductToLocalStorage({ title, price, quantity });
 
                     // Display products
@@ -544,8 +562,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.remove('open');
     });
 });
-
-
 
 
 </Script>
