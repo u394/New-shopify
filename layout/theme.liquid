@@ -299,18 +299,44 @@
 .sidebar {
   position: fixed;
   top: 0;
-  right: -250px; /* Initially hidden */
-  width: 250px;
+  right: -300px; /* Initially hidden */
+  width: 300px;
   height: 100%;
   background: #333;
   color: #fff;
   transition: right 0.3s ease;
   z-index: 1000;
+  padding: 20px;
 }
 
 .sidebar.open {
   right: 0;
 }
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.product-details {
+  margin-top: 50px;
+}
+
+.product-details h2 {
+  font-size: 24px;
+}
+
+.product-details p {
+  font-size: 18px;
+}
+
 
 
 
@@ -431,18 +457,67 @@
     });
   </script>
 <Script>
-document.addEventListener('DOMContentLoaded', function () {
-  var openSidebarButton = document.getElementById('open-sidebar');
-  var closeSidebarButton = document.getElementById('close-sidebar');
-  var sidebar = document.getElementById('sidebar');
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all forms with the data-type attribute for adding to cart
+    const forms = document.querySelectorAll('form[data-type="add-to-cart-form"]');
 
-  openSidebarButton.addEventListener('click', function () {
-    sidebar.classList.add('open');
-  });
+    // Select the sidebar and its elements
+    const sidebar = document.getElementById('sidebar');
+    const productTitle = document.getElementById('product-title');
+    const productPrice = document.getElementById('product-price');
+    const productQuantity = document.getElementById('product-quantity');
 
-  closeSidebarButton.addEventListener('click', function () {
-    sidebar.classList.remove('open');
-  });
+    // Loop through each form and attach a submit event listener
+    forms.forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(form);
+
+            fetch('/cart/add.js', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Product added to cart:', data);
+
+                // Fetch product details using the product handle from the data
+                fetch(`/products/${data.handle}.js`)
+                    .then(response => response.json())
+                    .then(product => {
+                        const variant = product.variants.find(variant => variant.id == data.variant_id);
+                        const title = product.title;
+                        const price = (variant.price / 100).toFixed(2); // Convert price to decimal
+                        const quantity = data.quantity;
+
+                        // Display product details in the sidebar
+                        productTitle.textContent = title;
+                        productPrice.textContent = `Price: $${price}`;
+                        productQuantity.textContent = `Quantity: ${quantity}`;
+
+                        // Open the sidebar
+                        sidebar.classList.add('open');
+                    })
+                    .catch(error => console.error('Error fetching product details:', error));
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+            });
+        });
+    });
+
+    // Sidebar open/close functionality
+    const openSidebarButton = document.getElementById('open-sidebar');
+    const closeSidebarButton = document.getElementById('close-sidebar');
+
+    openSidebarButton.addEventListener('click', function () {
+        sidebar.classList.add('open');
+    });
+
+    closeSidebarButton.addEventListener('click', function () {
+        sidebar.classList.remove('open');
+    });
 });
 
 
