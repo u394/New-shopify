@@ -320,12 +320,16 @@
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
 
 <!-- Button to open the sidebar -->
-<button id="">Open Sidebar</button>
+<!-- <button id="open-sidebar">Open Sidebar</button> -->
 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
+  <!-- Close button -->
+  <button id="close-sidebar" class="close-button">&times;</button>
+  
   <!-- Sidebar content here -->
 </div>
+
 
 
 
@@ -423,12 +427,18 @@
 <Script>
 document.addEventListener('DOMContentLoaded', function () {
   var openSidebarButton = document.getElementById('open-sidebar');
+  var closeSidebarButton = document.getElementById('close-sidebar');
   var sidebar = document.getElementById('sidebar');
 
   openSidebarButton.addEventListener('click', function () {
-    sidebar.classList.toggle('open');
+    sidebar.classList.add('open');
+  });
+
+  closeSidebarButton.addEventListener('click', function () {
+    sidebar.classList.remove('open');
   });
 });
+
 
 </Script>
   </body>
