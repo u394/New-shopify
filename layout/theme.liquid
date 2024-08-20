@@ -420,65 +420,35 @@
       }
     });
   </script>
-    <script>
+<Script>
 document.addEventListener('DOMContentLoaded', function() {
-    const cartSidebar = document.getElementById('cart-sidebar');
-    const cartItems = document.getElementById('cart-items');
-    const closeSidebarButton = document.getElementById('close-sidebar');
-    const addToCartButtons = document.querySelectorAll('.product-form__submit');
+    var addToCartButton = document.getElementById('ProductSubmitButton-template--16448605421628__main');
 
-    // Close sidebar event
-    closeSidebarButton.addEventListener('click', function() {
-        cartSidebar.classList.remove('open');
-    });
+    addToCartButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default form submission
 
-    addToCartButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the default form submission
+        // Open the sidebar (assuming the sidebar has an ID or class)
+        var sidebar = document.getElementById('your-sidebar-id'); // Replace with your sidebar's ID or class
+        sidebar.classList.add('open'); // Add the class that makes the sidebar visible
 
-            const form = button.closest('form');
-            const formData = new FormData(form);
+        // Optionally, submit the form via AJAX
+        var form = document.getElementById('product-form-template--16448605421628__main');
+        var formData = new FormData(form);
 
-            fetch('/cart/add.js', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Product added to cart:', data);
-
-                const productId = form.querySelector('input[name="id"]').value;
-
-                fetch(`/products/${data.handle}.js`)
-                    .then(response => response.json())
-                    .then(product => {
-                        const variant = product.variants.find(variant => variant.id == productId);
-                        const title = product.title;
-                        const price = (variant.price / 100).toFixed(2); // Convert price to decimal
-                        const quantity = data.quantity;
-
-                        // Show the sidebar
-                        cartSidebar.classList.add('open');
-
-                        // Inject product details into the sidebar
-                        cartItems.innerHTML = `
-                            <h3>Product Added:</h3>
-                            <p><strong>Title:</strong> ${title}</p>
-                            <p><strong>Price:</strong> $${price}</p>
-                            <p><strong>Quantity:</strong> ${quantity}</p>
-                        `;
-                    })
-                    .catch(error => console.error('Error fetching product details:', error));
-            })
-            .catch(error => {
-                console.error('Error adding to cart:', error);
-            });
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+        }).then(function(response) {
+            if (response.ok) {
+                console.log('Product added to cart!');
+            } else {
+                console.error('Failed to add product to cart');
+            }
+        }).catch(function(error) {
+            console.error('Error:', error);
         });
     });
 });
-
-
-
-    </script>
+</Script>
   </body>
 </html>
