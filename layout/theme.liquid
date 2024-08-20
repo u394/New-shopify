@@ -467,6 +467,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const productPrice = document.getElementById('product-price');
     const productQuantity = document.getElementById('product-quantity');
 
+    // Function to clear previous product details
+    function clearProductDetails() {
+        productTitle.textContent = 'Product Title';
+        productPrice.textContent = 'Product Price';
+        productQuantity.textContent = 'Product Quantity';
+    }
+
     // Loop through each form and attach a submit event listener
     forms.forEach(function(form) {
         form.addEventListener('submit', function(event) {
@@ -482,6 +489,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log('Product added to cart:', data);
 
+                // Clear previous product details
+                clearProductDetails();
+
                 // Fetch product details using the product handle from the data
                 fetch(`/products/${data.handle}.js`)
                     .then(response => response.json())
@@ -491,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const price = (variant.price / 100).toFixed(2); // Convert price to decimal
                         const quantity = data.quantity;
 
-                        // Display product details in the sidebar
+                        // Display new product details in the sidebar
                         productTitle.textContent = title;
                         productPrice.textContent = `Price: $${price}`;
                         productQuantity.textContent = `Quantity: ${quantity}`;
@@ -519,6 +529,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.remove('open');
     });
 });
+
 
 
 </Script>
