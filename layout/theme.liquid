@@ -422,22 +422,21 @@
   </script>
     <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Select all forms with the data-type attribute for adding to cart
-    const forms = document.querySelectorAll('form[data-type="add-to-cart-form"]');
-    const sidebar = document.getElementById('cart-sidebar');
+    const cartSidebar = document.getElementById('cart-sidebar');
     const cartItems = document.getElementById('cart-items');
     const closeSidebarButton = document.getElementById('close-sidebar');
+    const addToCartButtons = document.querySelectorAll('.product-form__submit');
 
     // Close sidebar event
     closeSidebarButton.addEventListener('click', function() {
-        sidebar.classList.remove('open');
+        cartSidebar.classList.remove('open');
     });
 
-    // Loop through each form and attach a submit event listener
-    forms.forEach(function(form) {
-        form.addEventListener('submit', function(event) {
+    addToCartButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
             event.preventDefault(); // Prevent the default form submission
 
+            const form = button.closest('form');
             const formData = new FormData(form);
 
             fetch('/cart/add.js', {
@@ -448,17 +447,18 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log('Product added to cart:', data);
 
-                // Fetch product details using the product handle from the data
+                const productId = form.querySelector('input[name="id"]').value;
+
                 fetch(`/products/${data.handle}.js`)
                     .then(response => response.json())
                     .then(product => {
-                        const variant = product.variants.find(variant => variant.id == data.variant_id);
+                        const variant = product.variants.find(variant => variant.id == productId);
                         const title = product.title;
                         const price = (variant.price / 100).toFixed(2); // Convert price to decimal
                         const quantity = data.quantity;
 
                         // Show the sidebar
-                        sidebar.classList.add('open');
+                        cartSidebar.classList.add('open');
 
                         // Inject product details into the sidebar
                         cartItems.innerHTML = `
@@ -476,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 
     </script>
