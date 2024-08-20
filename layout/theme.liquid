@@ -469,9 +469,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to clear previous product details
     function clearProductDetails() {
-        productTitle.textContent = 'Product Title';
-        productPrice.textContent = 'Product Price';
-        productQuantity.textContent = 'Product Quantity';
+        productTitle.textContent = '';
+        productPrice.textContent = '';
+        productQuantity.textContent = '';
+    }
+
+    // Function to update the sidebar with new product details
+    function updateSidebar(title, price, quantity) {
+        clearProductDetails(); // Clear existing details
+        productTitle.textContent = title;
+        productPrice.textContent = `Price: $${price}`;
+        productQuantity.textContent = `Quantity: ${quantity}`;
+        sidebar.classList.add('open'); // Open the sidebar
     }
 
     // Loop through each form and attach a submit event listener
@@ -489,9 +498,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log('Product added to cart:', data);
 
-                // Clear previous product details
-                clearProductDetails();
-
                 // Fetch product details using the product handle from the data
                 fetch(`/products/${data.handle}.js`)
                     .then(response => response.json())
@@ -501,13 +507,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         const price = (variant.price / 100).toFixed(2); // Convert price to decimal
                         const quantity = data.quantity;
 
-                        // Display new product details in the sidebar
-                        productTitle.textContent = title;
-                        productPrice.textContent = `Price: $${price}`;
-                        productQuantity.textContent = `Quantity: ${quantity}`;
-
-                        // Open the sidebar
-                        sidebar.classList.add('open');
+                        // Update the sidebar with new product details
+                        updateSidebar(title, price, quantity);
                     })
                     .catch(error => console.error('Error fetching product details:', error));
             })
@@ -531,6 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.remove('open');
     });
 });
+
 
 
 </Script>
