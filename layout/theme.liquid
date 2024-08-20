@@ -296,38 +296,25 @@
       }
     </script>
     <style>
-      .cart-sidebar {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 300px;
-    height: 100%;
-    background: white;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    padding: 20px;
-    z-index: 1000;
-}
-
-.cart-sidebar.open {
-    transform: translateX(0);
-}
-
-.hidden {
+#your-sidebar-id {
     display: none;
+    /* other styling for the sidebar */
 }
+
+#your-sidebar-id.open {
+    display: block;
+    /* additional styles to animate or show the sidebar */
+}
+
 
     </style>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
-<div id="cart-sidebar" class="cart-sidebar hidden">
-    <button id="close-sidebar">Close</button>
-    <div id="cart-items">
-        <!-- Product details will be injected here -->
-    </div>
+<div id="your-sidebar-id" class="sidebar">
+    <!-- Sidebar content here -->
 </div>
+
 
           <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXVSRWNT"
