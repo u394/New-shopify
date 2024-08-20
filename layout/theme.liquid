@@ -518,18 +518,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Sidebar open/close functionality
-    const openSidebarButton = document.getElementById('open-sidebar');
+    const openSidebarButtons = document.querySelectorAll('.open-sidebar-button');
     const closeSidebarButton = document.getElementById('close-sidebar');
 
-    openSidebarButton.addEventListener('click', function () {
-        sidebar.classList.add('open');
+    openSidebarButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            sidebar.classList.add('open');
+        });
     });
 
     closeSidebarButton.addEventListener('click', function () {
         sidebar.classList.remove('open');
     });
 });
-
 
 
 </Script>
