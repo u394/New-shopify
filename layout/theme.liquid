@@ -320,7 +320,7 @@
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
 
 <!-- Button to open the sidebar -->
-<button id="open-sidebar">Open Sidebar</button>
+<button id="">Open Sidebar</button>
 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
@@ -422,7 +422,7 @@
   </script>
 <Script>
 document.addEventListener('DOMContentLoaded', function () {
-  var openSidebarButton = document.getElementById('ProductSubmitButton-template--16448605421628__main');
+  var openSidebarButton = document.getElementById('open-sidebar');
   var sidebar = document.getElementById('sidebar');
 
   openSidebarButton.addEventListener('click', function () {
