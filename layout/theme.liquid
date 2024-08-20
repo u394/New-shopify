@@ -345,16 +345,6 @@
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
 
-<!-- Button to open the sidebar -->
-<!-- <button id="open-sidebar">Open Sidebar</button> -->
-
-<!-- Sidebar -->
-<div id="sidebar" class="sidebar">
-    <button id="close-sidebar">Close</button>
-    <div id="product-list">
-        <!-- Product details will be dynamically added here -->
-    </div>
-</div>
 
 
 
@@ -453,116 +443,45 @@
   </script>
 <Script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Select all forms with the data-type attribute for adding to cart
     const forms = document.querySelectorAll('form[data-type="add-to-cart-form"]');
-    const sidebar = document.getElementById('sidebar');
-    const productList = document.getElementById('product-list');
 
-    // Function to add or update product details in local storage
-    function addProductToLocalStorage(product) {
-        let products = JSON.parse(localStorage.getItem('products')) || [];
-        let productExists = false;
+    // Loop through each form and attach a submit event listener
+    forms.forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
 
-        // Check if the product already exists and update quantity if it does
-        products = products.map(p => {
-            if (p.title === product.title && p.price === product.price) {
-                productExists = true;
-                return {
-                    ...p,
-                    quantity: p.quantity + product.quantity // Merge quantities
-                };
-            }
-            return p;
+            const formData = new FormData(form);
+
+            fetch('/cart/add.js', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Product added to cart:', data);
+
+                // Fetch product details using the product handle from the data
+                fetch(`/products/${data.handle}.js`)
+                    .then(response => response.json())
+                    .then(product => {
+                        const variant = product.variants.find(variant => variant.id == data.variant_id);
+                        const title = product.title;
+                        const price = (variant.price / 100).toFixed(2); // Convert price to decimal
+                        const quantity = data.quantity;
+
+                        console.log('Product Title:', title);
+                        console.log('Product Price:', price);
+                        console.log('Product Quantity:', quantity);
+                    })
+                    .catch(error => console.error('Error fetching product details:', error));
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+            });
         });
-
-        // If product does not exist, add it
-        if (!productExists) {
-            products.push(product);
-        }
-
-        localStorage.setItem('products', JSON.stringify(products));
-    }
-
-    // Function to display all products from local storage
-    function displayProducts() {
-        productList.innerHTML = ''; // Clear existing content
-        let products = JSON.parse(localStorage.getItem('products')) || [];
-
-        products.forEach(product => {
-            const productElement = document.createElement('div');
-            productElement.classList.add('product-item');
-            productElement.innerHTML = `
-                <h3>${product.title}</h3>
-                <p>Price: $${product.price}</p>
-                <p>Quantity: ${product.quantity}</p>
-            `;
-            productList.appendChild(productElement);
-        });
-
-        if (products.length > 0) {
-            sidebar.classList.add('open'); // Ensure sidebar is open if there are products
-        }
-    }
-
-    // Function to handle form submission
-    function handleFormSubmission(event) {
-        event.preventDefault(); // Prevent default form submission
-
-        const form = event.target;
-        const formData = new FormData(form);
-
-        fetch('/cart/add.js', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Product added to cart:', data);
-
-            // Fetch product details
-            fetch(`/products/${data.handle}.js`)
-                .then(response => response.json())
-                .then(product => {
-                    const variant = product.variants.find(variant => variant.id == data.variant_id);
-                    const title = product.title;
-                    const price = (variant.price / 100).toFixed(2); // Convert price to decimal
-                    const quantity = data.quantity;
-
-                    // Add or update product in local storage
-                    addProductToLocalStorage({ title, price, quantity });
-
-                    // Display products
-                    displayProducts();
-                })
-                .catch(error => console.error('Error fetching product details:', error));
-        })
-        .catch(error => {
-            console.error('Error adding to cart:', error);
-        });
-    }
-
-    // Attach event listeners to forms
-    forms.forEach(form => {
-        form.addEventListener('submit', handleFormSubmission);
-    });
-
-    // Load products from local storage when the page loads
-    displayProducts();
-
-    // Sidebar open/close functionality
-    const openSidebarButtons = document.querySelectorAll('.open-sidebar-button');
-    const closeSidebarButton = document.getElementById('close-sidebar');
-
-    openSidebarButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            sidebar.classList.add('open');
-        });
-    });
-
-    closeSidebarButton.addEventListener('click', function () {
-        sidebar.classList.remove('open');
     });
 });
-
 
 </Script>
   </body>
