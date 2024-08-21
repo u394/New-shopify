@@ -45,17 +45,14 @@
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
-           {% for variant in product.variants %}
-            {% assign news = variant.inventory_quantity  %}
+          {% for variant in product.variants %}
+            {{ variant.inventory_quantity  }}
             {% endfor %}
-
           {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type,
-            qty: news
-          %}
+            picker_type: picker_type
           %}
         </fieldset>
       {%- else -%}
