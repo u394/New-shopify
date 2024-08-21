@@ -45,28 +45,40 @@
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
+{%- assign size_quantities = '' -%}
+
 {%- for variant in product.variants -%}
-  {%- for option in variant.options -%}
-    {%- if option contains "Size" -%}
-      {%- assign size = option | strip -%}
-      {%- if size_quantities[size] == nil -%}
-        {%- assign size_quantities = size_quantities | merge: {size: variant.inventory_quantity} -%}
-      {%- else -%}
-        {%- assign size_quantities = size_quantities | merge: {size: size_quantities[size] | plus: variant.inventory_quantity} -%}
-      {%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
+  {%- assign size = variant.option1 -%} {# Assuming the size is in option1, adjust if necessary #}
+  {%- capture size_key -%}{{ size }}{% endcapture -%}
+  {%- if size_quantities contains size_key -%}
+    {%- assign size_quantities = size_quantities | split: ',' -%}
+    {%- assign size_quantities = size_quantities | push: size_key -%}
+    {%- assign size_quantities = size_quantities | push: variant.inventory_quantity -%}
+    {%- assign size_quantities = size_quantities | join: ',' -%}
+  {%- else -%}
+    {%- assign size_quantities = size_quantities | append: size_key | append: ',' | append: variant.inventory_quantity | append: ',' -%}
+  {%- endif -%}
 {%- endfor -%}
+
+{% assign size_quantities = size_quantities | split: ',' %}
 
 {% if size_quantities.size > 0 %}
   <ul>
-    {%- for size in size_quantities -%}
-      <li>{{ size[0] }}: {{ size[1] }} in stock</li>
+    {%- assign index = 0 -%}
+    {%- for item in size_quantities -%}
+      {%- if index % 2 == 0 -%}
+        {%- assign size = item -%}
+      {%- else -%}
+        {%- assign quantity = item -%}
+        <li>{{ size }}: {{ quantity }} in stock</li>
+      {%- endif -%}
+      {%- assign index = index | plus: 1 -%}
     {%- endfor -%}
   </ul>
 {% else %}
   <p>No sizes available.</p>
 {% endif %}
+
           {% render 'product-variant-options',
             product: product,
             option: option,
