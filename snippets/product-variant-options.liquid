@@ -77,7 +77,11 @@
       additional_props: input_dataset
     %}
   {%- elsif picker_type == 'button' -%}
-    {{ qty }}
+{% assign quantities = qty | split: ',' | uniq %}
+
+{% for quantity in quantities %}
+  <p>Quantity: {{ quantity }}</p>
+{% endfor %}
     <input
       type="radio"
       id="{{ input_id }}"
