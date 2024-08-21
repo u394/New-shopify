@@ -45,32 +45,35 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
+
+        
+        <fieldset class="js product-form__input product-form__input--pill">
+          <legend class="form__label">{{ option.name }}</legend>
+
   {% for value in option.values %}
     {% assign variant_found = false %}
     {% for variant in product.variants %}
       {% if variant.option1 == value %}
-        <p>{{ value }}: {{ variant.inventory_quantity }}</p>
+        {% render 'product-variant-options',
+            value: value,
+            inventory_quantity: variant.inventory_quantity %}
         {% assign variant_found = true %}
         {% break %}
       {% endif %}
     {% endfor %}
     
     {% unless variant_found %}
-      <p>{{ value }}: Out of stock</p>
-    {% endunless %}
-  {% endfor %}
-        
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
-
-
-
-          {% render 'product-variant-options',
+      {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+           inventory_quantity: variant.inventory_quantity
           %}
+    {% endunless %}
+  {% endfor %}
+
+        
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
