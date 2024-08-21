@@ -77,6 +77,31 @@
       additional_props: input_dataset
     %}
   {%- elsif picker_type == 'button' -%}
+    {% assign quantity_available = product.selected_or_first_available_variant.inventory_quantity %}
+
+<input
+  type="radio"
+  id="{{ input_id }}"
+  name="{{ input_name }}"
+  value="{{ value | escape }}"
+  form="{{ product_form_id }}"
+  {% if value.selected %}
+    checked
+  {% endif %}
+  {% if option_disabled %}
+    class="disabled"
+  {% endif %}
+  {{ input_dataset }}
+>
+<label for="{{ input_id }}">
+  {{ value }} 
+  {% if quantity_available > 0 %}
+    ({{ quantity_available }} in stock)
+  {% else %}
+    {{ label_unavailable }}
+  {% endif %}
+</label>
+
    <input
   type="radio"
   id="{{ input_id }}"
