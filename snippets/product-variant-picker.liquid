@@ -14,6 +14,8 @@
     data-section="{{ section.id }}"
     {{ block.shopify_attributes }}
   >
+    {% assign option_index = 1 %}
+
     {%- for option in product.options_with_values -%}
       {%- liquid
         assign swatch_count = option.values | map: 'swatch' | compact | size
@@ -50,6 +52,7 @@
     {% else %}
       <p>{{ value }}: Out of stock</p>
     {% endif %}
+      {% assign option_index = option_index | plus: 1 %}
   {% endfor %}
         
         <fieldset class="js product-form__input product-form__input--pill">
