@@ -43,9 +43,11 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
+        <div class="variant__quantity__container">
             {% for variant in product.variants %}
             <span class="variant__qunaity__{{ forloop.index }}">{{ variant.inventory_quantity  }}</span>
             {% endfor %}
+        </div>
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options',
