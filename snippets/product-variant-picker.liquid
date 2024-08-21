@@ -42,32 +42,12 @@
             picker_type: picker_type
           %}
         </fieldset>
+      {%- elsif picker_type == 'button' -%}
+          {% for variant in product.variants %}
 
+    {{ variant.inventory_quantity }} 
 
-
-
-{% assign variant_inventory_quantities = '' %}
-
-{% for variant in product.variants %}
-  {% capture variant_data %}
-    {
-      "id": "{{ variant.id }}",
-      "inventory_quantity": "{{ variant.inventory_quantity }}"
-    }
-  {% endcapture %}
-  
-  {% if forloop.first %}
-    {% assign variant_inventory_quantities = variant_data %}
-  {% else %}
-    {% assign variant_inventory_quantities = variant_inventory_quantities | append: ', ' | append: variant_data %}
-  {% endif %}
-{% endfor %}
-
-{% assign variant_inventory_quantities = '[' | append: variant_inventory_quantities | append: ']' %}
-
-
-
-        
+  {% endfor %}
         
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
@@ -78,8 +58,7 @@
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type,
-             variant_inventory_quantities: variant_inventory_quantities
+            picker_type: picker_type
           %}
         </fieldset>
       {%- else -%}
