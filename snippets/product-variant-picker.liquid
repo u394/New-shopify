@@ -43,22 +43,26 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-          {% for variant in product.variants %}
 
-    {{ variant.inventory_quantity }} 
 
-  {% endfor %}
+
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
 
 
-
+          {% for variant in product.variants %}
           {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            qty: variant.inventory_quantity
           %}
+
+ 
+
+  {% endfor %}
+            
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
