@@ -45,6 +45,11 @@
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
+           {%- if option.name == "Size" -%}  {# Check if the option is for Size #}
+    {%- for value in option.values -%}
+      {%- assign sizes = sizes | append: value | append: ", " -%}
+    {%- endfor -%}
+  {%- endif -%}
           {% render 'product-variant-options',
             product: product,
             option: option,
