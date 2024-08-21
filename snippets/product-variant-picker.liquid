@@ -35,11 +35,15 @@
               {{- option.selected_value -}}
             </span>
           </legend>
+           {% for variant in product.variants %}
+            {% assign news = variant.inventory_quantity  %}
+            {% endfor %}
           {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            qty: news
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
