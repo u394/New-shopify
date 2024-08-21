@@ -50,9 +50,13 @@
           <legend class="form__label">{{ option.name }}</legend>
 
 
-        {% assign variant_quantities = '' %}
+{% assign variant_quantities = '' %}
 
 {% for variant in product.variants %}
+  {% if variant_quantities contains variant.inventory_quantity %}
+    {% continue %}
+  {% endif %}
+  
   {% if variant_quantities != '' %}
     {% assign variant_quantities = variant_quantities | append: ',' %}
   {% endif %}
