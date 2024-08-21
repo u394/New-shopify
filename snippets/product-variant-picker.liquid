@@ -43,12 +43,14 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-    {% assign variant = product.variants | where: 'option{{ forloop.index }}', value | first %}
+  {% for value in option.values %}
+    {% assign variant = product.variants | where: 'option' | where: value | first %}
     {% if variant %}
       <p>{{ value }}: {{ variant.inventory_quantity }}</p>
     {% else %}
       <p>{{ value }}: Out of stock</p>
     {% endif %}
+  {% endfor %}
         
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
