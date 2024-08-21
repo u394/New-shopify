@@ -50,6 +50,11 @@
       {%- assign sizes = sizes | append: value | append: ", " -%}
     {%- endfor -%}
   {%- endif -%}
+{%- if sizes != "" -%}
+  <p>Available sizes: {{ sizes | slice: 0, sizes.size | remove_last: ", " }}</p>
+{%- else -%}
+  <p>No sizes available.</p>
+{%- endif -%}
           {% render 'product-variant-options',
             product: product,
             option: option,
