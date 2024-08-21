@@ -14,8 +14,6 @@
     data-section="{{ section.id }}"
     {{ block.shopify_attributes }}
   >
-    {% assign option_index = 1 %}
-
     {%- for option in product.options_with_values -%}
       {%- liquid
         assign swatch_count = option.values | map: 'swatch' | compact | size
@@ -45,35 +43,22 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
+          {% for variant in product.variants %}
 
-        
+    {{ variant.inventory_quantity }} 
+
+  {% endfor %}
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
 
-  {% for value in option.values %}
-    {% assign variant_found = false %}
-    {% for variant in product.variants %}
-      {% if variant.option1 == value %}
-        {% render 'product-variant-options',
-            value: value,
-            inventory_quantity: variant.inventory_quantity %}
-        {% assign variant_found = true %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-    
-    {% unless variant_found %}
-      {% render 'product-variant-options',
+
+
+          {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type,
-         inventory_quantity: variant.inventory_quantity
+            picker_type: picker_type
           %}
-    {% endunless %}
-  {% endfor %}
-
-        
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
