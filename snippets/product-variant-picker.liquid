@@ -45,40 +45,6 @@
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
-{%- assign size_quantities = '' -%}
-
-{%- for variant in product.variants -%}
-  {%- assign size = variant.option1 -%} {# Assuming the size is in option1, adjust if necessary #}
-  {%- capture size_key -%}{{ size }}{% endcapture -%}
-  {%- if size_quantities contains size_key -%}
-    {%- assign size_quantities = size_quantities | split: ',' -%}
-    {%- assign size_quantities = size_quantities | push: size_key -%}
-    {%- assign size_quantities = size_quantities | push: variant.inventory_quantity -%}
-    {%- assign size_quantities = size_quantities | join: ',' -%}
-  {%- else -%}
-    {%- assign size_quantities = size_quantities | append: size_key | append: ',' | append: variant.inventory_quantity | append: ',' -%}
-  {%- endif -%}
-{%- endfor -%}
-
-{% assign size_quantities = size_quantities | split: ',' %}
-
-{% if size_quantities.size > 0 %}
-  <ul>
-    {%- assign index = 0 -%}
-    {%- for item in size_quantities -%}
-      {%- if index % 2 == 0 -%}
-        {%- assign size = item -%}
-      {%- else -%}
-        {%- assign quantity = item -%}
-        <li>{{ size }}: {{ quantity }} in stock</li>
-      {%- endif -%}
-      {%- assign index = index | plus: 1 -%}
-    {%- endfor -%}
-  </ul>
-{% else %}
-  <p>No sizes available.</p>
-{% endif %}
-
           {% render 'product-variant-options',
             product: product,
             option: option,
