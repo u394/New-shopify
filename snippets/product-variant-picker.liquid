@@ -38,6 +38,7 @@
            {% for variant in product.variants %}
             {% assign news = variant.inventory_quantity  %}
             {% endfor %}
+          {{ news }}
           {% render 'product-variant-options',
             product: product,
             option: option,
