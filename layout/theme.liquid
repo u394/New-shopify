@@ -527,10 +527,11 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    // Trigger change event on page load to ensure the initial state is correct
+    // Ensure the correct quantity is visible on page load
     document.querySelector('input[name="Size-1"]:checked').dispatchEvent(new Event('change'));
   });
 </script>
+
 
 
 
