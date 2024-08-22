@@ -442,6 +442,30 @@
       }
     });
   </script>
+<script>
+  // Get all radio buttons and quantity spans
+  const radioButtons = document.querySelectorAll('input[type="radio"]');
+  const quantities = document.querySelectorAll('.variant__quantity');
 
+  // Function to show the corresponding quantity span and hide others
+  function updateQuantities() {
+    const selectedClass = this.classList[0]; // Get the class name of the selected radio button
+    quantities.forEach(span => {
+      if (span.classList.contains(selectedClass)) {
+        span.style.display = 'inline'; // Show the selected quantity span
+      } else {
+        span.style.display = 'none'; // Hide the other quantity spans
+      }
+    });
+  }
+
+  // Add event listeners to radio buttons
+  radioButtons.forEach(button => {
+    button.addEventListener('change', updateQuantities);
+  });
+
+  // Initial display update
+  updateQuantities.call(document.querySelector('input[type="radio"]:checked'));
+</script>
   </body>
 </html>
