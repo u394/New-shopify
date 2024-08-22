@@ -447,15 +447,11 @@
   const radioButtons = document.querySelectorAll('input[type="radio"]');
   const quantities = document.querySelectorAll('.variant__quantity');
 
-  // Function to show the corresponding quantity span and hide others
+  // Function to update visibility based on selected radio button
   function updateQuantities() {
     const selectedClass = this.classList[0]; // Get the class name of the selected radio button
     quantities.forEach(span => {
-      if (span.classList.contains(selectedClass)) {
-        span.style.display = 'inline'; // Show the selected quantity span
-      } else {
-        span.style.display = 'none'; // Hide the other quantity spans
-      }
+      span.style.display = span.classList.contains(selectedClass) ? 'inline' : 'none'; // Show or hide based on class match
     });
   }
 
