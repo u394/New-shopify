@@ -454,11 +454,12 @@ document.addEventListener('DOMContentLoaded', function() {
   radioButtons.forEach(radio => {
     radio.addEventListener('click', function() {
       // Show an alert with the value of the clicked radio button
-      alert('You selected: ' + this.value);
+      alert('You selected: ' + this.nextElementSibling.textContent.trim());
     });
   });
 });
 </script>
+
 
 
 
