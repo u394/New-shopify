@@ -451,14 +451,17 @@
             radioButtons.forEach(button => {
                 button.addEventListener('change', function() {
                     const selectedClass = this.getAttribute('data-quantity-class');
-                    
+                    const quantityToShow = document.querySelector(`.${selectedClass}`);
+
                     // Hide all quantities
                     quantities.forEach(quantity => {
                         quantity.classList.remove('show');
                     });
 
-                    // Show the selected quantity
-                    document.querySelector(`.${selectedClass}`).classList.add('show');
+                    // Show the selected quantity, only if it exists
+                    if (quantityToShow) {
+                        quantityToShow.classList.add('show');
+                    }
                 });
             });
         });
