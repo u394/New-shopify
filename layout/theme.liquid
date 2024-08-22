@@ -444,21 +444,16 @@
   </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Select all labels within the fieldset
-  const labels = document.querySelectorAll('fieldset label');
-  
-  labels.forEach(label => {
-    label.addEventListener('click', function() {
-      // Find the corresponding radio button using the "for" attribute
-      const inputId = this.getAttribute('for');
-      const input = document.getElementById(inputId);
-      const value = input.value;
-      const classList = Array.from(input.classList).join(', '); // Convert classList to a comma-separated string
-      alert(`You selected ${value}. Classes: ${classList}`);
-    });
-  });
-});
+  $('.variants__quantity--1').click(function(){
+  alert();
+})
+$('.variants__quantity--2').click(function(){
+  alert();
+})
+  $('.variants__quantity--3').click(function(){
+  alert();
+})
+
 </script>
   </body>
 </html>
