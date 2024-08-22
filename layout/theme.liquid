@@ -444,10 +444,18 @@
   </script>
 
 <script>
-$('.variants__quantity--2').click(function(){
-  alert();
-})
-
+  document.addEventListener('DOMContentLoaded', function() {
+    // Select all radio buttons with the class variants__quantity--1, variants__quantity--2, variants__quantity--3
+    const radioButtons = document.querySelectorAll('input[name="Size-1"]');
+    
+    radioButtons.forEach(function(radioButton) {
+      radioButton.addEventListener('change', function() {
+        // Show an alert with the selected value
+        alert(`Selected size: ${this.value}`);
+      });
+    });
+  });
 </script>
+
   </body>
 </html>
