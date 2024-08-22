@@ -442,13 +442,12 @@
       }
     });
   </script>
-
-  <script>
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             let lastSelectedId = '';
 
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                radio.addEventListener('click', (event) => {
+                radio.addEventListener('change', (event) => {
                     const currentId = event.target.id;
 
                     if (lastSelectedId === currentId) {
