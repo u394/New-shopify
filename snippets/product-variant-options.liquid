@@ -77,7 +77,6 @@
       additional_props: input_dataset
     %}
   {%- elsif picker_type == 'button' -%}
-    {{ qty }}
     <input
       type="radio"
       id="{{ input_id }}"
@@ -90,6 +89,7 @@
       {% if option_disabled %}
         class="disabled"
       {% endif %}
+       class="variant__quantity--{{ forloop.index }}"
       {{ input_dataset }}
     >
     <label for="{{ input_id }}">
