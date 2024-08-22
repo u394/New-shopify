@@ -442,19 +442,20 @@
       }
     });
   </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let lastSelectedId = '';
+            let lastSelectedValue = '';
 
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.addEventListener('change', (event) => {
-                    const currentId = event.target.id;
+                    const currentValue = event.target.value;
 
-                    if (lastSelectedId === currentId) {
+                    if (lastSelectedValue === currentValue) {
                         alert(`You clicked on the same option (${event.target.value}) again.`);
                     }
 
-                    lastSelectedId = currentId;
+                    lastSelectedValue = currentValue;
                 });
             });
         });
