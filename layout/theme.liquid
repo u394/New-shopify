@@ -450,12 +450,25 @@
     
     radioButtons.forEach(function(radioButton) {
       radioButton.addEventListener('change', function() {
-        // Show an alert with the selected value
-        alert(`Selected size: ${this.value}`);
+        // Show an alert with a specific message based on the class of the clicked radio button
+        switch (this.className) {
+          case 'variants__quantity--1':
+            alert('First variant selected');
+            break;
+          case 'variants__quantity--2':
+            alert('Second variant selected');
+            break;
+          case 'variants__quantity--3':
+            alert('Third variant selected');
+            break;
+          default:
+            alert('Unknown variant selected');
+        }
       });
     });
   });
 </script>
+
 
   </body>
 </html>
