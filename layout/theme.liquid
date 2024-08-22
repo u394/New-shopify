@@ -442,26 +442,29 @@
       }
     });
   </script>
-<script>
-  // Get all radio buttons and quantity spans
-  const radioButtons = document.querySelectorAll('input[type="radio"]');
-  const quantities = document.querySelectorAll('.variant__quantity');
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityElements = document.querySelectorAll('.variant__quantity');
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
 
-  // Function to update visibility based on selected radio button
-  function updateQuantities() {
-    const selectedClass = this.classList[0]; // Get the class name of the selected radio button
-    quantities.forEach(span => {
-      span.style.display = span.classList.contains(selectedClass) ? 'inline' : 'none'; // Show or hide based on class match
-    });
-  }
+            function updateQuantityVisibility() {
+                const selectedValue = document.querySelector('input[type="radio"]:checked').value;
 
-  // Add event listeners to radio buttons
-  radioButtons.forEach(button => {
-    button.addEventListener('change', updateQuantities);
-  });
+                quantityElements.forEach(el => {
+                    if (el.classList.contains(`variant__qunaity--${selectedValue}`)) {
+                        el.style.display = 'inline'; // Show the selected quantity
+                    } else {
+                        el.style.display = 'none'; // Hide others
+                    }
+                });
+            }
 
-  // Initial display update
-  updateQuantities.call(document.querySelector('input[type="radio"]:checked'));
-</script>
+            updateQuantityVisibility();
+
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', updateQuantityVisibility);
+            });
+        });
+    </script>
   </body>
 </html>
