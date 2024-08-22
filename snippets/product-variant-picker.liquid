@@ -93,27 +93,3 @@
     <script type="application/json" data-selected-variant>{{ product.selected_or_first_available_variant | json }}</script>
   </variant-selects>
 {%- endunless -%}
-   <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const quantityElements = document.querySelectorAll('.variant__quantity');
-            const radioButtons = document.querySelectorAll('input[type="radio"]');
-
-            function updateQuantityVisibility() {
-                const selectedValue = document.querySelector('input[type="radio"]:checked').value;
-
-                quantityElements.forEach(el => {
-                    if (el.classList.contains(`variant__qunaity--${selectedValue}`)) {
-                        el.style.display = 'inline'; // Show the selected quantity
-                    } else {
-                        el.style.display = 'none'; // Hide others
-                    }
-                });
-            }
-
-            updateQuantityVisibility();
-
-            radioButtons.forEach(radio => {
-                radio.addEventListener('change', updateQuantityVisibility);
-            });
-        });
-    </script>

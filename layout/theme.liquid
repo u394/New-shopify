@@ -442,6 +442,27 @@
       }
     });
   </script>
+<script>
+    $(document).ready(function() {
+        const quantityElements = $('.variant__quantity');
+        const radioButtons = $('input[type="radio"]');
 
+        function updateQuantityVisibility() {
+            const selectedValue = $('input[type="radio"]:checked').val();
+
+            quantityElements.each(function() {
+                if ($(this).hasClass(`variant__qunaity--${selectedValue}`)) {
+                    $(this).show(); // Show the selected quantity
+                } else {
+                    $(this).hide(); // Hide others
+                }
+            });
+        }
+
+        updateQuantityVisibility();
+
+        radioButtons.on('change', updateQuantityVisibility);
+    });
+</script>
   </body>
 </html>
