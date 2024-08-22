@@ -443,7 +443,26 @@
     });
   </script>
 
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            const quantities = document.querySelectorAll('.variant__quantity');
 
+            radioButtons.forEach(button => {
+                button.addEventListener('change', function() {
+                    const selectedClass = this.getAttribute('data-quantity-class');
+                    
+                    // Hide all quantities
+                    quantities.forEach(quantity => {
+                        quantity.classList.remove('show');
+                    });
+
+                    // Show the selected quantity
+                    document.querySelector(`.${selectedClass}`).classList.add('show');
+                });
+            });
+        });
+    </script>
 
 
   </body>
