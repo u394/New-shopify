@@ -89,10 +89,9 @@
       {% if option_disabled %}
         class="disabled"
       {% endif %}
-       class="variants__quantity--{{ forloop.index }}"
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
+    <label class="variants__quantity--{{ forloop.index }}" for="{{ input_id }}">
       {{ value -}}
       {{ label_unavailable }}
     </label>
