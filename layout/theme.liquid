@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const radios = document.querySelectorAll('input[type="radio"]');
   
   radios.forEach(radio => {
-    radio.addEventListener('change', function() {
+    radio.addEventListener('click', function() {
       const size = this.value;
       alert('You selected ' + size);
     });
