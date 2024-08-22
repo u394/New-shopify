@@ -443,17 +443,22 @@
     });
   </script>
 
-<script>
-  $('.variants__quantity--1').click(function(){
-  alert();
-})
-$('.variants__quantity--2').click(function(){
-  alert();
-})
-  $('.variants__quantity--3').click(function(){
-  alert();
-})
+  <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let lastSelectedId = '';
 
-</script>
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('click', (event) => {
+                    const currentId = event.target.id;
+
+                    if (lastSelectedId === currentId) {
+                        alert(`You clicked on the same option (${event.target.value}) again.`);
+                    }
+
+                    lastSelectedId = currentId;
+                });
+            });
+        });
+    </script>
   </body>
 </html>
