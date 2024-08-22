@@ -458,7 +458,7 @@
       }
     });
   </script>
-<Script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Select all forms with the data-type attribute for adding to cart
@@ -508,7 +508,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const quantityElements = document.querySelectorAll('.variant__quantity');
+    const labelElements = document.querySelectorAll('input[name="Size-1"]');
 
-</Script>
+    labelElements.forEach(function(label) {
+      label.addEventListener('change', function() {
+        // Remove 'visible' class from all quantity elements
+        quantityElements.forEach(function(el) {
+          el.classList.remove('visible');
+        });
+
+        // Add 'visible' class to the selected quantity element
+        const value = label.value;
+        const quantityElement = document.getElementById(`quantity-${value}`);
+        if (quantityElement) {
+          quantityElement.classList.add('visible');
+        }
+      });
+    });
+  });
+</script>
+
   </body>
 </html>
