@@ -444,13 +444,12 @@
   </script>
 
 <script>
-document.querySelectorAll('.variants__quantity--1, .variants__quantity--2, .variants__quantity--3').forEach((element) => {
+document.querySelectorAll('input[type="radio"].variants__quantity--1, input[type="radio"].variants__quantity--2, input[type="radio"].variants__quantity--3').forEach((element) => {
   element.addEventListener('click', () => {
     alert('A variant was selected!');
   });
 });
 </script>
-
 
   </body>
 </html>
