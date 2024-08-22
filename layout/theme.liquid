@@ -443,22 +443,5 @@
     });
   </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let lastSelectedValue = '';
-
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                radio.addEventListener('change', (event) => {
-                    const currentValue = event.target.value;
-
-                    if (lastSelectedValue === currentValue) {
-                        alert(`You clicked on the same option (${event.target.value}) again.`);
-                    }
-
-                    lastSelectedValue = currentValue;
-                });
-            });
-        });
-    </script>
   </body>
 </html>
