@@ -345,18 +345,13 @@
 
 
     <style>
-      .variant__quantity {
+.variant__quantity {
   display: none; /* Hide all by default */
 }
 
 .variant__quantity.visible {
   display: inline; /* Show only those with the 'visible' class */
 }
-
-.variant__quantity.hidden {
-  display: none; /* Hide elements with 'hidden' class */
-}
-
     </style>
   </head>
 
@@ -509,26 +504,34 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
+<script>
   document.addEventListener('DOMContentLoaded', function() {
     const quantityElements = document.querySelectorAll('.variant__quantity');
-    const labelElements = document.querySelectorAll('input[name="Size-1"]');
+    const radioButtons = document.querySelectorAll('input[name="Size-1"]');
 
-    labelElements.forEach(function(label) {
-      label.addEventListener('change', function() {
-        // Remove 'visible' class from all quantity elements
+    radioButtons.forEach(function(radioButton) {
+      radioButton.addEventListener('change', function() {
+        const selectedValue = this.value;
+
+        // Hide all quantity elements
         quantityElements.forEach(function(el) {
-          el.classList.remove('visible');
+          el.style.display = 'none'; // Hide all by default
         });
 
-        // Add 'visible' class to the selected quantity element
-        const value = label.value;
-        const quantityElement = document.getElementById(`quantity-${value}`);
-        if (quantityElement) {
-          quantityElement.classList.add('visible');
+        // Show the selected quantity element
+        const selectedClass = `variant__quantity--${selectedValue}`;
+        const selectedElement = document.querySelector(`.${selectedClass}`);
+        if (selectedElement) {
+          selectedElement.style.display = 'inline'; // Show the selected element
         }
       });
     });
+
+    // Trigger change event on page load to ensure the initial state is correct
+    document.querySelector('input[name="Size-1"]:checked').dispatchEvent(new Event('change'));
   });
+</script>
+
 </script>
 
   </body>
