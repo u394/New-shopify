@@ -341,6 +341,23 @@
 
 
     </style>
+
+
+
+    <style>
+      .variant__quantity {
+  display: none; /* Hide all by default */
+}
+
+.variant__quantity.visible {
+  display: inline; /* Show only those with the 'visible' class */
+}
+
+.variant__quantity.hidden {
+  display: none; /* Hide elements with 'hidden' class */
+}
+
+    </style>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
