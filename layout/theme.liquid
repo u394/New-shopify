@@ -442,6 +442,28 @@
       }
     });
   </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Select all cart items
+  var cartItems = document.querySelectorAll('.cart-item');
 
+  cartItems.forEach(function(item) {
+    // Find the custom name property within each cart item
+    var customNameElement = item.querySelector('.cart-item-custom-name');
+
+    if (customNameElement) {
+      // Get the current custom name
+      var customName = customNameElement.textContent;
+
+      // Remove underscores from the custom name
+      var cleanedName = customName.replace(/_/g, ' ');
+
+      // Update the element with the cleaned name
+      customNameElement.textContent = cleanedName;
+    }
+  });
+});
+
+</script>
   </body>
 </html>
