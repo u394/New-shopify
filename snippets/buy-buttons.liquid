@@ -74,26 +74,33 @@ form="product-form-{{ section.id }}"
     <input type="text" id="custom-field" name="properties[Custom Field]" />
 </div>
 
+<div class="custom-input-field">
+    <label for="custom-field">Enter your custom text:</label>
+    <input type="text" id="custom-field" name="properties[Custom Field]" />
+</div>
+
 <div class="related-products">
     <h3>Related Products</h3>
     <div class="product-grid">
         {% assign all_products = collections.all.products | sample: 2 %}
 
-        {% for product in all_products limit: 2 %}
+        {% for product in all_products %}
             <div class="product-item">
                 <a href="{{ product.url }}">
                     <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
                     <h4>{{ product.title }}</h4>
                     <span>{{ product.price | money }}</span>
                 </a>
-                <form method="post" action="/cart/add">
+                <form method="post" action="/cart/add" class="add-to-cart-form">
                     <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                    <input type="hidden" name="properties[Related Product]" value="{{ product.title }}">
                     <button type="submit" class="btn">Add to Cart</button>
                 </form>
             </div>
         {% endfor %}
     </div>
 </div>
+
 
 
 
