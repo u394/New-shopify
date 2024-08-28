@@ -73,7 +73,22 @@ form="product-form-{{ section.id }}"
     <label for="custom-field">Enter your custom text:</label>
     <input type="text" id="custom-field" name="properties[Custom Field]" />
 </div>
+<div class="related-products">
+    <h3>Related Products</h3>
+    <div class="product-grid">
+        {% assign all_products = collections.all.products | sample: 2 %}
 
+        {% for product in all_products %}
+            <div class="product-item">
+                <a href="{{ product.url }}">
+                    <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+                    <h4>{{ product.title }}</h4>
+                    <span>{{ product.price | money }}</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 
         
