@@ -113,6 +113,19 @@ form="product-form-{{ section.id }}"
         });
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const customFieldInput = document.getElementById('custom-field');
+        
+        // Check if we are on the cart page
+        if (window.location.pathname === '/cart') {
+            // Clear the custom field
+            if (customFieldInput) {
+                customFieldInput.value = '';
+            }
+        }
+    });
+</script>
 
 
 
