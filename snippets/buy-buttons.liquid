@@ -86,8 +86,8 @@ form="product-form-{{ section.id }}"
                     <h4>{{ product.title }}</h4>
                     <span>{{ product.price | money }}</span>
                 </a>
-                <button type="button" class="btn add-to-cart-btn" data-product-id="{{ product.variants.first.id }}" data-product-title="{{ product.title }}">
-                    Add to Cart
+                <button type="button" class="btn add-to-custom-field-btn" data-product-title="{{ product.title }}">
+                    Add to Custom Field
                 </button>
             </div>
         {% endfor %}
@@ -96,12 +96,11 @@ form="product-form-{{ section.id }}"
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        const addToCustomFieldButtons = document.querySelectorAll('.add-to-custom-field-btn');
         const customFieldInput = document.getElementById('custom-field');
 
-        addToCartButtons.forEach(button => {
+        addToCustomFieldButtons.forEach(button => {
             button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-product-id');
                 const productTitle = this.getAttribute('data-product-title');
 
                 // Append the product title to the custom field
@@ -110,33 +109,11 @@ form="product-form-{{ section.id }}"
                 } else {
                     customFieldInput.value = productTitle;
                 }
-
-                // Add the product to the cart without redirecting
-                fetch('/cart/add.js', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        id: productId,
-                        quantity: 1,
-                        properties: {
-                            'Custom Field': customFieldInput.value
-                        }
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Product added to cart:', data);
-                })
-                .catch(error => {
-                    console.error('Error adding product to cart:', error);
-                });
             });
         });
     });
 </script>
+
 
 
 
