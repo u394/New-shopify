@@ -442,6 +442,31 @@
       }
     });
   </script>
+ <script>
+        // Step 1: Select the span element containing the text
+        const spanElement = document.querySelector('span._19gi7yt0._19gi7ytr._1fragemrp._19gi7ytj');
 
+        if (spanElement) {
+            // Step 2: Get the text content and remove the "Custom Field:" part
+            const text = spanElement.textContent.replace('Custom Field: ', '').trim();
+
+            // Step 3: Split the remaining text by comma to separate into list items
+            const items = text.split(', ');
+
+            // Step 4: Create a new unordered list (ul) element
+            const ulElement = document.createElement('ul');
+            ulElement.className = 'dynamic-list'; // Add a class for styling
+
+            // Step 5: Iterate over the items and create list items (li)
+            items.forEach(item => {
+                const liElement = document.createElement('li');
+                liElement.textContent = item; // Set the text for each list item
+                ulElement.appendChild(liElement); // Append the li to the ul
+            });
+
+            // Step 6: Append the ul to the desired container in the HTML
+            document.getElementById('dynamic-list-container').appendChild(ulElement);
+        }
+    </script>
   </body>
 </html>
