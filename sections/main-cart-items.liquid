@@ -142,7 +142,7 @@
                           {%- for property in item.properties -%}
                             {%- assign property_first_char = property.first | slice: 0 -%}
                             {%- if property.last != blank and property_first_char != '_' -%}
-                              <div class="product-option">
+                              <div class="product-option custom__new_option">
                                 <dt>{{ property.first }}:</dt>
                                 <dd>
                                   {%- if property.last contains '/uploads/' -%}
@@ -151,7 +151,7 @@
                                     </a>
                                   {%- else -%}
                                     {{ property.last }}
-                                  {%- endif -%}1234
+                                  {%- endif -%}
                                 </dd>
                               </div>
                             {%- endif -%}
