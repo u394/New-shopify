@@ -1,3 +1,6 @@
+.custom__new_option ul li{
+  display: list-item;
+}
 :root {
   --alpha-button-background: 1;
   --alpha-button-border: 1;
