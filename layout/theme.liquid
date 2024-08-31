@@ -472,5 +472,46 @@
 });
 
 </script> -->
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Process <dd> elements inside the product-option div
+    var customFields = document.querySelectorAll(".product-option.custom__new_option dd");
+
+    customFields.forEach(function(customField) {
+        var text = customField.innerText.trim();
+        var items = text.split(/,(.+)/).filter(Boolean);
+        var ul = document.createElement("ul");
+
+        items.forEach(function(item) {
+            var li = document.createElement("li");
+            li.innerText = item.trim();
+            ul.appendChild(li);
+        });
+
+        customField.innerHTML = "";
+        customField.appendChild(ul);
+    });
+
+    // Process <span> elements inside <li> elements with specific classes
+    var spans = document.querySelectorAll("li._1bzftbj7 span._19gi7yt0");
+
+    spans.forEach(function(span) {
+        var text = span.innerText.trim();
+        var items = text.split(/,(.+)/).filter(Boolean);
+        var ul = document.createElement("ul");
+
+        items.forEach(function(item) {
+            var li = document.createElement("li");
+            li.innerText = item.trim();
+            ul.appendChild(li);
+        });
+
+        var parentLi = span.closest("li");
+        parentLi.innerHTML = "";
+        parentLi.appendChild(ul);
+    });
+});
+</script>
+
   </body>
 </html>
