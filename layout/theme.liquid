@@ -442,6 +442,35 @@
       }
     });
   </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Select all <dd> elements inside the product-option div
+    var customFields = document.querySelectorAll(".product-option dd");
 
+    // Loop through each customField element
+    customFields.forEach(function(customField) {
+        // Get the content of the <dd> element
+        var text = customField.innerText.trim();
+
+        // Split the text by the first comma
+        var items = text.split(/,(.+)/).filter(Boolean);
+
+        // Create a new <ul> element
+        var ul = document.createElement("ul");
+
+        // Add each item as an <li> to the <ul>
+        items.forEach(function(item) {
+            var li = document.createElement("li");
+            li.innerText = item.trim();
+            ul.appendChild(li);
+        });
+
+        // Replace the <dd> content with the new <ul>
+        customField.innerHTML = "";
+        customField.appendChild(ul);
+    });
+});
+
+</script>
   </body>
 </html>
