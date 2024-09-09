@@ -540,27 +540,11 @@
                             <div class="mobile-menu-close">&times;</div>
                         </div>
                         <ul class="menu-main">
+                          {% for headers in setting.header %}
                           <li>
                               <a href="#">Home</a>
                           </li>
-
-                          
-                            <li class="menu-item-has-children">
-                                    <a href="#">About <i class="fa fa-angle-down"></i></a>
-                                    <div class="sub-menu single-column-menu">
-                                        <ul>
-                                            <li><a href="#">123</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                          
-                          <li>
-                              <a href="#">Contact</a>
-                          </li>
-                          <li>
-                              <a href="#">Sale</a>
-                          </li>
+                            {% endfor %}
                         </ul>
                     </nav>
                 </div>
