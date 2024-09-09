@@ -31,6 +31,11 @@
         "type": "link_list",
         "id": "custom_megamenu_menu",
         "label": "Custom Megamenu"
+      },
+      {
+        "type": "collection",
+        "id": "custom_mega_collection",
+        "label": "Custom Megamenu Collection"
       }
     ]
   },
