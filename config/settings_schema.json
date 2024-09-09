@@ -21,6 +21,16 @@
         "type": "link_list",
         "id": "custom_dropdown_menu",
         "label": "Custom Dropdown"
+      },
+      {
+        "type": "checkbox",
+        "id": "custom_megamenu_menu_check",
+        "label": "Enable Custom Megamenu"
+      },
+      {
+        "type": "link_list",
+        "id": "custom_megamenu_menu",
+        "label": "Custom Megamenu"
       }
     ]
   },
