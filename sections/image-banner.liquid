@@ -169,7 +169,7 @@
 <h3>Changes Will be Done</h3>
 
 <div>done</div>
-{%- assign blog_handles = 'news,Video new,car lifting' | split: ',' -%}
+{%- assign blog_handles = 'news,video-new,car-lifting' | split: ',' -%}
 
 <ul>
   {%- for blog_handle in blog_handles -%}
@@ -181,14 +181,17 @@
           {%- for article in blog.articles -%}
             <li>
               <a href="{{ article.url }}">{{ article.title }}</a> <!-- Article Title -->
-              <p>{{ article.content | truncate: 8 }}</p> <!-- Article Excerpt -->
+              <p>{{ article.excerpt | strip_html | truncate: 100 }}</p> <!-- Article Excerpt -->
             </li>
           {%- endfor -%}
         </ul>
       </li>
+    {% else %}
+      <li>No blog found for handle: {{ blog_handle }}</li>
     {% endif %}
   {%- endfor -%}
 </ul>
+
 
 
 
