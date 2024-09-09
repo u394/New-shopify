@@ -169,13 +169,17 @@
 <h3>Changes Will be Done</h3>
 
 <div>done</div>
-<ul>
-  {%- for blog in shop.blogs -%}
-    <li>
-      <a href="{{ blog.url }}">{{ blog.title }}</a>
-    </li>
-  {%- endfor -%}
-</ul>
+{%- assign blog_handle = 'news' -%}  <!-- Replace 'news' with your blog handle -->
+{% if blog_handle != blank %}
+  <ul>
+    {%- for article in blogs[blog_handle].articles -%}
+      <li><a href="{{ article.url }}">{{ article.title }}</a></li>
+    {%- endfor -%}
+  </ul>
+{% else %}
+  <p>No blogs found.</p>
+{% endif %}
+
 
   
 {% schema %}
