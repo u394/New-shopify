@@ -174,7 +174,8 @@
   <ul>
     {%- for article in blogs[blog_handle].articles -%}
       <li><a href="{{ article.url }}">{{ article.title }}</a></li>
-      {{ article.description }}
+                  <span>{{ article.author }}</span> 
+                  <span>{{- article.published_at | time_tag: format: 'date' -}}</span>
     {%- endfor -%}
   </ul>
 {% else %}
