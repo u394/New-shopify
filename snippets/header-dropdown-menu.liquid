@@ -574,7 +574,7 @@
                     <nav class="menu">
                         <ul class="menu-main">                          
                       {%- for link in settings.custom_dropdown_menu.links -%}
-                     <li class="menu-item-has-children">
+                       <li class="menu-item-has-children">
   <a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
   <div class="sub-menu mega-menu mega-menu-column-4">
     
@@ -596,7 +596,7 @@
       {%- endif -%}
       
       <!-- Display the category and its child links -->
-      <h4 class="title">{{ link.title }}</h4>
+      <h4 class="title">{{ child_link.title }}</h4>
       <ul>
         {%- assign grandchild_list_handle = child_link.title | handleize -%}
         
@@ -634,6 +634,7 @@
     </div>
   </div>
 </li>
+
 
                     {%- endfor %}
 
