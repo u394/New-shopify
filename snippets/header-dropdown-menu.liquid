@@ -524,6 +524,7 @@
   </ul>
 </nav>
 {% endcomment %}
+{% if settings.custom_dropdown_menu_check %}
 <div class="my-unique-class">
     <!-- header start -->
     <header class="header">
@@ -534,7 +535,7 @@
                 <div class="header-item item-center">
                     <nav class="menu">
                         <ul class="menu-main">                          
-                    {%- for link in settings.header.links -%}
+                    {%- for link in settings.custom_dropdown_menu.links -%}
                       <li class="menu-item-has-children">
                         <a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
                     
@@ -561,7 +562,7 @@
     </header>
     <!-- header end -->
 </div>
-
+{% endif %}
 <script>
   
 
