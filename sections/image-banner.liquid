@@ -181,7 +181,7 @@
           {%- for article in blog.articles -%}
             <li>
               <a href="{{ article.url }}">{{ article.title }}</a> <!-- Article Title -->
-              <p>{{ article.excerpt | strip_html | truncate: 100 }}</p> <!-- Article Excerpt -->
+              <p>{{ article.content | truncate: 100 }}</p> <!-- Article Excerpt -->
             </li>
           {%- endfor -%}
         </ul>
