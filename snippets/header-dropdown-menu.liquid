@@ -540,9 +540,9 @@
                             <div class="mobile-menu-close">&times;</div>
                         </div>
                         <ul class="menu-main">
-                          {% for headers in setting.header.links %}
+                    {%- for link in settings.header.links -%}
                           <li>
-                              <a href="#">{{ headers }}</a>
+                              <a href="#">{{ link }}</a>
                           </li>
                             {% endfor %}
                         </ul>
