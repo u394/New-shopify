@@ -13,9 +13,8 @@
     "settings": [
       {
         "type": "link_list",
-        "id": "header",
-        "label": "New Menu",
-        "info": "New Menu"
+        "id": "custom_dropdown_menu",
+        "label": "Custom Dropdown"
       }
     ]
   },
