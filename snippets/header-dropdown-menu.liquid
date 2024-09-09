@@ -578,7 +578,7 @@
   <a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
                          
   <div class="sub-menu mega-menu mega-menu-column-4">
-    <div>
+    
     <!-- Initialize a counter variable to track the number of categories processed -->
     {%- assign counter = 0 -%}
     
@@ -626,15 +626,13 @@
     {%- endif -%}
     
     {%- endif -%}
-    </div>
-       <div>                  
+    
     <!-- Optional Image Section -->
     <div class="list-item">
       {%- for collection_product in settings.custom_mega_collection.products limit: settings.custom_mega_limit_2 -%}
         <img src="{{ collection_product.featured_image | img_url: 'master' }}" />
       {%- endfor -%}
     </div>
-       </div>
   </div>
 </li>
 
