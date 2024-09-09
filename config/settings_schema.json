@@ -11,6 +11,12 @@
     {
     "name": "New Header",
     "settings": [
+      
+      {
+        "type": "checkbox",
+        "id": "custom_dropdown_menu_check",
+        "label": "Enable Custom Dropdown"
+      },
       {
         "type": "link_list",
         "id": "custom_dropdown_menu",
