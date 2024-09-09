@@ -180,7 +180,7 @@
         <ul>
           {%- for article in blog.articles -%}
             <li>
-              <img src="{{ article.image | img_url: 'medium' }}" alt="{{ article.title }}" />
+              <img src="{{ article.image | img_url: '50x' }}" alt="{{ article.title }}" />
               <a href="{{ article.url }}">{{ article.title }}</a> <!-- Article Title -->
               <p>{{ article.content | truncate: 100 }}</p> <!-- Article Excerpt -->
             </li>
