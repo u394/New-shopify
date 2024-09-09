@@ -36,6 +36,12 @@
         "type": "collection",
         "id": "custom_mega_collection",
         "label": "Custom Megamenu Collection"
+      },
+      {
+        "type": "text",
+        "id": "custom_mega_limit_2",
+        "label": "Custom Megamenu Collection limit",
+        "default": "1"
       }
     ]
   },
