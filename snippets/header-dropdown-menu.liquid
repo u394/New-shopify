@@ -573,9 +573,10 @@
                 <div class="header-item item-center">
                     <nav class="menu">
                         <ul class="menu-main">                          
-                      {%- for link in settings.custom_megamenu_menu.links -%}
+
                                 <li class="menu-item-has-children">
                                 <a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+                               {%- for link in settings.custom_megamenu_menu.links -%}
                                 <div class="sub-menu mega-menu mega-menu-column-4">
                                     {%- assign child_list_handle = block.settings.megamenu -%}
                                     
@@ -619,8 +620,9 @@
                                        {% endfor %}
                                     </div>
                                 </div>
+                                      {%- endfor %}
                             </li>
-                    {%- endfor %}
+               
 
                         </ul>
                     </nav>
