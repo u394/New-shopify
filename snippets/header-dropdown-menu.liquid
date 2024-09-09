@@ -628,13 +628,12 @@
     {%- endif -%}
     
     <!-- Optional Image Section -->
-  
-  </div>
-                          <div class="list-item">
+    <div class="list-item">
       {%- for collection_product in settings.custom_mega_collection.products limit: settings.custom_mega_limit_2 -%}
         <img src="{{ collection_product.featured_image | img_url: 'master' }}" />
       {%- endfor -%}
     </div>
+  </div>
 </li>
 
 
