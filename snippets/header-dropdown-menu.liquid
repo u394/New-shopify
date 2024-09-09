@@ -574,67 +574,52 @@
                     <nav class="menu">
                         <ul class="menu-main">                          
                       {%- for link in settings.custom_megamenu_menu.links -%}
-                          <li class="menu-item-has-children">
-  <a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
-  <div class="sub-menu mega-menu mega-menu-column-4">
-    
-    <!-- Initialize a counter variable to track the number of categories processed -->
-    {%- assign counter = 0 -%}
-    
-    <!-- Assign the handle for the child menu -->
-    {%- assign child_list_handle = link.title | handleize -%}
-    
-    <!-- Check if the child linklist exists and has links -->
-    {%- if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 -%}
-    
-    <!-- Loop through each link in the child menu -->
-    {%- for child_link in linklists[child_list_handle].links -%}
-      
-      <!-- Open a new div after every two categories -->
-      {%- if counter == 0 -%}
-        <div class="list-item">
-      {%- endif -%}
-      
-      <!-- Display the category and its child links -->
-      <h4 class="title">{{ child_link.title }}</h4>
-      <ul>
-        {%- assign grandchild_list_handle = child_link.title | handleize -%}
-        
-        <!-- Check if there are any grandchild links -->
-        {%- if linklists[grandchild_list_handle] and linklists[grandchild_list_handle].links.size > 0 -%}
-          {%- for grandchild_link in linklists[grandchild_list_handle].links -%}
-            <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a></li>
-          {%- endfor -%}
-        {%- endif -%}
-      </ul>
-      
-      <!-- Increment the counter -->
-      {%- assign counter = counter | plus: 1 -%}
-      
-      <!-- Close the div after two categories and reset the counter -->
-      {%- if counter == 2 -%}
-        </div> <!-- Closing .list-item -->
-        {%- assign counter = 0 -%}
-      {%- endif -%}
-    
-    {%- endfor -%}
-    
-    <!-- Ensure any unclosed div is properly closed -->
-    {%- if counter > 0 -%}
-      </div> <!-- Closing any unclosed .list-item -->
-    {%- endif -%}
-    
-    {%- endif -%}
-    
-    <!-- Optional Image Section -->
-    <div class="list-item">
-      {%- for collection_product in block.settings.collection_list_2.products limit: block.settings.collection_limit_2 -%}
-        <img src="{{ collection_product.featured_image | img_url: 'master' }}" />
-      {%- endfor -%}
-    </div>
-  </div>
-</li>
-
+                                <li class="menu-item-has-children">
+                                <a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+                                <div class="sub-menu mega-menu mega-menu-column-4">
+                                    {%- assign child_list_handle = block.settings.megamenu -%}
+                                    
+                                    <!-- Initialize a counter variable to track the number of categories processed -->
+                                    {%- assign counter = 0 -%}
+                                    
+                                    <!-- Loop through each link in the menu -->
+                                    {%- for link in linklists[child_list_handle].links -%}
+                                    
+                                    <!-- Open a new div after every two categories -->
+                                    {%- if counter == 0 or counter == 2 -%}
+                                    <div class="list-item">
+                                    {%- endif -%}
+                                    
+                                    <!-- Display the category and its child links -->
+                                    <h4 class="title">{{ link.title }}</h4>
+                                    <ul>
+                                        {%- for child_link in link.links -%}
+                                        <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    
+                                    <!-- Close the div after every two categories and reset the counter if it reaches 2 -->
+                                    {%- assign counter = counter | plus: 1 -%}
+                                    {%- if counter == 2 -%}
+                                    </div>
+                                    {%- assign counter = 0 -%}
+                                    {%- endif -%}
+                                    
+                                    {% endfor %}
+                                    
+                                    <!-- Ensure any unclosed div is properly closed -->
+                                    {%- if counter > 0 -%}
+                                    </div>
+                                    {%- endif -%}
+                                    
+                                    <!-- Optional Image Section -->
+                                    <div class="list-item">
+                                       {% for collection_product in block.settings.collection_list_2.products limit: block.settings.collection_limit_2  %}
+                                       <img src="{{ collection_product.featured_image | img_url: "master" }}" />                                      
+                                       {% endfor %}
+                                    </div>
+                                </div>
+                            </li>
                     {%- endfor %}
 
                         </ul>
