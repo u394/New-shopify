@@ -176,6 +176,7 @@
       <li><a href="{{ article.url }}">{{ article.title }}</a></li>
                   <span>{{ article.author }}</span> 
                   <span>{{- article.published_at | time_tag: format: 'date' -}}</span>
+        <p>{{ article.excerpt | strip_html | truncate: 100 }}</p> 
     {%- endfor -%}
   </ul>
 {% else %}
