@@ -7,6 +7,19 @@
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://support.shopify.com/"
   },
+
+    {
+    "name": "New Header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "header",
+        "label": "New Menu",
+        "info": "New Menu"
+      }
+    ]
+  },
+  
   {
     "name": "t:settings_schema.logo.name",
     "settings": [
