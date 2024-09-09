@@ -541,8 +541,15 @@
                         </div>
                         <ul class="menu-main">
                     {%- for link in settings.header.links -%}
-                          <li>
-                              <a href="#">{{ link.title }}</a>
+                    <li class="menu-item-has-children">
+                              <a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+                              <div class="sub-menu single-column-menu">
+                                 {%- for link in linklists[child_list_handle].links -%}
+                                  <ul>
+                                      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                  </ul>
+                                {% endfor %}
+                              </div>
                           </li>
                             {% endfor %}
                         </ul>
