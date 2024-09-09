@@ -169,19 +169,27 @@
 <h3>Changes Will be Done</h3>
 
 <div>done</div>
-{%- assign blog_handle = 'news' -%}  <!-- Replace 'news' with your blog handle -->
-{% if blog_handle != blank %}
-  <ul>
-    {%- for article in blogs[blog_handle].articles -%}
-      <li><a href="{{ article.url }}">{{ article.title }}</a></li>
-                  <span>{{ article.author }}</span> 
-                  <span>{{- article.published_at | time_tag: format: 'date' -}}</span>
-        <p>{{ article.content }}</p> 
-    {%- endfor -%}
-  </ul>
-{% else %}
-  <p>No blogs found.</p>
-{% endif %}
+{%- assign blog_handles = 'news,video-new,car-lifting' | split: ',' -%}
+
+<ul>
+  {%- for blog_handle in blog_handles -%}
+    {%- assign blog = blogs[blog_handle] -%}
+    {% if blog != blank %}
+      <li>
+        <h2>{{ blog.title }}</h2> <!-- Blog Title -->
+        <ul>
+          {%- for article in blog.articles -%}
+            <li>
+              <a href="{{ article.url }}">{{ article.title }}</a> <!-- Article Title -->
+              <p>{{ article.content | truncate: 8 }}</p> <!-- Article Excerpt -->
+            </li>
+          {%- endfor -%}
+        </ul>
+      </li>
+    {% endif %}
+  {%- endfor -%}
+</ul>
+
 
 
   
