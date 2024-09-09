@@ -169,6 +169,13 @@
 <h3>Changes Will be Done</h3>
 
 <div>done</div>
+<ul>
+  {%- for blog in shop.blogs -%}
+    <li>
+      <a href="{{ blog.url }}">{{ blog.title }}</a>
+    </li>
+  {%- endfor -%}
+</ul>
 
   
 {% schema %}
