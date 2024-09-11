@@ -262,12 +262,6 @@
 </div>
 
 
-{% for variant in card_product.variants %}
-  {% if variant.available %}
-    <p>{{ variant.title }}</p>
-  {% endif %}
-{% endfor %}
-
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
 <div class="custom_color">
@@ -318,24 +312,21 @@
 {% endcomment %}
 
 {% assign has_sizes = false %}
+{% assign has_colors = false %}
 <div class="custom-product-colors">
   {% assign displayed_sizes = "" %}
-  
-  <!-- Loop through product options to check for "Size" -->
+
+  <!-- Loop through product options to check for "Size" and "Color" -->
   {%- for option in card_product.options_with_values -%}
     {%- if option.name == 'Size' -%}
       {% assign has_sizes = true %}
-      <!-- Loop through the available values for "Size" -->
-      {%- for value in option.values -%}
-        {% unless displayed_sizes contains value %}
-          {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
-        {% endunless %}
-      {%- endfor -%}
+    {%- elsif option.name == 'Color' -%}
+      {% assign has_colors = true %}
     {% endif %}
-  {%- endfor %}
+  {%- endfor -%}
 
-  <!-- If sizes exist, display the select dropdown -->
-  {% if has_sizes %}
+  <!-- If only sizes exist and no colors, display the select dropdown -->
+  {% if has_sizes and not has_colors %}
     <select class="variant-select" tabindex="0">
       {% assign displayed_sizes = "" %}
       {%- for option in card_product.options_with_values -%}
@@ -361,6 +352,7 @@
     </select>
   {% endif %}
 </div>
+
 
 
 
