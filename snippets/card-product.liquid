@@ -313,9 +313,9 @@
 
 {% assign has_sizes = false %}
 {% assign has_colors = false %}
-<div class="custom-product-colors">
-  {% assign displayed_sizes = "" %}
+{% assign displayed_sizes = "" %}
 
+<div class="custom-product-colors">
   <!-- Loop through product options to check for "Size" and "Color" -->
   {%- for option in card_product.options_with_values -%}
     {%- if option.name == 'Size' -%}
@@ -336,7 +336,7 @@
             {% unless displayed_sizes contains value %}
               {%- assign matched_variant_id = '' -%}
               {%- for variant in card_product.variants -%}
-                {%- if variant.option2 == value -%}
+                {%- if variant.option1 == value -%} <!-- Assuming size is option1, adjust if different -->
                   {% assign matched_variant_id = variant.id %}
                   {%- break -%} <!-- Exit the loop once the matching variant is found -->
                 {% endif %}
