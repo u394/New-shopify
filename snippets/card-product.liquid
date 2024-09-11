@@ -250,12 +250,15 @@
   {%- if option.name == 'Size' -%}
     <div class="size-options">
       {%- for value in option.values -%}
-        <span id="{{ option.id }}" class="size">{{ value }}</span>
-        
+        {%- assign variant = card_product.variants | where: 'option1', value | first -%}
+        {%- if variant -%}
+          <span id="{{ variant.id }}" class="size">{{ value }}</span>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   {%- endif -%}
 {%- endfor -%}
+
 
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
