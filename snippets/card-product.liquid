@@ -406,21 +406,13 @@
         <input
           type="hidden"
           name="id"
-          value="41043935592508"
+          value="{{ card_product.selected_or_first_available_variant.id }}"
           {% if card_product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
             disabled
           {% endif %}
           class="product-variant-id random-class"
         >
-        <input
-          type="hidden"
-          name="id"
-          value="41044101267516"
-          {% if card_product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
-            disabled
-          {% endif %}
-          class="product-variant-id random-class"
-        >
+
         <div class="product-form__buttons">
           {%- liquid
             assign check_against_inventory = true
