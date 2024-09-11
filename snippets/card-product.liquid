@@ -1,3 +1,42 @@
+<style>
+  .custom-color-collection label {
+    display: inline-block;
+    margin-top: 15px;
+    background-size: cover;
+    width: 45px;
+    height: 45px;
+    background-repeat: no-repeat;
+}
+.custom_color{
+  position: relative;
+  z-index: 10;
+}
+.custom-product-colors{
+    display: flex;
+    flex-wrap: wrap;
+} 
+.custom-product-colors img{
+    width: 40px;
+    height: 40px;
+}
+
+.custom_color-wrap.active img {
+    border: 1px solid #000;
+}
+.custom_color-wrap .custom-product-sizes {
+  display: none; /* Initially hide the span */
+  position: absolute; /* Position the span absolutely */
+  z-index: 1; /* Ensure the span appears on top */
+}
+
+.custom_color-wrap:hover .custom-product-sizes {
+  display: inline-block; /* Show the span when hovering over the div */
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  margin-top: -41px;
+}
+</style>
 {% comment %}
   Renders a product card
 
