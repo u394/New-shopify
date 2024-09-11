@@ -514,26 +514,21 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Select all dropdowns and hidden inputs
-    var variantSelects = document.querySelectorAll('.variant-select');
-    var productVariantIds = document.querySelectorAll('.product-variant-id');
+  // Select all <select> elements with the class 'variant-select'
+  document.querySelectorAll('.variant-select').forEach(function(selectElement) {
+    selectElement.addEventListener('change', function() {
+      // Get the selected option's value
+      var selectedOption = this.options[this.selectedIndex];
+      var selectedID = selectedOption ? selectedOption.value : ''; // Get the ID value of the selected option
 
-    // Function to handle dropdown change
-    function handleDropdownChange(event) {
-        var selectedValue = event.target.value;
-        var form = event.target.closest('form');
-        var hiddenInput = form.querySelector('.product-variant-id');
-        if (hiddenInput) {
-            hiddenInput.value = selectedValue;
-        }
-    }
-
-    // Add event listener to each dropdown
-    variantSelects.forEach(function(select) {
-        select.addEventListener('change', handleDropdownChange);
+      console.log('Selected Option ID:', selectedID); // Log the ID to the console
     });
+  });
 });
-</script>
 
+
+
+
+</script>
   </body>
 </html>
