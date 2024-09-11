@@ -250,7 +250,7 @@
   {%- if option.name == 'Size' -%}
     <div class="size-options">
       {%- for value in option.values -%}
-        {%- assign variant = card_product.variants | where: 'option1', value | first -%}
+        {%- assign variant = card_product.variants | where: 'option', value | first -%}
         {%- if variant -%}
           <span id="{{ variant.id }}" class="size">{{ value }}</span>
         {%- endif -%}
