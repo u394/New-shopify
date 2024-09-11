@@ -273,7 +273,7 @@
      {%- if variant.featured_media -%}
       <div class="custom_color-wrap {% if forloop.first %}active{% endif %}" id="{{ variant.id }}"> 
         {% if variant.option2  %}<span class="custom-product-sizes">{{ variant.option2 | handleize }}</span>{% endif %}
-        <img style="display: none;" class="lazyload" src="{{ variant.featured_media | image_url }}" alt="{{ variant.image.alt }}" class="variant-image">
+        <img class="lazyload" src="{{ variant.featured_media | image_url }}" alt="{{ variant.image.alt }}" class="variant-image">
       </div>
     {% endif %}
 {% endfor %}
