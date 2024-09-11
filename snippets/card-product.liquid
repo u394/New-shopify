@@ -325,38 +325,31 @@
     {% endif %}
   {%- endfor -%}
 
-  <!-- If only sizes exist and no colors, display the select dropdown -->
+  <!-- If sizes exist, display the select dropdown -->
   {% if has_sizes %}
-    {% assign show_size_dropdown = true %}
-    {% if has_colors %}
-      {% assign show_size_dropdown = false %}
-    {% endif %}
-    
-    {% if show_size_dropdown %}
-      <select class="variant-select" tabindex="0">
-        {% assign displayed_sizes = "" %}
-        {%- for option in card_product.options_with_values -%}
-          {%- if option.name == 'Size' -%}
-            <!-- Loop through the available values for "Size" and display them in the dropdown -->
-            {%- for value in option.values -%}
-              {% unless displayed_sizes contains value %}
-                {%- assign matched_variant_id = '' -%}
-                {%- for variant in card_product.variants -%}
-                  {%- if variant.option1 == value -%} <!-- Assuming size is option1, adjust if different -->
-                    {% assign matched_variant_id = variant.id %}
-                    {%- break -%} <!-- Exit the loop once the matching variant is found -->
-                  {% endif %}
-                {%- endfor -%}
-                {% if matched_variant_id != '' %}
-                  <option value="{{ matched_variant_id }}">Choose Size: {{ value }}</option>
+    <select class="variant-select" tabindex="0">
+      {% assign displayed_sizes = "" %}
+      {%- for option in card_product.options_with_values -%}
+        {%- if option.name == 'Size' -%}
+          <!-- Loop through the available values for "Size" and display them in the dropdown -->
+          {%- for value in option.values -%}
+            {% unless displayed_sizes contains value %}
+              {%- assign matched_variant_id = '' -%}
+              {%- for variant in card_product.variants -%}
+                {%- if variant.option1 == value -%} <!-- Assuming size is option1, adjust if different -->
+                  {% assign matched_variant_id = variant.id %}
+                  {%- break -%} <!-- Exit the loop once the matching variant is found -->
                 {% endif %}
-                {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
-              {% endunless %}
-            {%- endfor -%}
-          {% endif %}
-        {%- endfor %}
-      </select>
-    {% endif %}
+              {%- endfor -%}
+              {% if matched_variant_id != '' %}
+                <option value="{{ matched_variant_id }}">Choose Size: {{ value }}</option>
+              {% endif %}
+              {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
+            {% endunless %}
+          {%- endfor -%}
+        {% endif %}
+      {%- endfor %}
+    </select>
   {% endif %}
 </div>
 
