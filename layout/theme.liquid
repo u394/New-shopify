@@ -522,17 +522,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var selectedID = selectedOption ? selectedOption.value : ''; // Get the ID value of the selected option
 
       console.log('Selected Option ID:', selectedID); // Log the ID to the console
-
-      // Find the hidden input with the class 'product-variant-id random-class'
-      var hiddenInput = document.querySelector('.product-variant-id.random-class');
-      
-      // Update the value property of the hidden input with the selected ID
-      if (hiddenInput) {
-        hiddenInput.value = selectedID;
-        console.log('Updated hidden input value to:', hiddenInput.value); // Log the updated value
-      } else {
-        console.error('Hidden input with class "product-variant-id random-class" not found.');
-      }
     });
   });
 });
