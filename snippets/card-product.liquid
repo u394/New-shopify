@@ -247,20 +247,7 @@
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
 
-{%- assign all_sizes = '' -%}
 
-{%- for option in card_product.options_with_values -%}
-  {%- if option.name == 'Size' -%}
-    {%- assign all_sizes = option.values -%}
-  {%- endif -%}
-{%- endfor -%}
-
-<div class="size-options">
-  {%- for size in all_sizes -%}
-    {%- assign matching_variant = card_product.variants | where: 'option1', size | first -%}
-    <span id="{{ matching_variant.id }}" class="size">{{ size }}</span>
-  {%- endfor -%}
-</div>
 
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
