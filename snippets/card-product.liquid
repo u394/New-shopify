@@ -254,6 +254,7 @@
   <!-- Color Dropdown -->
   <label for="color">Color</label>
   <select id="color" name="color">
+    <option disabled selected>Select a color</option>
     {% assign colors = "" %}
     {% for var in product.variants %}
       {% assign color = var.option1 %}
@@ -267,6 +268,7 @@
   <!-- Size Dropdown -->
   <label for="size">Size</label>
   <select id="size" name="size">
+    <option disabled selected>Select a size</option>
     {% assign sizes = "" %}
     {% for var in product.variants %}
       {% assign size = var.option2 %}
@@ -283,6 +285,7 @@
   <!-- Submit Button -->
   <input type="submit" value="Add to cart" class="btn" />
 </form>
+
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
