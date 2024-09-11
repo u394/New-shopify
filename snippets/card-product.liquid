@@ -247,11 +247,11 @@
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
 
-
+<select>
 {% for var in card_product.variants %}
-  {{ var.title }}
+<option>  {{ var.title }}</option>
 {% endfor %}
-
+</select>
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
 <div class="custom_color">
