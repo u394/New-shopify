@@ -514,46 +514,14 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <!-- *************** Collections Product Custom color Added Code JS Script *****************  -->
 <script>
-  $(document).ready(function(){
-
-    // Use event delegation to handle click events on custom_color-wrap divs
-    document.addEventListener("click", function(event) {
-      if (event.target.closest(".custom_color-wrap")) {
-        const element = event.target.closest(".custom_color-wrap");
-
+document.getElementById('variant-select').addEventListener('change', function() {
+  // Get the selected option element
+  var selectedOption = this.options[this.selectedIndex];
   
+  // Log the ID of the selected option
+  console.log('Selected Option ID:', selectedOption.id);
+});
 
-        // Remove 'active' class from all custom_color-wrap divs within the same parent
-        const parentCustomColor = element.closest('.custom_color');
-        parentCustomColor.querySelectorAll('.custom_color-wrap').forEach(function(el) {
-          el.classList.remove("active");
-        });
-
-        // Add 'active' class to the clicked custom_color-wrap div
-        element.classList.add("active");
-
-        // Set the value of the input field in the form associated with this custom_color div
-        const form = element.closest(".custom_color").querySelector(".form.random-form");
-        form.querySelector("input.random-class[name='id']").value = element.id;
-
-        // Get the closest card__inner div relative to the clicked custom_color-wrap div
-        var cardInner = element.closest('.card-wrapper').querySelector('.card__inner');
-        
-        // Get the card__media container within the card__inner div
-        var cardMedia = cardInner.querySelector('.card__media .media');
-        
-        // Move the entire HTML content of the clicked custom_color-wrap div to the card__media container
-        cardMedia.innerHTML = element.innerHTML;
-      }
-    });
-
-    // Trigger click event on the first active custom_color-wrap in each custom_color div
-    const initialActiveWraps = document.querySelectorAll(".custom_color-wrap.active");
-    initialActiveWraps.forEach(function(activeWrap) {
-      activeWrap.click();
-    });
-
-      });
 </script>
 <!-- *************** Collections Product Custom color Added Code JS Script *****************  -->
   </body>
