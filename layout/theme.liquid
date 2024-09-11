@@ -522,13 +522,16 @@ document.addEventListener('DOMContentLoaded', function() {
       var selectedID = selectedOption ? selectedOption.value : ''; // Get the ID value of the selected option
 
       console.log('Selected Option ID:', selectedID); // Log the ID to the console
+
+      // Update the value of the hidden input field with the class 'random-class'
+      var hiddenInput = document.querySelector('.random-class');
+      if (hiddenInput) {
+        hiddenInput.value = selectedID;
+      }
     });
   });
 });
-
-
-
-
 </script>
+
   </body>
 </html>
