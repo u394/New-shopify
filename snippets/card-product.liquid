@@ -337,7 +337,7 @@
             {% unless displayed_sizes contains value %}
               {%- assign matched_variant_id = '' -%}
               {%- for variant in card_product.variants -%}
-                {%- if variant.option1 == value -%} <!-- Assuming size is option1, adjust if different -->
+                {%- if variant.option1 == value or variant.option2 == value or variant.option3 == value -%} <!-- Adjust if size is in different option -->
                   {% assign matched_variant_id = variant.id %}
                   {%- break -%} <!-- Exit the loop once the matching variant is found -->
                 {% endif %}
@@ -364,7 +364,7 @@
             {% unless displayed_colors contains value %}
               {%- assign matched_variant_id = '' -%}
               {%- for variant in card_product.variants -%}
-                {%- if variant.option2 == value -%} <!-- Assuming color is option2, adjust if different -->
+                {%- if variant.option1 == value or variant.option2 == value or variant.option3 == value -%} <!-- Adjust if color is in different option -->
                   {% assign matched_variant_id = variant.id %}
                   {%- break -%} <!-- Exit the loop once the matching variant is found -->
                 {% endif %}
