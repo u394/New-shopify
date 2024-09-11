@@ -283,7 +283,43 @@
   <!-- Submit Button -->
   <input type="submit" value="Add to cart" class="btn" />
 </form>
+<script>
 
+document.addEventListener('DOMContentLoaded', function() {
+  // Get form elements
+  const form = document.getElementById('product-form');
+  const colorSelect = document.getElementById('color');
+  const sizeSelect = document.getElementById('size');
+  const variantIdInput = document.getElementById('variant-id');
+
+  // Get all variants as a JSON object
+  const variants = {{ product.variants | json }};
+
+  // Function to update variant ID based on selected options
+  function updateVariantId() {
+    const selectedColor = colorSelect.value;
+    const selectedSize = sizeSelect.value;
+
+    // Find the matching variant
+    const matchingVariant = variants.find(variant => {
+      return variant.option1 === selectedColor && variant.option2 === selectedSize;
+    });
+
+    // Update hidden input with the matching variant ID
+    if (matchingVariant) {
+      variantIdInput.value = matchingVariant.id;
+    }
+  }
+
+  // Update variant ID when color or size is changed
+  colorSelect.addEventListener('change', updateVariantId);
+  sizeSelect.addEventListener('change', updateVariantId);
+
+  // Initial call to set variant ID on page load
+  updateVariantId();
+});
+
+</script>
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
 <div class="custom_color">
