@@ -261,8 +261,8 @@
   {%- endfor -%}
 </div>
 
-
-{% for option in product.options %}
+<ul>
+{% for option in card_product.options %}
   {% if option == "Color" or option == "Colour" %}
     {% assign index = forloop.index0 %}
     {% assign colorlist = '' %}
