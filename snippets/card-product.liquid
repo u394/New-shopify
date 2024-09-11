@@ -280,29 +280,30 @@
 {% assign has_sizes = false %}
 <div class="custom-product-colors">
   {% assign displayed_sizes = "" %}
-  {% for variant in card_product.variants %}
-    {%- if variant.option2 != blank -%}  <!-- Always check if option2 (size) is not blank -->
+  {%- for variant in card_product.variants -%}
+    {%- if card_product.options_with_values[1].name == 'Size' and variant.option2 != blank -%}
       {% assign has_sizes = true %}
       {% unless displayed_sizes contains variant.option2 %}
         {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
       {% endunless %}
     {% endif %}
-  {% endfor %}
+  {%- endfor %}
 
   {% if has_sizes %}
     <select class="variant-select" tabindex="0">
       {% assign displayed_sizes = "" %}
-      {% for variant in card_product.variants %}
-        {%- if variant.option2 != blank -%}  <!-- Display sizes even without color -->
+      {%- for variant in card_product.variants -%}
+        {%- if card_product.options_with_values[1].name == 'Size' and variant.option2 != blank -%}
           {% unless displayed_sizes contains variant.option2 %}
-            <option value="{{ variant.id }}">Choose Sizes: {{ variant.option2 }}</option>
+            <option value="{{ variant.id }}">Choose Size: {{ variant.option2 }}</option>
             {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
           {% endunless %}
         {% endif %}
-      {% endfor %}
+      {%- endfor %}
     </select>
   {% endif %}
 </div>
+
 
 
 
