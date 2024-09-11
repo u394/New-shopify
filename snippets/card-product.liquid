@@ -319,18 +319,16 @@
 <div class="custom-product-colors">
   {% assign displayed_sizes = "" %}
 
-  <!-- First, loop through product options to check for "Size" -->
+  <!-- Loop through product options to check for "Size" -->
   {%- for option in card_product.options_with_values -%}
     {%- if option.name == 'Size' -%}
-      <!-- Now loop through variants to get sizes -->
-      {% for variant in card_product.variants %}
-        {%- if variant.featured_media and variant.option2 != blank -%}
-          {% assign has_sizes = true %}
-          {% unless displayed_sizes contains variant.option2 %}
-            {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
-          {% endunless %}
-        {% endif %}
-      {% endfor %}
+      {% assign has_sizes = true %}
+      <!-- Loop through the available values for "Size" -->
+      {%- for value in option.values -%}
+        {% unless displayed_sizes contains value %}
+          {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
+        {% endunless %}
+      {%- endfor -%}
     {% endif %}
   {%- endfor %}
 
@@ -340,14 +338,13 @@
       {% assign displayed_sizes = "" %}
       {%- for option in card_product.options_with_values -%}
         {%- if option.name == 'Size' -%}
-          {% for variant in card_product.variants %}
-            {%- if variant.featured_media and variant.option2 != blank -%}
-              {% unless displayed_sizes contains variant.option2 %}
-                <option value="{{ variant.id }}">Choose Sizes: {{ variant.option2 }}</option>
-                {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
-              {% endunless %}
-            {% endif %}
-          {% endfor %}
+          <!-- Loop through the available values for "Size" and display them in the dropdown -->
+          {%- for value in option.values -%}
+            {% unless displayed_sizes contains value %}
+              <option value="{{ value }}">Choose Size: {{ value }}</option>
+              {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
+            {% endunless %}
+          {%- endfor -%}
         {% endif %}
       {%- endfor %}
     </select>
