@@ -261,12 +261,12 @@
   {%- endfor -%}
 </div>
 
+
 {% for variant in card_product.variants %}
-  {% if variant.available and variant.title contains 'Size' %}
+  {% if variant.option1 == 'size' %}
     <p>{{ variant.title }}</p>
   {% endif %}
 {% endfor %}
-
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
