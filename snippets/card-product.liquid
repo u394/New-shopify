@@ -272,7 +272,7 @@
 <div class="custom-product-colors">
   {% assign displayed_sizes = "" %}
   {% for variant in card_product.variants %}
-    {%- if variant.featured_media and variant.option2 != blank -%}
+    {%- if variant.option2 != blank -%}
       {% assign has_sizes = true %}
       {% unless displayed_sizes contains variant.option2 %}
         {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
