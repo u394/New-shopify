@@ -247,12 +247,15 @@
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
 
-<form>
+<form method="post" action="/cart/add" id="product-form">
+  <!-- Hidden input for variant ID -->
+  <input type="hidden" name="id" id="variant-id" value="{{ product.variants.first.id }}" />
+
   <!-- Color Dropdown -->
   <label for="color">Color</label>
   <select id="color" name="color">
     {% assign colors = "" %}
-    {% for var in card_product.variants %}
+    {% for var in product.variants %}
       {% assign color = var.option1 %}
       {% unless colors contains color %}
         <option value="{{ color }}">{{ color }}</option>
@@ -265,7 +268,7 @@
   <label for="size">Size</label>
   <select id="size" name="size">
     {% assign sizes = "" %}
-    {% for var in card_product.variants %}
+    {% for var in product.variants %}
       {% assign size = var.option2 %}
       {% unless sizes contains size %}
         <option value="{{ size }}">{{ size }}</option>
@@ -274,7 +277,11 @@
     {% endfor %}
   </select>
 
-  <button type="submit">Add to Cart</button>
+  <!-- Quantity Input -->
+  <input min="1" type="number" id="quantity" name="quantity" value="1"/>
+
+  <!-- Submit Button -->
+  <input type="submit" value="Add to cart" class="btn" />
 </form>
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
