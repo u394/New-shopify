@@ -266,10 +266,16 @@
 </div>
 {% endcomment %}  
 
-{% for var in card_product.variants %}
-{{ var.option2 }}
+{%- for option in product.options_with_values -%}
+  {%- if option.name == 'Size' -%}
+    <div class="size-options">
+      {%- for value in option.values -%}
+        <span class="size">{{ value }}</span>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+{%- endfor -%}
 
-{% endfor %}
 
 {% assign has_sizes = false %}
 <div class="custom-product-colors">
