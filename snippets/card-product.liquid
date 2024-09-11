@@ -246,7 +246,7 @@
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
 
-{%- for option in product.options_with_values -%}
+{%- for option in card_product.options_with_values -%}
   {%- if option.name == 'Size' -%}
     <div class="size-options">
       {%- for value in option.values -%}
