@@ -246,6 +246,15 @@
             {%- endif -%}
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+<form action="/cart/add" method="post" id="variant-form">
+  <!-- Hidden input fields to store variant IDs -->
+  <input type="hidden" name="id" id="variant-id-1" value="41043935592508">
+  <input type="hidden" name="id" id="variant-id-2" value="41044101267516">
+  
+  <!-- Add any other form fields if needed -->
+  
+  <button type="submit">Add to Cart</button>
+</form>
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
