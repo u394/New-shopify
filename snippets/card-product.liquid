@@ -250,7 +250,7 @@
   {%- if option.name == 'Size' -%}
     <div class="size-options">
       {%- for value in option.values -%}
-        <span id="{{ value.id }}" class="size">{{ value }}</span>
+        <span id="{{ option.id }}" class="size">{{ value }}</span>
         
       {%- endfor -%}
     </div>
