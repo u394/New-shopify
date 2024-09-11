@@ -281,7 +281,7 @@
   {% endfor %}
 
   {% if has_sizes %}
-    <select>
+      <select id="variant-select" tabindex="0">
       {% assign displayed_sizes = "" %}
       {% for variant in card_product.variants %}
         {%- if variant.featured_media and variant.option2 != blank -%}
