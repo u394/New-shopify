@@ -281,12 +281,12 @@
   {% endfor %}
 
   {% if has_sizes %}
-    <select id="variant-select" tabindex="0">
+    <select class="variant-select" tabindex="0">
       {% assign displayed_sizes = "" %}
       {% for variant in card_product.variants %}
         {%- if variant.featured_media and variant.option2 != blank -%}
           {% unless displayed_sizes contains variant.option2 %}
-            <option id="variant-{{ variant.id }}" value="{{ variant.id }}">{{ variant.option2 }}</option>
+            <option value="{{ variant.id }}">{{ variant.option2 }}</option>
             {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
           {% endunless %}
         {% endif %}
