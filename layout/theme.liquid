@@ -526,13 +526,14 @@ document.addEventListener('DOMContentLoaded', function() {
       // Find the hidden input with the class 'product-variant-id random-class'
       var hiddenInput = document.querySelector('.product-variant-id.random-class');
       
-      // Update the value of the hidden input with the selected ID
+      // Update the value attribute of the hidden input with the selected ID
       if (hiddenInput) {
-        hiddenInput.value = selectedID;
+        hiddenInput.setAttribute('value', selectedID);
       }
     });
   });
 });
+
 
 
 </script>
