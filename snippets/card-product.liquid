@@ -255,6 +255,43 @@
   
   <button type="submit">Add to Cart</button>
 </form>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('variant-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var variantId1 = document.getElementById('variant-id-1').value;
+    var variantId2 = document.getElementById('variant-id-2').value;
+
+    // Function to add a variant to the cart using Shopify AJAX API
+    function addToCart(variantId, quantity) {
+      return fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: quantity
+        })
+      })
+      .then(response => response.json())
+      .catch(error => console.error('Error adding to cart:', error));
+    }
+
+    // Add both variants to the cart
+    Promise.all([
+      addToCart(variantId1, 1),
+      addToCart(variantId2, 1)
+    ])
+    .then(() => {
+      console.log('Both variants added to cart');
+      // Optionally, you can redirect to the cart page or show a message
+      window.location.href = '/cart';
+    });
+  });
+});
+</script>
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
