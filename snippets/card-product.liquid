@@ -315,6 +315,7 @@
   {% endif %}
 </div>
 {% endcomment %}
+
 {% assign has_sizes = false %}
 <div class="custom-product-colors">
   {% assign displayed_sizes = "" %}
@@ -325,14 +326,9 @@
       {% assign has_sizes = true %}
       <!-- Loop through the available values for "Size" -->
       {%- for value in option.values -%}
-        <!-- Check for the matching variant with the same size value -->
-        {%- for variant in card_product.variants -%}
-          {%- if variant.option2 == value and variant.option2 != blank -%}
-            {% unless displayed_sizes contains value %}
-              {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
-            {% endunless %}
-          {% endif %}
-        {% endfor %}
+        {% unless displayed_sizes contains value %}
+          {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
+        {% endunless %}
       {%- endfor -%}
     {% endif %}
   {%- endfor %}
@@ -345,22 +341,16 @@
         {%- if option.name == 'Size' -%}
           <!-- Loop through the available values for "Size" and display them in the dropdown -->
           {%- for value in option.values -%}
-            <!-- Find the matching variant and display the variant ID and size -->
-            {%- for variant in card_product.variants -%}
-              {%- if variant.option2 == value and variant.option2 != blank -%}
-                {% unless displayed_sizes contains value %}
-                  <option value="{{ variant.id }}">Choose Size: {{ value }}</option>
-                  {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
-                {% endunless %}
-              {% endif %}
-            {% endfor %}
+            {% unless displayed_sizes contains value %}
+              <option value="{{ value }}">Choose Size: {{ value }}</option>
+              {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
+            {% endunless %}
           {%- endfor -%}
         {% endif %}
       {%- endfor %}
     </select>
   {% endif %}
 </div>
-
 
 
 <div class="bundle_Product__container"> 
