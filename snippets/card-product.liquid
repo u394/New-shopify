@@ -268,13 +268,18 @@
 
 
 
-<div class="custom-product-colors">  
-{% for variant in card_product.variants %}
-     {%- if variant.featured_media -%}
-      {{ variant.option2 }}
+<div class="custom-product-colors">
+  {% assign displayed_sizes = "" %}
+  {% for variant in card_product.variants %}
+    {%- if variant.featured_media and variant.option2 != blank -%}
+      {% unless displayed_sizes contains variant.option2 %}
+        <span class="custom-product-sizes">{{ variant.option2 }}</span>
+        {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
+      {% endunless %}
     {% endif %}
-{% endfor %}
+  {% endfor %}
 </div>
+
 
 <div class="bundle_Product__container"> 
 
