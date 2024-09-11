@@ -247,11 +247,36 @@
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
 
-<select>
-{% for var in card_product.variants %}
-<option>{{ var.id }}  {{ var.title }}</option>
-{% endfor %}
-</select>
+<form>
+  <!-- Color Dropdown -->
+  <label for="color">Color</label>
+  <select id="color" name="color">
+    {% assign colors = "" %}
+    {% for var in card_product.variants %}
+      {% assign color = var.option1 %}
+      {% unless colors contains color %}
+        <option value="{{ color }}">{{ color }}</option>
+        {% assign colors = colors | append: color | append: ',' %}
+      {% endunless %}
+    {% endfor %}
+  </select>
+
+  <!-- Size Dropdown -->
+  <label for="size">Size</label>
+  <select id="size" name="size">
+    {% assign sizes = "" %}
+    {% for var in card_product.variants %}
+      {% assign size = var.option2 %}
+      {% unless sizes contains size %}
+        <option value="{{ size }}">{{ size }}</option>
+        {% assign sizes = sizes | append: size | append: ',' %}
+      {% endunless %}
+    {% endfor %}
+  </select>
+
+  <button type="submit">Add to Cart</button>
+</form>
+
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
 <div class="custom_color">
