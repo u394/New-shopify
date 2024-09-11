@@ -245,11 +245,11 @@
             {%- endif -%}
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
-{%- for option in card_product.options_with_values -%}
+{%- for option in product.options_with_values -%}
   {%- if option.name == 'Size' -%}
     <div class="size-options">
       {%- for value in option.values -%}
-        <span class="size">{{ value }}</span>
+        <span class="size">{{ value }}</span>aaa
       {%- endfor -%}
     </div>
   {%- endif -%}
@@ -277,16 +277,31 @@
 
 
 
+{% assign has_sizes = false %}
 <div class="custom-product-colors">
+  {% assign displayed_sizes = "" %}
+  {% for variant in card_product.variants %}
+    {%- if variant.option2 != blank -%}  <!-- Always check if option2 (size) is not blank -->
+      {% assign has_sizes = true %}
+      {% unless displayed_sizes contains variant.option2 %}
+        {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+
+  {% if has_sizes %}
     <select class="variant-select" tabindex="0">
-    {%- for option in card_product.options_with_values -%}
-       {%- if option.name == 'Size' -%}
-          {%- for value in option.values -%}<!-- Display sizes even without color -->
-            <option value="{{ value.id }}">Choose Sizes: {{ value }}</option>
-          {% endfor %}
+      {% assign displayed_sizes = "" %}
+      {% for variant in card_product.variants %}
+        {%- if variant.option2 != blank -%}  <!-- Display sizes even without color -->
+          {% unless displayed_sizes contains variant.option2 %}
+            <option value="{{ variant.id }}">Choose Sizes: {{ variant.option2 }}</option>
+            {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
+          {% endunless %}
         {% endif %}
       {% endfor %}
     </select>
+  {% endif %}
 </div>
 
 
