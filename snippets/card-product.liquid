@@ -403,7 +403,16 @@
         <input
           type="hidden"
           name="id"
-          value="{{ card_product.selected_or_first_available_variant.id }}"
+          value="41043935592508"
+          {% if card_product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+            disabled
+          {% endif %}
+          class="product-variant-id random-class"
+        >
+          <input
+          type="hidden"
+          name="id_2"
+          value="41044051460156"
           {% if card_product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
             disabled
           {% endif %}
