@@ -286,7 +286,7 @@
       {% for variant in card_product.variants %}
         {%- if variant.featured_media and variant.option2 != blank -%}
           {% unless displayed_sizes contains variant.option2 %}
-            <option value="{{ variant.option2 | handleize }}">{{ variant.option2 }}</option>
+            <option id="{{ variant.id }}" value="{{ variant.option2 | handleize }}">{{ variant.option2 }}</option>
             {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
           {% endunless %}
         {% endif %}
