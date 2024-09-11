@@ -513,14 +513,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
  <script>   
-// Add event listener to the select element
 document.getElementById('variant-select').addEventListener('change', function() {
-  // Get the selected option element
   var selectedOption = this.options[this.selectedIndex];
-  
-  // Log the ID of the selected option in the console
-  console.log('Selected Option ID:', selectedOption.id);
+  var selectedID = selectedOption.value; // Get the ID value of the selected option
+  console.log('Selected Option ID:', selectedID); // Log the ID to the console
 });
+
 
   </script>
   </body>
