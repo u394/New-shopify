@@ -262,7 +262,11 @@
 </div>
 
 
-
+{% for variant in product.variants %}
+  {% if variant.available %}
+    <p>{{ variant.title }}</p>
+  {% endif %}
+{% endfor %}
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
