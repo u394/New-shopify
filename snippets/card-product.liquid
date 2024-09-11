@@ -318,7 +318,7 @@
   
   {% for variant in card_product.variants %}
     {% if variant.option2 != blank %}
-      {% if displayed_sizes contains variant.option2 %}
+      {% if displayed_sizes == variant.option2 %}
         {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
       {% endif %}
     {% endif %}
@@ -329,7 +329,7 @@
       {% assign displayed_sizes = "" %}
       {% for variant in card_product.variants %}
         {% if variant.option2 != blank %}
-          {% if displayed_sizes contains variant.option2 %}
+          {% if displayed_sizes == variant.option2 %}
             <option value="{{ variant.id }}">Choose Sizes: {{ variant.option2 }}</option>
             {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
           {% endif %}
