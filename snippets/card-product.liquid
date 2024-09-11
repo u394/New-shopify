@@ -257,7 +257,7 @@
 <div class="size-options">
   {%- for size in all_sizes -%}
     {%- assign matching_variant = card_product.variants | where: 'option1', size | first -%}
-    <span id="{{ matching_variant.id | default: 'no-variant' }}" class="size">{{ size }}</span>
+    <span id="{{ matching_variant.id }}" class="size">{{ size }}</span>
   {%- endfor -%}
 </div>
 
