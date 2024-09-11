@@ -272,7 +272,7 @@
 {% for variant in card_product.variants %}
      {%- if variant.featured_media -%}
       <div class="custom_color-wrap {% if forloop.first %}active{% endif %}" id="{{ variant.id }}"> 
-        {% if variant.option2  %}<span class="custom-product-sizes">{{ variant.option2 | handleize }}</span>{% endif %}
+       <span class="custom-product-sizes">{{ variant.option2 | handleize }}</span>
         <img class="lazyload" src="{{ variant.featured_media | image_url }}" alt="{{ variant.image.alt }}" class="variant-image">
       </div>
     {% endif %}
