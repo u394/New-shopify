@@ -521,14 +521,20 @@ document.addEventListener('DOMContentLoaded', function() {
       var selectedOption = this.options[this.selectedIndex];
       var selectedID = selectedOption ? selectedOption.value : ''; // Get the ID value of the selected option
 
-      console.log('Selected Option ID:', selectedID); // Log the ID to the console
+      // Log the ID to the console
+      console.log('Selected Option ID:', selectedID);
+
+      // Select the hidden input field with the class 'product-variant-id'
+      var hiddenInput = document.querySelector('.product-variant-id');
+
+      // Update the value of the hidden input field
+      if (hiddenInput) {
+        hiddenInput.value = selectedID;
+      }
     });
   });
 });
-
-
-
-
 </script>
+
   </body>
 </html>
