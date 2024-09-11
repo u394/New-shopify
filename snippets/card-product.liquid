@@ -342,7 +342,7 @@
           <!-- Loop through the available values for "Size" and display them in the dropdown -->
           {%- for value in option.values -%}
             {% unless displayed_sizes contains value %}
-              <option value="{{ value }}">Choose Size: {{ value }}</option>
+              <option value="{{ value.id }}">Choose Size: {{ value }}</option>
               {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
             {% endunless %}
           {%- endfor -%}
