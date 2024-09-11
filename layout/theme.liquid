@@ -522,21 +522,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var selectedID = selectedOption ? selectedOption.value : ''; // Get the ID value of the selected option
 
       console.log('Selected Option ID:', selectedID); // Log the ID to the console
-      
-      // Find the closest form ancestor of the <select> element
-      var form = selectElement.closest('form');
-
-      if (form) {
-        // Select the hidden input field with class 'random-class' and name 'id'
-        var hiddenInput = form.querySelector("input.random-class[name='id']");
-        if (hiddenInput) {
-          hiddenInput.value = selectedID; // Update the value of the hidden input field
-        } else {
-          console.error('Hidden input field with class "random-class" and name "id" not found');
-        }
-      } else {
-        console.error('Form ancestor not found');
-      }
     });
   });
 });
