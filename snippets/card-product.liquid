@@ -342,9 +342,7 @@
           <!-- Loop through the available values for "Size" and display them in the dropdown -->
           {%- for value in option.values -%}
             {% unless displayed_sizes contains value %}
-              <!-- Find the variant ID corresponding to this size -->
-              {%- assign size_variant = card_product.variants | where: 'option1', value | first -%}
-              <option value="{{ size_variant.id }}">Choose Size: {{ value }}</option>
+              <option value="{{ value.id }}">Choose Size: {{ value }}</option>
               {% assign displayed_sizes = displayed_sizes | append: value | append: ',' %}
             {% endunless %}
           {%- endfor -%}
@@ -353,7 +351,6 @@
     </select>
   {% endif %}
 </div>
-
 
 
 <div class="bundle_Product__container"> 
