@@ -512,15 +512,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-<script>
+// Add event listener to the select element
 document.getElementById('variant-select').addEventListener('change', function() {
   // Get the selected option element
   var selectedOption = this.options[this.selectedIndex];
   
-  // Log the ID of the selected option
+  // Log the ID of the selected option in the console
   console.log('Selected Option ID:', selectedOption.id);
 });
-
-</script>
+  </script>
   </body>
 </html>
