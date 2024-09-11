@@ -247,44 +247,25 @@
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
 
 {% assign has_sizes = false %}
-<div class="custom-product-colors">
+<div class="custom-product-sizes">
   {% assign displayed_sizes = "" %}
-
-  <!-- First, loop through product options to check for "Size" -->
-  {%- for option in card_product.options_with_values -%}
-    {%- if option.name == 'Size' -%}
-      <!-- Now loop through variants to get sizes -->
-      {% for variant in card_product.variants %}
-        {%- if variant.featured_media and variant.option2 != blank -%}
-          {% assign has_sizes = true %}
-          {% unless displayed_sizes contains variant.option2 %}
-            {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
-          {% endunless %}
-        {% endif %}
-      {% endfor %}
+  
+  {%- for variant in card_product.variants -%}
+    {%- if variant.option2 != blank -%} <!-- Check if the variant has a size (option2) -->
+      {% assign has_sizes = true %}
+      
+      <!-- Ensure we don't display duplicate sizes -->
+      {% unless displayed_sizes contains variant.option2 %}
+        {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
+        <span class="size">{{ variant.option2 }}</span> <!-- Display size -->
+      {% endunless %}
     {% endif %}
-  {%- endfor %}
+  {%- endfor -%}
 
-  <!-- If sizes exist, display the select dropdown -->
-  {% if has_sizes %}
-    <select class="variant-select" tabindex="0">
-      {% assign displayed_sizes = "" %}
-      {%- for option in card_product.options_with_values -%}
-        {%- if option.name == 'Size' -%}
-          {% for variant in card_product.variants %}
-            {%- if variant.featured_media and variant.option2 != blank -%}
-              {% unless displayed_sizes contains variant.option2 %}
-                <option value="{{ variant.id }}">Choose Sizes: {{ variant.option2 }}</option>
-                {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
-              {% endunless %}
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      {%- endfor %}
-    </select>
+  {% if has_sizes == false %}
+    <p>No sizes available for this product.</p>
   {% endif %}
 </div>
-
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
@@ -334,6 +315,44 @@
   {% endif %}
 </div>
 {% endcomment %}
+{% assign has_sizes = false %}
+<div class="custom-product-colors">
+  {% assign displayed_sizes = "" %}
+
+  <!-- First, loop through product options to check for "Size" -->
+  {%- for option in card_product.options_with_values -%}
+    {%- if option.name == 'Size' -%}
+      <!-- Now loop through variants to get sizes -->
+      {% for variant in card_product.variants %}
+        {%- if variant.featured_media and variant.option2 != blank -%}
+          {% assign has_sizes = true %}
+          {% unless displayed_sizes contains variant.option2 %}
+            {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {%- endfor %}
+
+  <!-- If sizes exist, display the select dropdown -->
+  {% if has_sizes %}
+    <select class="variant-select" tabindex="0">
+      {% assign displayed_sizes = "" %}
+      {%- for option in card_product.options_with_values -%}
+        {%- if option.name == 'Size' -%}
+          {% for variant in card_product.variants %}
+            {%- if variant.featured_media and variant.option2 != blank -%}
+              {% unless displayed_sizes contains variant.option2 %}
+                <option value="{{ variant.id }}">Choose Sizes: {{ variant.option2 }}</option>
+                {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {%- endfor %}
+    </select>
+  {% endif %}
+</div>
 
 
 
