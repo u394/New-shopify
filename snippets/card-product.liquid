@@ -327,7 +327,12 @@
 
   <!-- If only sizes exist and no colors, display the select dropdown -->
   {% if has_sizes %}
-    {% if not has_colors %}
+    {% assign show_size_dropdown = true %}
+    {% if has_colors %}
+      {% assign show_size_dropdown = false %}
+    {% endif %}
+    
+    {% if show_size_dropdown %}
       <select class="variant-select" tabindex="0">
         {% assign displayed_sizes = "" %}
         {%- for option in card_product.options_with_values -%}
