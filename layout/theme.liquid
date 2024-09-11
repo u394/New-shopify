@@ -529,6 +529,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // Update the value property of the hidden input with the selected ID
       if (hiddenInput) {
         hiddenInput.value = selectedID;
+        console.log('Updated hidden input value to:', hiddenInput.value); // Log the updated value
+      } else {
+        console.error('Hidden input with class "product-variant-id random-class" not found.');
       }
     });
   });
