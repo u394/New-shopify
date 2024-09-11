@@ -246,14 +246,8 @@
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
 
-{%- for option in card_product.options_with_values -%}
-  {%- if option.name == 'Size' -%}
-    <div class="size-options">
-      {%- for value in option.values -%}
-        <span class="size">{{ value }}</span>aaa
-      {%- endfor -%}
-    </div>
-  {%- endif -%}
+{% for variant in card_product.variants %}
+{{ option.option1 }}
 {%- endfor -%}
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
