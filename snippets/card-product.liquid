@@ -268,7 +268,7 @@
 
 
 
-{% if card_product.variants.size > 1 or card_product.variants.color > 1 %} 
+{% if card_product.variants.size > 0 %} 
   <div class="custom-product-colors">  
     <select>
       {% for variant in card_product.variants %}
