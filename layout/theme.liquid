@@ -521,10 +521,19 @@ document.addEventListener('DOMContentLoaded', function() {
       var selectedOption = this.options[this.selectedIndex];
       var selectedID = selectedOption ? selectedOption.value : ''; // Get the ID value of the selected option
 
+      // Find the hidden input field with the class 'random-class' in the form
+      var hiddenInput = document.querySelector('.random-class');
+
+      // Update the value of the hidden input field
+      if (hiddenInput) {
+        hiddenInput.value = selectedID;
+      }
+
       console.log('Selected Option ID:', selectedID); // Log the ID to the console
     });
   });
 });
+
 
 
 
