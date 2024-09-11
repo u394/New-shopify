@@ -332,7 +332,7 @@
         <input
           type="hidden"
           name="id"
-          value="{{ card_product.selected_or_first_available_variant.id }}"
+          value=""
           {% if card_product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
             disabled
           {% endif %}
