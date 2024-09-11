@@ -246,9 +246,27 @@
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
 
-{% for variant in card_product.variants %}
-{{ option.option2 }}aa
-{%- endfor -%}
+{% assign has_sizes = false %}
+<div class="custom-product-sizes">
+  {% assign displayed_sizes = "" %}
+  
+  {%- for variant in card_product.variants -%}
+    {%- if variant.option2 != blank -%} <!-- Check if the variant has a size (option2) -->
+      {% assign has_sizes = true %}
+      
+      <!-- Ensure we don't display duplicate sizes -->
+      {% unless displayed_sizes contains variant.option2 %}
+        {% assign displayed_sizes = displayed_sizes | append: variant.option2 | append: ',' %}
+        <span class="size">{{ variant.option2 }}</span> <!-- Display size -->
+      {% endunless %}
+    {% endif %}
+  {%- endfor -%}
+
+  {% if has_sizes == false %}
+    <p>No sizes available for this product.</p>
+  {% endif %}
+</div>
+
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
 <div class="custom_color">
