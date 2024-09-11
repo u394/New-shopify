@@ -266,7 +266,10 @@
 </div>
 {% endcomment %}  
 
+{% for var in card_product.variants %}
+{{ var.option2 }}
 
+{% endfor %}
 
 {% assign has_sizes = false %}
 <div class="custom-product-colors">
