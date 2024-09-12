@@ -246,7 +246,28 @@
             {%- endif -%}
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+{% for variant in card_product.variants %}
+     {% if variant.available %}
+        <span class="quickadd-variant" data-url="{{ product.url }}" data-variantid="{{ variant.id }}">{{ variant.options[2] }}</span>
+    {% endif %}
+  {% endfor %}
 
+<script>
+    $('.quickadd-variant').click(function() {
+      
+      var product_url = $(this).data('url');
+      var product_id = $(this).data('variantid');
+      
+      alert(product_id);
+      jQuery.getJSON(product_url + '.js', function(product){
+        
+      jQuery.post('/cart/add.js', {
+            quantity: 1,
+            id: product_id
+          });
+        });
+      });
+</script>
 
             <!-- *************** Collections Product Custom color Added Code *****************  -->
             
