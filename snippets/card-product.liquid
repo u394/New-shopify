@@ -251,7 +251,7 @@
             
 {% for variant in card_product.variants %}
      {% if variant.available %}
-        aa<span class="quickadd-variant" data-url="{{ product.url }}" data-variantid="{{ variant.id }}">{{ variant.options[2] }}</span>
+        aa<span class="quickadd-variant" data-url="{{ product.url }}" data-variantid="{{ variant.id }}">{{ variant.options2 }}</span>
     {% endif %}
   {% endfor %}
 
