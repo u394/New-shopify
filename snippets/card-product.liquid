@@ -246,6 +246,9 @@
             {%- endif -%}
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+
+
+            
 {% for variant in card_product.variants %}
      {% if variant.available %}
         <span class="quickadd-variant" data-url="{{ product.url }}" data-variantid="{{ variant.id }}">{{ variant.options[2] }}</span>
