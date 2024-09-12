@@ -404,7 +404,7 @@
         <input
           type="hidden"
           name="id"
-          value='["41043935592508", "41044101267516"]'
+          value="{{ card_product.selected_or_first_available_variant.id }}"
           {% if card_product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
             disabled
           {% endif %}
@@ -446,44 +446,7 @@
     </product-form>
 </div>
 </div>
-<script>
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('variant-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
 
-    // Get the variant ID array from the hidden input field
-    var variantIdsInput = document.getElementById('variant-ids').value;
-    // Convert the comma-separated string into an array
-    var variantArray = variantIdsInput.split(',');
-
-    // Function to add each variant to the cart
-    function addToCart(variantId) {
-      return fetch('/cart/add.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          id: variantId,
-          quantity: 1
-        })
-      }).then(response => response.json());
-    }
-
-    // Loop through the variant array and add each to the cart
-    Promise.all(variantArray.map(id => addToCart(id)))
-      .then(() => {
-        console.log('All variants added to cart');
-        // Optionally, redirect to cart page
-        window.location.href = '/cart';
-      })
-      .catch(error => console.error('Error adding variants to cart:', error));
-  });
-});
-</script>
-
-  </script>
 
 
 <!-- *************** Collections Product Custom color Added Code *****************  -->
