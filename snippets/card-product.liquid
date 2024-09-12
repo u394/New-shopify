@@ -452,74 +452,7 @@
 
 <!-- *************** Collections Product Custom color Added Code *****************  -->
 
-<script>
-// Wait for the document to be ready
-$(document).ready(function() {
-  // Variables to store selected options
-  let selectedColor = null;
-  let selectedSize = null;
 
-  // Function to find the matching variant ID
-  function getVariantIdByOptions(color, size) {
-    let variantId = null;
-    
-    // Loop through all variants to find the match
-    {% for variant in card_product.variants %}
-      if ("{{ variant.option1 }}" === color && "{{ variant.option2 }}" === size) {
-        variantId = {{ variant.id }};
-      }
-    {% endfor %}
-
-    return variantId;
-  }
-
-  // Capture size selection
-  $('.size-select').on('change', function() {
-    selectedSize = $(this).val();
-  });
-
-  // Capture color selection
-  $('.color-select').on('change', function() {
-    selectedColor = $(this).val();
-  });
-
-  // Handle add to cart button click
-  $('.product-form__submit').on('click', function(e) {
-    e.preventDefault(); // Prevent the form from submitting normally
-
-    // Ensure both color and size are selected
-    if (selectedColor && selectedSize) {
-      const variantId = getVariantIdByOptions(selectedColor, selectedSize);
-
-      // Proceed only if a valid variant ID is found
-      if (variantId) {
-        // Make Ajax request to add the variant to the cart
-        $.ajax({
-          type: 'POST',
-          url: '/cart/add.js', // Shopify endpoint to add to cart
-          data: {
-            id: variantId,
-            quantity: 1
-          },
-          dataType: 'json',
-          success: function() {
-            // Optionally show success message or update cart UI
-            alert('Product added to cart successfully!');
-          },
-          error: function() {
-            alert('There was an issue adding the product to the cart.');
-          }
-        });
-      } else {
-        alert('The selected variant is not available.');
-      }
-    } else {
-      alert('Please select both color and size.');
-    }
-  });
-});
-
-</script>
 
 
             
