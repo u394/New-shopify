@@ -186,10 +186,11 @@
                   height="{{ card_product.media[1].height }}"
                 >
               {%- endif -%}
-                      {%- if new_label != blank and settings.use_new_label -%}<span class="new product-label"><span>{{ 'New'}}</span></span>{%- endif -%}
 
             </div>
           </div>
+          {%- if new_label != blank and settings.use_new_label -%}<span class="new product-label"><span>{{ 'New'}}</span></span>{%- endif -%}
+
         {%- endif -%}
 
 
