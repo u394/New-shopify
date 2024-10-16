@@ -38,6 +38,48 @@
   margin-top: -41px;
 } */
 </style>
+
+
+
+
+
+
+
+
+<style>
+.new.product-label{
+  background: red;
+    color: #fff;
+    padding: 5px;
+}
+.discount-percent {
+    padding: 2px 10px;
+    background: green;
+    position: absolute;
+    top: 8px;
+    left: 13px;
+    color: #fff;
+}
+</style>
+
+{%-unless card_product.tags contains 'notnew' -%}
+  {%- assign dateStart = card_product.created_at | date: '%s' -%}
+  {%- assign nowTimestamp = 'now' | date: '%s' -%}
+  {%- comment -%} difference in seconds {%- endcomment -%}
+  {%- assign diffSeconds = nowTimestamp | minus: dateStart -%}
+
+  {%- comment -%} difference in days {%- endcomment -%}
+  {%- assign diffDays = diffSeconds | divided_by: 3600 | divided_by: 24 -%}
+  {%- assign new_day_int = settings.new_day | default: 10 | plus: 0 -%}
+  {%- if diffDays <= new_day_int -%}
+      {%-assign new_label = true -%}
+    {%-else-%}
+      {%-assign new_label = false -%}
+    {%-endif-%}
+{%- endunless -%}
+
+
+  
 {% comment %}
   Renders a product card
 
@@ -147,6 +189,13 @@
             </div>
           </div>
         {%- endif -%}
+
+
+
+        <span class="discount-percent"> {{ card_product.compare_at_price | minus: card_product.price | times: 100 | divided_by: card_product.compare_at_price }}% OFF</span>
+        {%- if new_label != blank and settings.use_new_label -%}<span class="new product-label"><span>{{ 'New'}}</span></span>{%- endif -%}
+
+        
         <div class="card__content">
           <div class="card__information">
             <h3
