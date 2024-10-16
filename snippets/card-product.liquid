@@ -45,7 +45,7 @@
 
 
 
-
+<!-- New Tag Added Code -->
 <style>
 .new.product-label{
     background: red;
@@ -79,7 +79,7 @@
       {%-assign new_label = false -%}
     {%-endif-%}
 {%- endunless -%}
-
+<!-- New Tag Added Code -->
 
   
 {% comment %}
@@ -235,7 +235,7 @@
 
             <!-- New Tag Added Code -->
             
-            {%- if new_label != blank and settings.use_new_label -%}<span class="new product-label"><span>{{ 'New'}}</span></span>{%- endif -%}
+            {%- if new_label != blank and settings.use_new_label -%}<span class="custom-product-label"><span>{{ 'New'}}</span></span>{%- endif -%}
 
             <!-- New Tag Added Code -->
             
