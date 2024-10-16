@@ -7,6 +7,23 @@
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://support.shopify.com/"
   },
+   {
+    "name": "New Label Show",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "use_new_label",
+        "label": "Use New Label",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "new_day",
+        "label": "New in .. days",
+        "info": "Integer (1..366)"
+      }
+    ]
+  },
 
     {
     "name": "New Header",
