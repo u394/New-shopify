@@ -183,9 +183,6 @@ header-drawer,.header__heading,.header__icons{
       assign localization_forms = true
     endif
   -%}
-
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
- 
  <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
           <search-form class="search-modal__form">
         <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
@@ -237,6 +234,9 @@ header-drawer,.header__heading,.header__icons{
           {%- endif -%}
         </form>
           </predictive-search>
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+ 
+
 
 
 <!-- Custom Number   -->
