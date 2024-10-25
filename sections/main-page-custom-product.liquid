@@ -1,8 +1,11 @@
 <h1>main-page-custom-product</h1>
-<div class="new-div">
-<img src="{{page.metafields.Image.Image[ iteration ]}}" />
-{{page.metafields.custom-product-text.custom-product-text[ iteration ]}}
-</div>
+{% for i in (0..page.metafields.Image.Image.size) %}
+  <div class="new-div">
+    <img src="{{ page.metafields.Image.Image[i] }}" alt="Image {{ i }}" />
+    <p>{{ page.metafields.custom-product-text.custom-product-text[i] }}</p>
+  </div>
+{% endfor %}
+
 {% schema %}
   {
     "name": "Section name",
