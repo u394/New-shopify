@@ -1,5 +1,5 @@
 <h1>main-page-custom-product</h1>
-<img src="{{page.metafields.Image.Image.url }}" />
+<img src="{{page.metafields.Image.Image.url | url_encode}}" />
 {{page.metafields.custom-product-text.custom-product-text}}
 {% schema %}
   {
