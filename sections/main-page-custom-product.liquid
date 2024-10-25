@@ -1,7 +1,7 @@
 <h1>main-page-custom-product</h1>
 <div class="new-div">
-<img src="{{page.metafields.Image.Image}}" />
-{{page.metafields.custom-product-text.custom-product-text}}
+<img src="{{page.metafields.Image.Image [ iteration ]}}" />
+{{page.metafields.custom-product-text.custom-product-text [ iteration ]}}
 </div>
 {% schema %}
   {
