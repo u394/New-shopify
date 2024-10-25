@@ -9,8 +9,9 @@
 
 {% for i in (0..image_count) %}
   <div class="new-div">
-    <img src="{{ page.metafields.Image.Image[i] }}" alt="Image {{ i }}" />
-    <p>{{ page.metafields.custom-product-text.custom-product-text[i] }}</p>
+    <a href="{{page.metafields.custom-product-link.custom-product-link}}"><img src="{{ page.metafields.Image.Image[i] }}" alt="Image {{ i }}" />
+    <p>{{ page.metafields.custom-product-text.custom-product-text[i] }}</p></a>
+    
   </div>
 {% endfor %}
 
