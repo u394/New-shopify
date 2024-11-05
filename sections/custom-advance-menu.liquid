@@ -1,407 +1,307 @@
-<style>
-/* Basic Navbar Styling */
-.custom-new-navbar {
-  background-color: #333;
-  padding: 1rem;
-}
+{% render 'new-mega-menu-css' %}
+<div class="my-unique-class">
+    <!-- header start -->
+    <header class="header">
+        <div class="container">
+            <div class="row v-center">
+                <div class="header-item item-left">
+                    <div class="logo">
+                        <a href="#">logo</a>
+                    </div>
+                </div>
 
-.custom-new-navbar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-}
+                <!-- menu start here -->
+                <div class="header-item item-center">
+                    <div class="menu-overlay"></div>
+                    <nav class="menu">
+                        <div class="mobile-menu-head">
+                            <div class="go-back"><i class="fa fa-angle-left"></i></div>
+                            <div class="current-menu-title"></div>
+                            <div class="mobile-menu-close">&times;</div>
+                        </div>
+                        <ul class="menu-main">
+                           {%- for block in section.blocks -%}
+                           {% assign handle = block.type %} {% case handle %}
+                           {% when 'single_menu' %} 
+                                    <li>
+                                        <a href="{{ block.settings.title_2_url }}">{{ block.settings.title_2 }}</a>
+                                    </li>
+                           {% when 'collection_menu' %} 
+                              <li class="menu-item-has-children">
+                                    <a href="{{ block.settings.title_3_url }}">{{ block.settings.title_3 }} <i class="fa fa-angle-down"></i></a>
+                                    <div class="sub-menu mega-menu mega-menu-column-4">
+                                      {% for collection_product in block.settings.collection_list.products limit: block.settings.collection_limit  %}
+                                        
+                                        <div class="list-item text-center">
+                                            <a href="{{ collection_product.url }}">
+                                                <img src="{{ collection_product.featured_image | img_url: "master" }}" />
+                                                <h4 class="title">{{ collection_product.title }}</h4>
+                                            </a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                              {% when 'mega_menu' %} 
+                               <li class="menu-item-has-children">
+                                <a href="{{ block.settings.title_4_url }}">{{ block.settings.title_4 }} <i class="fa fa-angle-down"></i></a>
+                                <div class="sub-menu mega-menu mega-menu-column-4">
+                                    {%- assign child_list_handle = block.settings.megamenu -%}
+                                    
+                                    <!-- Initialize a counter variable to track the number of categories processed -->
+                                    {%- assign counter = 0 -%}
+                                    
+                                    <!-- Loop through each link in the menu -->
+                                    {%- for link in linklists[child_list_handle].links -%}
+                                    
+                                    <!-- Open a new div after every two categories -->
+                                    {%- if counter == 0 or counter == 2 -%}
+                                    <div class="list-item">
+                                    {%- endif -%}
+                                    
+                                    <!-- Display the category and its child links -->
+                                    <h4 class="title">{{ link.title }}</h4>
+                                    <ul>
+                                        {%- for child_link in link.links -%}
+                                        <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    
+                                    <!-- Close the div after every two categories and reset the counter if it reaches 2 -->
+                                    {%- assign counter = counter | plus: 1 -%}
+                                    {%- if counter == 2 -%}
+                                    </div>
+                                    {%- assign counter = 0 -%}
+                                    {%- endif -%}
+                                    
+                                    {% endfor %}
+                                    
+                                    <!-- Ensure any unclosed div is properly closed -->
+                                    {%- if counter > 0 -%}
+                                    </div>
+                                    {%- endif -%}
+                                    
+                                    <!-- Optional Image Section -->
+                                    <div class="list-item">
+                                       {% for collection_product in block.settings.collection_list_2.products limit: block.settings.collection_limit_2  %}
+                                       <img src="{{ collection_product.featured_image | img_url: "master" }}" />                                      
+                                       {% endfor %}
+                                    </div>
+                                </div>
+                            </li>
+                            {% when 'dropdown_menu' %} 
+                             <li class="menu-item-has-children">
+                                    <a href="{{ block.settings.title_5_url }}">{{ block.settings.title_5 }} <i class="fa fa-angle-down"></i></a>
+                                    <div class="sub-menu single-column-menu">
+                                       {%- assign child_list_handle = block.settings.megamenu_2 -%}
+                                       {%- for link in linklists[child_list_handle].links -%}
+                                        <ul>
+                                            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                        </ul>
+                                      {% endfor %}
+                                    </div>
+                                </li>
 
-.custom-new-navbar ul li {
-  position: relative;
-  margin-right: 2rem;
-}
+                                {% endcase %}
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+                <!-- menu end here -->
 
-.custom-new-navbar ul li h3 {
-  color: white;
-  cursor: pointer;
-}
-
-/* Dropdown Menu Styling */
-.custom-menu-collection,
-.custom-menu-colors {
-  display: none; /* Hide initially */
-  position: absolute;
-  background-color: #444;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  top: 100%;
-  left: 0;
-  width: max-content;
-  z-index: 10;
-}
-
-.custom-menu-collection a,
-.custom-menu-colors .color-name {
-  color: white;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-/* Show dropdown on hover */
-.custom-new-navbar ul li:hover .custom-menu-collection,
-.custom-new-navbar ul li:hover .custom-menu-colors {
-  display: block;
-}
-
-/* Color box styling */
-.color-box {
-  width: 30px;
-  height: 30px;
-  border-radius: 0.25rem;
-  display: inline-block !important;
-  margin-right: 0.5rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .custom-new-navbar ul {
-    flex-direction: column;
-  }
-
-  .custom-new-navbar ul li {
-    margin: 0.5rem 0;
-  }
-}
-
-
-</style>
-<div class="custom-new-navbar">
- <ul>
-   <li>
-     <h3>Popular Collections</h3>
-   <div class="custom-menu-collection">
-    <a href="#collection1">Collection 1</a>
-    <a href="#collection2">Collection 2</a>
-    <a href="#collection3">Collection 3</a>
-    <a href="#collection4">Collection 4</a>
-    <a href="#collection5">Collection 5</a>
-    <a href="#collection6">Collection 6</a>
-  </div>
-   </li>
-     <li>
-            <h3>Popular Collections</h3>
-<div class="custom-menu-colors">
-          <h3>Warm Colors</h3>
-          <div class="color-item">
-            <div class="color-box" style="background-color: #FF5733;"></div>
-            <div class="color-name">Red</div>
-          </div>
-          <div class="color-item">
-            <div class="color-box" style="background-color: #FF8D1A;"></div>
-            <div class="color-name">Orange</div>
-          </div>
-          <h3>Cool Colors</h3>
-          <div class="color-item">
-            <div class="color-box" style="background-color: #1A73FF;"></div>
-            <div class="color-name">Blue</div>
-          </div>
-          <div class="color-item">
-            <div class="color-box" style="background-color: #33C1FF;"></div>
-            <div class="color-name">Sky Blue</div>
-          </div>
-        </div> 
-
-   </li>
- </ul>
-
-  
+                <div class="header-item item-right">
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="#"><i class="far fa-heart"></i></a>
+                    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                    <!-- mobile menu trigger -->
+                    <div class="mobile-menu-trigger">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header end -->
 </div>
-
-
-
 
 {% schema %}
 {
-  "name": "New Featured Collection",
+  "name": "Custom New Menu",
   "tag": "section",
-  "class": "custom-featured-collection",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
+  "class": "custom_new_menu",
+  "limit": 1,
   "settings": [
     {
-      "type": "inline_richtext",
+      "type": "text",
       "id": "title",
-      "default": "Featured collection",
-      "label": "t:sections.featured-collection.settings.title.label"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_size.options__1.label"
-        },
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_size.options__2.label"
-        },
-        {
-          "value": "h0",
-          "label": "t:sections.all.heading_size.options__3.label"
-        }
-      ],
-      "default": "h1",
-      "label": "t:sections.all.heading_size.label"
-    },
-    {
-      "type": "richtext",
-      "id": "description",
-      "label": "t:sections.featured-collection.settings.description.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_description",
-      "label": "t:sections.featured-collection.settings.show_description.label",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "description_style",
-      "label": "t:sections.featured-collection.settings.description_style.label",
-      "options": [
-        {
-          "value": "body",
-          "label": "t:sections.featured-collection.settings.description_style.options__1.label"
-        },
-        {
-          "value": "subtitle",
-          "label": "t:sections.featured-collection.settings.description_style.options__2.label"
-        },
-        {
-          "value": "uppercase",
-          "label": "t:sections.featured-collection.settings.description_style.options__3.label"
-        }
-      ],
-      "default": "body"
-    },
-    {
-      "type": "url",
-      "id": "ship_link",
-      "label": "Shipping Link"
-    },
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "t:sections.featured-collection.settings.collection.label"
-    },
-    {
-      "type": "range",
-      "id": "products_to_show",
-      "min": 2,
-      "max": 25,
-      "step": 1,
-      "default": 4,
-      "label": "t:sections.featured-collection.settings.products_to_show.label"
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "min": 1,
-      "max": 5,
-      "step": 1,
-      "default": 4,
-      "label": "t:sections.featured-collection.settings.columns_desktop.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "t:sections.featured-collection.settings.full_width.label",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "show_view_all",
-      "default": true,
-      "label": "t:sections.featured-collection.settings.show_view_all.label"
-    },
-    {
-      "type": "select",
-      "id": "view_all_style",
-      "label": "t:sections.featured-collection.settings.view_all_style.label",
-      "options": [
-        {
-          "value": "link",
-          "label": "t:sections.featured-collection.settings.view_all_style.options__1.label"
-        },
-        {
-          "value": "outline",
-          "label": "t:sections.featured-collection.settings.view_all_style.options__2.label"
-        },
-        {
-          "value": "solid",
-          "label": "t:sections.featured-collection.settings.view_all_style.options__3.label"
-        }
-      ],
-      "default": "solid"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_desktop_slider",
-      "label": "t:sections.featured-collection.settings.enable_desktop_slider.label",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "slider__item",
-      "min": 2,
-      "max": 6,
-      "step": 1,
-      "default": 4,
-      "label": "Product Slider Item"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "info": "t:sections.all.colors.has_cards_info",
-      "default": "background-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.featured-collection.settings.header.content"
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
-        },
-        {
-          "value": "portrait",
-          "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
-        },
-        {
-          "value": "square",
-          "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
-        }
-      ],
-      "default": "adapt",
-      "label": "t:sections.featured-collection.settings.image_ratio.label"
-    },
-    {
-      "type": "select",
-      "id": "image_shape",
-      "options": [
-        {
-          "value": "default",
-          "label": "t:sections.all.image_shape.options__1.label"
-        },
-        {
-          "value": "arch",
-          "label": "t:sections.all.image_shape.options__2.label"
-        },
-        {
-          "value": "blob",
-          "label": "t:sections.all.image_shape.options__3.label"
-        },
-        {
-          "value": "chevronleft",
-          "label": "t:sections.all.image_shape.options__4.label"
-        },
-        {
-          "value": "chevronright",
-          "label": "t:sections.all.image_shape.options__5.label"
-        },
-        {
-          "value": "diamond",
-          "label": "t:sections.all.image_shape.options__6.label"
-        },
-        {
-          "value": "parallelogram",
-          "label": "t:sections.all.image_shape.options__7.label"
-        },
-        {
-          "value": "round",
-          "label": "t:sections.all.image_shape.options__8.label"
-        }
-      ],
-      "default": "default",
-      "label": "t:sections.all.image_shape.label",
-      "info": "t:sections.all.image_shape.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_secondary_image",
-      "default": false,
-      "label": "t:sections.featured-collection.settings.show_secondary_image.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "default": false,
-      "label": "t:sections.featured-collection.settings.show_vendor.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_rating",
-      "default": false,
-      "label": "t:sections.featured-collection.settings.show_rating.label",
-      "info": "t:sections.featured-collection.settings.show_rating.info"
-    },
+      "label": "Random Text"
+    }
+  ],
+  "max_blocks": 5,
+  "blocks": [
      {
-      "type": "select",
-      "id": "quick_add",
-      "default": "standard",
-      "label": "Add to Cart Button Standard",
-      "options": [
+      "type": "single_menu",
+      "name": "Single Menu",
+      "settings": [
         {
-          "value": "standard",
-          "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_2"
+          "type": "text",
+          "id": "title_2",
+          "label": "Single Text"
+        },
+        {
+          "type": "url",
+          "id": "title_2_url",
+          "label": "Single Text Url"
         }
       ]
     },
     {
-      "type": "checkbox",
-      "id": "enable_quick_add",
-      "default": false,
-      "label": "t:sections.featured-collection.settings.enable_quick_buy.label"
+      "type": "collection_menu",
+      "name": "Collection Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_3",
+          "label": "Collection Text"
+        },
+        {
+          "type": "url",
+          "id": "title_3_url",
+          "label": "Collection Text Url"
+        },
+        {
+          "type": "collection",
+          "id": "collection_list",
+          "label": "Collection List"
+        },
+        {
+          "type": "text",
+          "id": "collection_limit",
+          "label": "Collection Limit",
+          "default": "1"
+        }
+      ]
     },
     {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "type": "mega_menu",
+      "name": "Mega Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_4",
+          "label": "Megamenu Text"
+        },
+        {
+          "type": "url",
+          "id": "title_4_url",
+          "label": "Megamenu Text Url"
+        },
+        {
+          "type": "link_list",
+          "id": "megamenu",
+          "label": "Mega Menu"
+        },
+        {
+          "type": "collection",
+          "id": "collection_list_2",
+          "label": "Collection List"
+        },
+        {
+          "type": "text",
+          "id": "collection_limit_2",
+          "label": "Collection Limit",
+          "default": "1"
+        }
+      ]
     },
     {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
-    },
-    {
-      "type": "textarea",
-      "id": "style_section",
-      "label": "Style Section"
+      "type": "dropdown_menu",
+      "name": "DropDown Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_5",
+          "label": "DropDown Text"
+        },
+        {
+          "type": "url",
+          "id": "title_5_url",
+          "label": "DropDown Text Url"
+        },
+        {
+          "type": "link_list",
+          "id": "megamenu_2",
+          "label": "DropDown Menu"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Custom Menu"
+      "name": "Custom Menu",
+      "blocks": [
+      ]
     }
   ]
 }
 {% endschema %}
+<script>
+  
+
+ const menu = document.querySelector(".menu");
+ const menuMain = menu.querySelector(".menu-main");
+ const goBack = menu.querySelector(".go-back");
+ const menuTrigger = document.querySelector(".mobile-menu-trigger");
+ const closeMenu = menu.querySelector(".mobile-menu-close");
+ let subMenu;
+ menuMain.addEventListener("click", (e) =>{
+ 	if(!menu.classList.contains("active")){
+ 		return;
+ 	}
+   if(e.target.closest(".menu-item-has-children")){
+   	 const hasChildren = e.target.closest(".menu-item-has-children");
+      showSubMenu(hasChildren);
+   }
+ });
+ goBack.addEventListener("click",() =>{
+ 	 hideSubMenu();
+ })
+ menuTrigger.addEventListener("click",() =>{
+ 	 toggleMenu();
+ })
+ closeMenu.addEventListener("click",() =>{
+ 	 toggleMenu();
+ })
+ document.querySelector(".menu-overlay").addEventListener("click",() =>{
+ 	toggleMenu();
+ })
+ function toggleMenu(){
+ 	menu.classList.toggle("active");
+ 	document.querySelector(".menu-overlay").classList.toggle("active");
+ }
+ function showSubMenu(hasChildren){
+    subMenu = hasChildren.querySelector(".sub-menu");
+    subMenu.classList.add("active");
+    subMenu.style.animation = "slideLeft 0.5s ease forwards";
+    const menuTitle = hasChildren.querySelector("i").parentNode.childNodes[0].textContent;
+    menu.querySelector(".current-menu-title").innerHTML=menuTitle;
+    menu.querySelector(".mobile-menu-head").classList.add("active");
+ }
+
+ function  hideSubMenu(){  
+    subMenu.style.animation = "slideRight 0.5s ease forwards";
+    setTimeout(() =>{
+       subMenu.classList.remove("active");	
+    },300); 
+    menu.querySelector(".current-menu-title").innerHTML="";
+    menu.querySelector(".mobile-menu-head").classList.remove("active");
+ }
+ 
+ window.onresize = function(){
+ 	if(this.innerWidth >991){
+ 		if(menu.classList.contains("active")){
+ 			toggleMenu();
+ 		}
+
+ 	}
+ }
+</script>
