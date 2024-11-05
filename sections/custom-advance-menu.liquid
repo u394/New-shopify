@@ -1,6 +1,500 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+
+<style>
+  /* Basic Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  /* Navbar Styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+  }
+
+  .navbar h1 {
+    font-size: 1.5em;
+  }
+
+  .menu {
+    display: flex;
+    list-style: none;
+  }
+
+  .menu li {
+    position: relative;
+    margin-right: 20px;
+  }
+
+  .menu a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    display: block;
+  }
+
+  .menu a:hover {
+    background-color: #555;
+  }
+
+  /* Mega Menu Styling */
+  .megamenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #444;
+    padding: 20px;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .menu li:hover .megamenu {
+    display: block;
+  }
+
+  /* Collections Section */
+  .collections {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .collections a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 0;
+    display: block;
+  }
+
+  .collections .column {
+    width: 20%;
+  }
+
+  /* Colors Section */
+  .colors {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .colors-section {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  .color-item {
+    text-align: center;
+  }
+
+  .color-box {
+    width: 100%;
+    padding-top: 100%; /* 1:1 aspect ratio */
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .color-name {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #ddd;
+  }
+
+  /* Mobile Styling */
+  .hamburger {
+    display: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .menu.active {
+      display: flex;
+    }
+
+    .megamenu {
+      position: relative;
+      width: 100%;
+    }
+  }
+</style>
+
+
+<div class="navbar">
+  <h1>My Shop</h1>
+  <span class="hamburger">&#9776;</span>
+  <ul class="menu">
+    <li><a href="#collections">Collections</a>
+      <div class="megamenu">
+        <div class="collections">
+          <div class="column">
+            <h3>Popular Collections</h3>
+            <a href="#collection1">Collection 1</a>
+            <a href="#collection2">Collection 2</a>
+            <a href="#collection3">Collection 3</a>
+            <a href="#collection4">Collection 4</a>
+          </div>
+          <div class="column">
+            <h3>Featured Collections</h3>
+            <a href="#collection5">Collection 5</a>
+            <a href="#collection6">Collection 6</a>
+            <a href="#collection7">Collection 7</a>
+            <a href="#collection8">Collection 8</a>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li><a href="#colors">Colors</a>
+      <div class="megamenu">
+        <div class="colors">
+          <div class="colors-section">
+            <h3>Warm Colors</h3>
+            <div class="colors-section">
+              <div class="color-item">
+                <div class="color-box" style="background-color: #FF5733;"></div>
+                <div class="color-name">Red</div>
+              </div>
+              <div class="color-item">
+                <div class="color-box" style="background-color: #FF8D1A;"></div>
+                <div class="color-name">Orange</div>
+              </div>
+              <!-- Repeat more colors as needed -->
+            </div>
+          </div>
+          <div class="colors-section">
+            <h3>Cool Colors</h3>
+            <div class="colors-section">
+              <div class="color-item">
+                <div class="color-box" style="background-color: #1A73FF;"></div>
+                <div class="color-name">Blue</div>
+              </div>
+              <div class="color-item">
+                <div class="color-box" style="background-color: #33C1FF;"></div>
+                <div class="color-name">Sky Blue</div>
+              </div>
+              <!-- Repeat more colors as needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<script>
+  // Toggle mobile menu
+  document.querySelector('.hamburger').addEventListener('click', () => {
+    document.querySelector('.menu').classList.toggle('active');
+  });
+</script>
+
+{% schema %}
+{
+  "name": "New Featured Collection",
+  "tag": "section",
+  "class": "custom-featured-collection",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Featured collection",
+      "label": "t:sections.featured-collection.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.featured-collection.settings.description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "t:sections.featured-collection.settings.show_description.label",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "description_style",
+      "label": "t:sections.featured-collection.settings.description_style.label",
+      "options": [
+        {
+          "value": "body",
+          "label": "t:sections.featured-collection.settings.description_style.options__1.label"
+        },
+        {
+          "value": "subtitle",
+          "label": "t:sections.featured-collection.settings.description_style.options__2.label"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.featured-collection.settings.description_style.options__3.label"
+        }
+      ],
+      "default": "body"
+    },
+    {
+      "type": "url",
+      "id": "ship_link",
+      "label": "Shipping Link"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:sections.featured-collection.settings.collection.label"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.featured-collection.settings.products_to_show.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.featured-collection.settings.columns_desktop.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "t:sections.featured-collection.settings.full_width.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "t:sections.featured-collection.settings.show_view_all.label"
+    },
+    {
+      "type": "select",
+      "id": "view_all_style",
+      "label": "t:sections.featured-collection.settings.view_all_style.label",
+      "options": [
+        {
+          "value": "link",
+          "label": "t:sections.featured-collection.settings.view_all_style.options__1.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.featured-collection.settings.view_all_style.options__2.label"
+        },
+        {
+          "value": "solid",
+          "label": "t:sections.featured-collection.settings.view_all_style.options__3.label"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_desktop_slider",
+      "label": "t:sections.featured-collection.settings.enable_desktop_slider.label",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "slider__item",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Product Slider Item"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.header.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.featured-collection.settings.image_ratio.label"
+    },
+    {
+      "type": "select",
+      "id": "image_shape",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.all.image_shape.options__1.label"
+        },
+        {
+          "value": "arch",
+          "label": "t:sections.all.image_shape.options__2.label"
+        },
+        {
+          "value": "blob",
+          "label": "t:sections.all.image_shape.options__3.label"
+        },
+        {
+          "value": "chevronleft",
+          "label": "t:sections.all.image_shape.options__4.label"
+        },
+        {
+          "value": "chevronright",
+          "label": "t:sections.all.image_shape.options__5.label"
+        },
+        {
+          "value": "diamond",
+          "label": "t:sections.all.image_shape.options__6.label"
+        },
+        {
+          "value": "parallelogram",
+          "label": "t:sections.all.image_shape.options__7.label"
+        },
+        {
+          "value": "round",
+          "label": "t:sections.all.image_shape.options__8.label"
+        }
+      ],
+      "default": "default",
+      "label": "t:sections.all.image_shape.label",
+      "info": "t:sections.all.image_shape.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.show_rating.label",
+      "info": "t:sections.featured-collection.settings.show_rating.info"
+    },
+     {
+      "type": "select",
+      "id": "quick_add",
+      "default": "standard",
+      "label": "Add to Cart Button Standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_2"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.enable_quick_buy.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "textarea",
+      "id": "style_section",
+      "label": "Style Section"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Menu"
+    }
+  ]
+}
 {% endschema %}
