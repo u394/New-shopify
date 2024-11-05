@@ -44,71 +44,11 @@
 
   /* Mega menu styling */
   .custom-new-navbar .megamenu {
-    display: none;
+    display: none; /* Initially hidden */
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
-    background-color: #444;
-    padding: 20px;
-    color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-  }
-
-  /* Show mega menu on hover */
-  .custom-new-navbar .menu li:hover .megamenu {
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Full-Width Navbar with Mega Menu</title>
-<style>
-  /* Parent class for the entire navbar */
-  .custom-new-navbar {
-    background-color: #333;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    position: relative;
-  }
-
-  /* Main menu styling */
-  .custom-new-navbar .menu {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .custom-new-navbar .menu li {
-    position: relative;
-    padding: 0 20px;
-  }
-
-  .custom-new-navbar .menu a {
-    text-decoration: none;
-    color: white;
-    padding: 15px 20px;
-    display: block;
-    font-weight: bold;
-  }
-
-  /* Hover effect */
-  .custom-new-navbar .menu a:hover {
-    background-color: #555;
-  }
-
-  /* Mega menu styling */
-  .custom-new-navbar .megamenu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
+    width: 100%; /* Full width */
     background-color: #444;
     padding: 30px 60px;
     color: white;
@@ -119,7 +59,7 @@
 
   /* Show mega menu on hover */
   .custom-new-navbar .menu li:hover .megamenu {
-    display: flex;
+    display: flex; /* Show on hover */
   }
 
   /* Mega menu layout */
@@ -152,7 +92,7 @@
     color: white;
     text-decoration: none;
     padding: 5px 0;
-    flex: 1 1 30%;
+    flex: 1 1 30%; /* Allow flexibility in width */
   }
 
   /* Colors section styling */
@@ -209,7 +149,8 @@
 
 <div class="custom-new-navbar">
   <ul class="menu">
-    <li><a href="#">Collections</a>
+    <li>
+      <a href="#">Collections</a>
       <div class="megamenu">
         <div class="collections">
           <h3>Popular Collections</h3>
@@ -224,7 +165,8 @@
         </div>
       </div>
     </li>
-    <li><a href="#">Colors</a>
+    <li>
+      <a href="#">Colors</a>
       <div class="megamenu">
         <div class="colors">
           <h3>Warm Colors</h3>
@@ -253,6 +195,7 @@
 
 </body>
 </html>
+
 
 
 
