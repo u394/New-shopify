@@ -4,17 +4,11 @@
   .custom-new-navbar {
     background-color: #333;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     position: relative;
-  }
-
-  /* Logo/title styling */
-  .custom-new-navbar .logo {
-    font-size: 1.5em;
-    color: white;
   }
 
   /* Main menu styling */
@@ -33,6 +27,7 @@
     color: white;
     padding: 10px 15px;
     display: block;
+    font-weight: bold;
   }
 
   /* Hover effect */
@@ -51,24 +46,28 @@
     padding: 20px;
     color: white;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
   }
 
   /* Show mega menu on hover */
   .custom-new-navbar .menu li:hover .megamenu {
-    display: block;
+    display: flex;
+  }
+
+  /* Mega menu layout */
+  .custom-new-navbar .megamenu {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
   }
 
   /* Collections and Colors sections in the mega menu */
   .custom-new-navbar .collections,
   .custom-new-navbar .colors {
     display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-  }
-
-  .custom-new-navbar .collections .column,
-  .custom-new-navbar .colors .color-section {
-    width: 20%;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
   }
 
   /* Link styling within collections */
@@ -85,12 +84,12 @@
   }
 
   .custom-new-navbar .color-box {
-    width: 100%;
-    padding-top: 100%; /* 1:1 aspect ratio */
+    width: 50px;
+    height: 50px;
     border-radius: 4px;
     background-size: cover;
     background-position: center;
-    margin-bottom: 5px;
+    margin: 5px auto;
   }
 
   .custom-new-navbar .color-name {
@@ -98,100 +97,66 @@
     color: #ddd;
   }
 
-  /* Hamburger menu styling */
-  .custom-new-navbar .hamburger {
-    display: none;
-    font-size: 1.5em;
-    cursor: pointer;
-    color: white;
-  }
-
-  /* Mobile styling */
+  /* Responsive adjustments */
   @media (max-width: 768px) {
     .custom-new-navbar .menu {
-      display: none;
       flex-direction: column;
-      width: 100%;
-    }
-
-    .custom-new-navbar .hamburger {
-      display: block;
-    }
-
-    .custom-new-navbar .menu.active {
-      display: flex;
+      align-items: center;
     }
 
     .custom-new-navbar .megamenu {
       position: relative;
       width: 100%;
+      flex-direction: column;
     }
   }
 </style>
 
 
 <div class="custom-new-navbar">
-  <div class="logo">My Shop</div>
-  <span class="hamburger">&#9776;</span>
   <ul class="menu">
     <li><a href="#">Collections</a>
       <div class="megamenu">
         <div class="collections">
-          <div class="column">
-            <h3>Popular Collections</h3>
-            <a href="#collection1">Collection 1</a>
-            <a href="#collection2">Collection 2</a>
-            <a href="#collection3">Collection 3</a>
-          </div>
-          <div class="column">
-            <h3>Featured Collections</h3>
-            <a href="#collection4">Collection 4</a>
-            <a href="#collection5">Collection 5</a>
-            <a href="#collection6">Collection 6</a>
-          </div>
+          <h3>Popular Collections</h3>
+          <a href="#collection1">Collection 1</a>
+          <a href="#collection2">Collection 2</a>
+          <a href="#collection3">Collection 3</a>
+          <h3>Featured Collections</h3>
+          <a href="#collection4">Collection 4</a>
+          <a href="#collection5">Collection 5</a>
+          <a href="#collection6">Collection 6</a>
         </div>
       </div>
     </li>
     <li><a href="#">Colors</a>
       <div class="megamenu">
         <div class="colors">
-          <div class="color-section">
-            <h3>Warm Colors</h3>
-            <div class="color-item">
-              <div class="color-box" style="background-color: #FF5733;"></div>
-              <div class="color-name">Red</div>
-            </div>
-            <div class="color-item">
-              <div class="color-box" style="background-color: #FF8D1A;"></div>
-              <div class="color-name">Orange</div>
-            </div>
-            <!-- Add more color items as needed -->
+          <h3>Warm Colors</h3>
+          <div class="color-item">
+            <div class="color-box" style="background-color: #FF5733;"></div>
+            <div class="color-name">Red</div>
           </div>
-          <div class="color-section">
-            <h3>Cool Colors</h3>
-            <div class="color-item">
-              <div class="color-box" style="background-color: #1A73FF;"></div>
-              <div class="color-name">Blue</div>
-            </div>
-            <div class="color-item">
-              <div class="color-box" style="background-color: #33C1FF;"></div>
-              <div class="color-name">Sky Blue</div>
-            </div>
-            <!-- Add more color items as needed -->
+          <div class="color-item">
+            <div class="color-box" style="background-color: #FF8D1A;"></div>
+            <div class="color-name">Orange</div>
           </div>
+          <!-- Add more warm colors as needed -->
+          <h3>Cool Colors</h3>
+          <div class="color-item">
+            <div class="color-box" style="background-color: #1A73FF;"></div>
+            <div class="color-name">Blue</div>
+          </div>
+          <div class="color-item">
+            <div class="color-box" style="background-color: #33C1FF;"></div>
+            <div class="color-name">Sky Blue</div>
+          </div>
+          <!-- Add more cool colors as needed -->
         </div>
       </div>
     </li>
   </ul>
 </div>
-
-<script>
-  // Toggle mobile menu
-  document.querySelector('.hamburger').addEventListener('click', () => {
-    document.querySelector('.menu').classList.toggle('active');
-  });
-</script>
-
 
 
 
