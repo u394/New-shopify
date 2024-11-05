@@ -3,6 +3,7 @@
 .custom-new-navbar {
   background-color: #333;
   padding: 1rem;
+  position: relative;
 }
 
 .custom-new-navbar ul {
@@ -60,60 +61,85 @@
   margin-right: 0.5rem;
 }
 
+/* Hamburger menu styling */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .custom-new-navbar ul {
+    display: none; /* Hide menu by default */
     flex-direction: column;
   }
 
   .custom-new-navbar ul li {
     margin: 0.5rem 0;
   }
+
+  .hamburger {
+    display: block; /* Show hamburger on small screens */
+  }
+
+  .navbar-active {
+    display: flex; /* Show menu when active */
+  }
 }
+
 
 
 </style>
 <div class="custom-new-navbar">
- <ul>
-   <li>
-     <h3>Popular Collections</h3>
-   <div class="custom-menu-collection">
-    <a href="#collection1">Collection 1</a>
-    <a href="#collection2">Collection 2</a>
-    <a href="#collection3">Collection 3</a>
-    <a href="#collection4">Collection 4</a>
-    <a href="#collection5">Collection 5</a>
-    <a href="#collection6">Collection 6</a>
-  </div>
-   </li>
-     <li>
+    <div class="hamburger" onclick="toggleMenu()">
+        &#9776; <!-- Hamburger Icon -->
+    </div>
+    <ul id="navbar-menu">
+        <li>
             <h3>Popular Collections</h3>
-<div class="custom-menu-colors">
-          <h3>Warm Colors</h3>
-          <div class="color-item">
-            <div class="color-box" style="background-color: #FF5733;"></div>
-            <div class="color-name">Red</div>
-          </div>
-          <div class="color-item">
-            <div class="color-box" style="background-color: #FF8D1A;"></div>
-            <div class="color-name">Orange</div>
-          </div>
-          <h3>Cool Colors</h3>
-          <div class="color-item">
-            <div class="color-box" style="background-color: #1A73FF;"></div>
-            <div class="color-name">Blue</div>
-          </div>
-          <div class="color-item">
-            <div class="color-box" style="background-color: #33C1FF;"></div>
-            <div class="color-name">Sky Blue</div>
-          </div>
-        </div> 
-
-   </li>
- </ul>
-
-  
+            <div class="custom-menu-collection">
+                <a href="#collection1">Collection 1</a>
+                <a href="#collection2">Collection 2</a>
+                <a href="#collection3">Collection 3</a>
+                <a href="#collection4">Collection 4</a>
+                <a href="#collection5">Collection 5</a>
+                <a href="#collection6">Collection 6</a>
+            </div>
+        </li>
+        <li>
+            <h3>Popular Colors</h3>
+            <div class="custom-menu-colors">
+                <h3>Warm Colors</h3>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #FF5733;"></div>
+                    <div class="color-name">Red</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #FF8D1A;"></div>
+                    <div class="color-name">Orange</div>
+                </div>
+                <h3>Cool Colors</h3>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #1A73FF;"></div>
+                    <div class="color-name">Blue</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-box" style="background-color: #33C1FF;"></div>
+                    <div class="color-name">Sky Blue</div>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("navbar-menu");
+    menu.classList.toggle("navbar-active"); // Toggle the active class
+}
+
+</script>
 
 
 
