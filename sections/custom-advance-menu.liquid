@@ -1,3 +1,77 @@
+<style>
+  /* Basic Navbar Styling */
+.custom-new-navbar {
+  background-color: #333;
+  padding: 1rem;
+}
+
+.custom-new-navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.custom-new-navbar ul li {
+  position: relative;
+  margin-right: 2rem;
+}
+
+.custom-new-navbar ul li h3 {
+  color: white;
+  cursor: pointer;
+}
+
+/* Dropdown Menu Styling */
+.custom-menu-collection,
+.custom-menu-colors {
+  display: none; /* Hide initially */
+  position: absolute;
+  background-color: #444;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  top: 100%;
+  left: 0;
+  width: max-content;
+  z-index: 10;
+}
+
+.custom-menu-collection a,
+.custom-menu-colors .color-name {
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Show dropdown on hover */
+.custom-new-navbar ul li:hover .custom-menu-collection,
+.custom-new-navbar ul li:hover .custom-menu-colors {
+  display: block;
+}
+
+/* Color box styling */
+.color-box {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .custom-new-navbar ul {
+    flex-direction: column;
+  }
+
+  .custom-new-navbar ul li {
+    margin: 0.5rem 0;
+  }
+}
+
+</style>
 <div class="custom-new-navbar">
  <ul>
    <li>
