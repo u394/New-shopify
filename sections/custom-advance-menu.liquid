@@ -1,161 +1,119 @@
 <style>
 /* Basic Navbar Styling */
 .custom-new-navbar {
-    background-color: #333;
-    padding: 1rem;
-    position: relative;
+  background-color: #333;
+  padding: 1rem;
 }
 
-.hamburger {
-    display: none; /* Initially hide on larger screens */
-    cursor: pointer;
-    font-size: 24px;
-    color: white;
+.custom-new-navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-/* Sidebar Styling */
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: -300px; /* Hide the sidebar initially */
-    width: 250px; /* Width of the sidebar */
-    height: 100%;
-    background-color: #444;
-    padding: 1rem;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    transition: right 0.3s ease; /* Smooth transition for opening */
-    z-index: 1000;
+.custom-new-navbar ul li {
+  position: relative;
+  margin-right: 2rem;
 }
 
-.sidebar-active {
-    right: 0; /* Show the sidebar */
+.custom-new-navbar ul li h3 {
+  color: white;
+  cursor: pointer;
 }
 
-.sidebar-close {
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    margin-bottom: 1rem;
+/* Dropdown Menu Styling */
+.custom-menu-collection,
+.custom-menu-colors {
+  display: none; /* Hide initially */
+  position: absolute;
+  background-color: #444;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  top: 100%;
+  left: 0;
+  width: max-content;
+  z-index: 10;
 }
 
-/* Desktop Menu Styling */
-.desktop-menu {
-    display: flex;
-    justify-content: space-around; /* Space items evenly */
+.custom-menu-collection a,
+.custom-menu-colors .color-name {
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
-.desktop-menu li {
-    position: relative;
-    margin-right: 2rem;
+/* Show dropdown on hover */
+.custom-new-navbar ul li:hover .custom-menu-collection,
+.custom-new-navbar ul li:hover .custom-menu-colors {
+  display: block;
 }
 
-.desktop-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/* Color box styling */
+.color-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 0.25rem;
+  display: inline-block !important;
+  margin-right: 0.5rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .desktop-menu {
-        display: none; /* Hide desktop menu on mobile */
-    }
+  .custom-new-navbar ul {
+    flex-direction: column;
+  }
 
-    .hamburger {
-        display: block; /* Show hamburger on small screens */
-    }
+  .custom-new-navbar ul li {
+    margin: 0.5rem 0;
+  }
 }
+
 
 </style>
 <div class="custom-new-navbar">
-    <div class="hamburger" onclick="toggleSidebar()">
-        &#9776; <!-- Hamburger Icon -->
-    </div>
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-close" onclick="toggleSidebar()">×</div> <!-- Close Button -->
-        <ul>
-            <li>
-                <h3>Popular Collections</h3>
-                <div class="custom-menu-collection">
-                    <a href="#collection1">Collection 1</a>
-                    <a href="#collection2">Collection 2</a>
-                    <a href="#collection3">Collection 3</a>
-                    <a href="#collection4">Collection 4</a>
-                    <a href="#collection5">Collection 5</a>
-                    <a href="#collection6">Collection 6</a>
-                </div>
-            </li>
-            <li>
-                <h3>Popular Colors</h3>
-                <div class="custom-menu-colors">
-                    <h3>Warm Colors</h3>
-                    <div class="color-item">
-                        <div class="color-box" style="background-color: #FF5733;"></div>
-                        <div class="color-name">Red</div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background-color: #FF8D1A;"></div>
-                        <div class="color-name">Orange</div>
-                    </div>
-                    <h3>Cool Colors</h3>
-                    <div class="color-item">
-                        <div class="color-box" style="background-color: #1A73FF;"></div>
-                        <div class="color-name">Blue</div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background-color: #33C1FF;"></div>
-                        <div class="color-name">Sky Blue</div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <ul class="desktop-menu">
-        <li>
+ <ul>
+   <li>
+     <h3>Popular Collections</h3>
+   <div class="custom-menu-collection">
+    <a href="#collection1">Collection 1</a>
+    <a href="#collection2">Collection 2</a>
+    <a href="#collection3">Collection 3</a>
+    <a href="#collection4">Collection 4</a>
+    <a href="#collection5">Collection 5</a>
+    <a href="#collection6">Collection 6</a>
+  </div>
+   </li>
+     <li>
             <h3>Popular Collections</h3>
-            <div class="custom-menu-collection">
-                <a href="#collection1">Collection 1</a>
-                <a href="#collection2">Collection 2</a>
-                <a href="#collection3">Collection 3</a>
-                <a href="#collection4">Collection 4</a>
-                <a href="#collection5">Collection 5</a>
-                <a href="#collection6">Collection 6</a>
-            </div>
-        </li>
-        <li>
-            <h3>Popular Colors</h3>
-            <div class="custom-menu-colors">
-                <h3>Warm Colors</h3>
-                <div class="color-item">
-                    <div class="color-box" style="background-color: #FF5733;"></div>
-                    <div class="color-name">Red</div>
-                </div>
-                <div class="color-item">
-                    <div class="color-box" style="background-color: #FF8D1A;"></div>
-                    <div class="color-name">Orange</div>
-                </div>
-                <h3>Cool Colors</h3>
-                <div class="color-item">
-                    <div class="color-box" style="background-color: #1A73FF;"></div>
-                    <div class="color-name">Blue</div>
-                </div>
-                <div class="color-item">
-                    <div class="color-box" style="background-color: #33C1FF;"></div>
-                    <div class="color-name">Sky Blue</div>
-                </div>
-            </div>
-        </li>
-    </ul>
+<div class="custom-menu-colors">
+          <h3>Warm Colors</h3>
+          <div class="color-item">
+            <div class="color-box" style="background-color: #FF5733;"></div>
+            <div class="color-name">Red</div>
+          </div>
+          <div class="color-item">
+            <div class="color-box" style="background-color: #FF8D1A;"></div>
+            <div class="color-name">Orange</div>
+          </div>
+          <h3>Cool Colors</h3>
+          <div class="color-item">
+            <div class="color-box" style="background-color: #1A73FF;"></div>
+            <div class="color-name">Blue</div>
+          </div>
+          <div class="color-item">
+            <div class="color-box" style="background-color: #33C1FF;"></div>
+            <div class="color-name">Sky Blue</div>
+          </div>
+        </div> 
+
+   </li>
+ </ul>
+
+  
 </div>
-
-<script>
-function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("sidebar-active"); // Toggle the active class
-}
-
-
-</script>
 
 
 
