@@ -1,53 +1,47 @@
 
 <style>
-  /* Basic Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: Arial, sans-serif;
-  }
-
-  /* Navbar Styling */
-  .navbar {
+  /* Parent class for the entire navbar */
+  .custom-new-navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
+    position: relative;
+  }
+
+  /* Logo/title styling */
+  .custom-new-navbar .logo {
+    font-size: 1.5em;
     color: white;
   }
 
-  .navbar h1 {
-    font-size: 1.5em;
-  }
-
-  .menu {
+  /* Main menu styling */
+  .custom-new-navbar .menu {
     display: flex;
     list-style: none;
   }
 
-  .menu li {
+  .custom-new-navbar .menu li {
     position: relative;
     margin-right: 20px;
   }
 
-  .menu a {
+  .custom-new-navbar .menu a {
     text-decoration: none;
     color: white;
     padding: 10px 15px;
     display: block;
   }
 
-  .menu a:hover {
+  /* Hover effect */
+  .custom-new-navbar .menu a:hover {
     background-color: #555;
   }
 
-  /* Mega Menu Styling */
-  .megamenu {
+  /* Mega menu styling */
+  .custom-new-navbar .megamenu {
     display: none;
     position: absolute;
     top: 100%;
@@ -59,83 +53,76 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  .menu li:hover .megamenu {
+  /* Show mega menu on hover */
+  .custom-new-navbar .menu li:hover .megamenu {
     display: block;
   }
 
-  /* Collections Section */
-  .collections {
+  /* Collections and Colors sections in the mega menu */
+  .custom-new-navbar .collections,
+  .custom-new-navbar .colors {
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
   }
 
-  .collections a {
+  .custom-new-navbar .collections .column,
+  .custom-new-navbar .colors .color-section {
+    width: 20%;
+  }
+
+  /* Link styling within collections */
+  .custom-new-navbar .collections a {
     color: white;
     text-decoration: none;
     padding: 5px 0;
     display: block;
   }
 
-  .collections .column {
-    width: 20%;
-  }
-
-  /* Colors Section */
-  .colors {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .colors-section {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-  }
-
-  .color-item {
+  /* Colors section */
+  .custom-new-navbar .color-item {
     text-align: center;
   }
 
-  .color-box {
+  .custom-new-navbar .color-box {
     width: 100%;
     padding-top: 100%; /* 1:1 aspect ratio */
     border-radius: 4px;
     background-size: cover;
     background-position: center;
+    margin-bottom: 5px;
   }
 
-  .color-name {
-    margin-top: 5px;
+  .custom-new-navbar .color-name {
     font-size: 0.9em;
     color: #ddd;
   }
 
-  /* Mobile Styling */
-  .hamburger {
+  /* Hamburger menu styling */
+  .custom-new-navbar .hamburger {
     display: none;
     font-size: 1.5em;
     cursor: pointer;
+    color: white;
   }
 
+  /* Mobile styling */
   @media (max-width: 768px) {
-    .menu {
+    .custom-new-navbar .menu {
       display: none;
       flex-direction: column;
       width: 100%;
     }
 
-    .hamburger {
+    .custom-new-navbar .hamburger {
       display: block;
     }
 
-    .menu.active {
+    .custom-new-navbar .menu.active {
       display: flex;
     }
 
-    .megamenu {
+    .custom-new-navbar .megamenu {
       position: relative;
       width: 100%;
     }
@@ -143,11 +130,11 @@
 </style>
 
 
-<div class="navbar">
-  <h1>My Shop</h1>
+<div class="custom-new-navbar">
+  <div class="logo">My Shop</div>
   <span class="hamburger">&#9776;</span>
   <ul class="menu">
-    <li><a href="#collections">Collections</a>
+    <li><a href="#">Collections</a>
       <div class="megamenu">
         <div class="collections">
           <div class="column">
@@ -155,48 +142,42 @@
             <a href="#collection1">Collection 1</a>
             <a href="#collection2">Collection 2</a>
             <a href="#collection3">Collection 3</a>
-            <a href="#collection4">Collection 4</a>
           </div>
           <div class="column">
             <h3>Featured Collections</h3>
+            <a href="#collection4">Collection 4</a>
             <a href="#collection5">Collection 5</a>
             <a href="#collection6">Collection 6</a>
-            <a href="#collection7">Collection 7</a>
-            <a href="#collection8">Collection 8</a>
           </div>
         </div>
       </div>
     </li>
-    <li><a href="#colors">Colors</a>
+    <li><a href="#">Colors</a>
       <div class="megamenu">
         <div class="colors">
-          <div class="colors-section">
+          <div class="color-section">
             <h3>Warm Colors</h3>
-            <div class="colors-section">
-              <div class="color-item">
-                <div class="color-box" style="background-color: #FF5733;"></div>
-                <div class="color-name">Red</div>
-              </div>
-              <div class="color-item">
-                <div class="color-box" style="background-color: #FF8D1A;"></div>
-                <div class="color-name">Orange</div>
-              </div>
-              <!-- Repeat more colors as needed -->
+            <div class="color-item">
+              <div class="color-box" style="background-color: #FF5733;"></div>
+              <div class="color-name">Red</div>
             </div>
+            <div class="color-item">
+              <div class="color-box" style="background-color: #FF8D1A;"></div>
+              <div class="color-name">Orange</div>
+            </div>
+            <!-- Add more color items as needed -->
           </div>
-          <div class="colors-section">
+          <div class="color-section">
             <h3>Cool Colors</h3>
-            <div class="colors-section">
-              <div class="color-item">
-                <div class="color-box" style="background-color: #1A73FF;"></div>
-                <div class="color-name">Blue</div>
-              </div>
-              <div class="color-item">
-                <div class="color-box" style="background-color: #33C1FF;"></div>
-                <div class="color-name">Sky Blue</div>
-              </div>
-              <!-- Repeat more colors as needed -->
+            <div class="color-item">
+              <div class="color-box" style="background-color: #1A73FF;"></div>
+              <div class="color-name">Blue</div>
             </div>
+            <div class="color-item">
+              <div class="color-box" style="background-color: #33C1FF;"></div>
+              <div class="color-name">Sky Blue</div>
+            </div>
+            <!-- Add more color items as needed -->
           </div>
         </div>
       </div>
@@ -210,6 +191,9 @@
     document.querySelector('.menu').classList.toggle('active');
   });
 </script>
+
+
+
 
 {% schema %}
 {
