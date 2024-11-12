@@ -197,6 +197,23 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "featured_blog_nyKHAH": {
+      "type": "featured-blog",
+      "settings": {
+        "heading": "Blog posts",
+        "heading_size": "h1",
+        "blog": "video",
+        "post_limit": 3,
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "show_view_all": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -206,6 +223,7 @@
     "172303970550480d31",
     "custom_featured_collection_aeEiHK",
     "custom_featured_collection_LhPfBH",
-    "173038677819b7adf3"
+    "173038677819b7adf3",
+    "featured_blog_nyKHAH"
   ]
 }
