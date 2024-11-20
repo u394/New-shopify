@@ -2,32 +2,35 @@
 /* General Container Styling */
 .dropdown-container {
   font-family: 'Arial', sans-serif;
-  max-width: 400px;
+  max-width: 100%;
   margin: 20px auto;
   padding: 20px;
   background: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
+/* Labels (hidden for inline layout) */
 .dropdown-container label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #333;
+  display: none;
 }
 
+/* Dropdowns */
 .dropdown-container .form-select {
-  width: 100%;
+  flex: 1;
   padding: 10px;
-  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
   font-size: 14px;
   color: #333;
   transition: border-color 0.3s ease;
+  min-width: 150px;
 }
 
 .dropdown-container .form-select:focus {
@@ -41,8 +44,8 @@
   color: #6c757d;
 }
 
+/* Buttons */
 .dropdown-container .btn {
-  display: inline-block;
   padding: 10px 15px;
   font-size: 14px;
   border-radius: 4px;
@@ -78,6 +81,7 @@
   color: #6c757d;
   cursor: not-allowed;
 }
+
 
 </style>
 <div class="dropdown-container">
