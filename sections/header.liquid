@@ -1,3 +1,85 @@
+<style>
+/* General Container Styling */
+.dropdown-container {
+  font-family: 'Arial', sans-serif;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.dropdown-container .form-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.dropdown-container .form-select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.dropdown-container .form-select:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+}
+
+.dropdown-container .btn {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-container .btn-primary {
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  color: #fff;
+}
+
+.dropdown-container .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.dropdown-container .btn-secondary {
+  background-color: #6c757d;
+  border: 1px solid #6c757d;
+  color: #fff;
+}
+
+.dropdown-container .btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+.dropdown-container .btn:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+</style>
 <div class="dropdown-container">
   <!-- Maker Dropdown -->
   <label for="makerSelect">Choose Maker:</label>
