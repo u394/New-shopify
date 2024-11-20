@@ -160,23 +160,43 @@
     {% endif %}
 
     {% comment %}
-    Show custom text inside the li and change after every 7 products
+    First product is a special div with text, then products start after it
     {% endcomment %}
-    
-    <li
-      class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    {% if forloop.index == 1 %}
+      <li class="grid__item special-text">
+        <div class="custom-text-container">
+          <p>Special Offer: Limited time only, grab them while they last!</p>
+        </div>
+      </li>
+    {% endif %}
+
+    {% comment %}
+    Show custom text after every 7 products
+    {% endcomment %}
+    {% if forloop.index > 1 %}
+      {% assign adjusted_index = forloop.index | minus: 1 %}
+      {% if adjusted_index %}
+        {% assign remainder = adjusted_index | divided_by: 8 %}
+        {% if remainder == 0 %}
+          {% assign text_count = text_count | plus: 1 %}
+          <li class="grid__item special-text">
+            <div class="custom-text-container">
+              <p>Special Offer {{ text_count }}: Limited time only, grab them while they last!</p>
+            </div>
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    {% comment %}
+    Display product card for the current product
+    {% endcomment %}
+    <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
       {% if settings.animations_reveal_on_scroll %}
         data-cascade
         style="--animation-order: {{ forloop.index }};"
       {% endif %}
     >
-      {% if forloop.index == 1 or forloop.index == 8 or forloop.index == 15 or forloop.index == 22 %}
-        {% assign text_count = text_count | plus: 1 %}
-        <div class="custom-text-container">
-          <p>Special Offer {{ text_count }}: Limited time only, grab them while they last!</p>
-        </div>
-      {% endif %}
-
       {% render 'card-product',
         card_product: product,
         media_aspect_ratio: section.settings.image_ratio,
@@ -195,6 +215,10 @@
     {% assign skip_card_product_styles = true %}
   {%- endfor -%}
 </ul>
+
+
+
+
 
 
 
