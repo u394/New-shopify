@@ -194,13 +194,12 @@
     {% assign product_counter = product_counter | plus: 1 %}
     
     <!-- Add random text li after every 7th product -->
-    {% if product_counter == 6 %}
+    {% if forloop.index == 7 %}
       <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <div class="random-text">
           Random text Good Clothing <!-- This can be dynamic if needed -->
         </div>
       </li>
-      {% assign product_counter = 0 %} <!-- Reset counter after adding the random text -->
     {% endif %}
   {%- endfor -%}
 </ul>
