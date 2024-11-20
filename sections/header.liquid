@@ -1,3 +1,27 @@
+<div class="dropdown-container">
+  <!-- Maker Dropdown -->
+  <label for="makerSelect">Choose Maker:</label>
+  <select id="makerSelect" class="form-select">
+    <option value="">Select Maker</option>
+  <option value="Honda">Honda</option><option value="Toyota">Toyota</option></select>
+
+  <!-- Model Dropdown -->
+  <label for="modelSelect">Choose Model:</label>
+  <select id="modelSelect" class="form-select" disabled="">
+    <option value="">Select Model</option>
+  </select>
+
+  <!-- Parts Dropdown -->
+  <label for="partsSelect">Choose Part:</label>
+  <select id="partsSelect" class="form-select" disabled="">
+    <option value="">Select Part</option>
+  </select>
+
+  <!-- Action Buttons -->
+  <button id="goButton" class="btn btn-primary" disabled="">Go</button>
+  <button id="resetSelections" class="btn btn-secondary">Reset</button>
+</div>
+
 <h1>header</h1>
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         {%- liquid
