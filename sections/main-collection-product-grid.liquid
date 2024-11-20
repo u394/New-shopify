@@ -141,7 +141,7 @@
             class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
           >
             <div class="loading-overlay gradient"></div>
-    <ul
+<ul
   id="product-grid"
   data-id="{{ section.id }}"
   class="
@@ -152,10 +152,12 @@
 >
   {% assign skip_card_product_styles = false %}
   
-  <!-- New div with random text at the start -->
-  <div class="random-text">
-    Random text here <!-- You can make this dynamic or add more randomness -->
-  </div>
+  <!-- New li with random text at the start -->
+  <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="random-text">
+      Random text here <!-- You can make this dynamic or add more randomness -->
+    </div>
+  </li>
 
   {% assign product_counter = 0 %}
   
@@ -172,13 +174,6 @@
         style="--animation-order: {{ forloop.index }};"
       {% endif %}
     >
-      <!-- Only display random text for the first product -->
-      {% if forloop.index == 1 %}
-        <div class="random-text">
-          Random text {{ forloop.index }} <!-- Random text with product index -->
-        </div>
-      {% endif %}
-
       <div class="product-details">
         {% render 'card-product',
           card_product: product,
@@ -200,6 +195,7 @@
     {% assign product_counter = product_counter | plus: 1 %}
   {%- endfor -%}
 </ul>
+
 
 
             {%- if paginate.pages > 1 -%}
