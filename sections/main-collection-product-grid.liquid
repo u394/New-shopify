@@ -151,9 +151,15 @@
   "
 >
   {% assign skip_card_product_styles = false %}
-  {% assign product_counter = 1 %}
   
-  {%- for product in collection.products offset:1 -%} <!-- Start from second product -->
+  <!-- New div with random text at the start -->
+  <div class="random-text">
+    Random text here <!-- You can make this dynamic or add more randomness -->
+  </div>
+
+  {% assign product_counter = 0 %}
+  
+  {%- for product in collection.products -%}
     {% assign lazy_load = false %}
     {% if forloop.index > 2 %}
       {% assign lazy_load = true %}
@@ -166,10 +172,12 @@
         style="--animation-order: {{ forloop.index }};"
       {% endif %}
     >
-      <!-- New div with random text -->
-      <div class="random-text">
-        {{ 'Random text ' | append: forloop.index }} <!-- Random text with product index -->
-      </div>
+      <!-- Only display random text for the first product -->
+      {% if forloop.index == 1 %}
+        <div class="random-text">
+          Random text {{ forloop.index }} <!-- Random text with product index -->
+        </div>
+      {% endif %}
 
       <div class="product-details">
         {% render 'card-product',
