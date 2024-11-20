@@ -152,13 +152,13 @@
 >
   {% assign skip_card_product_styles = false %}
   
-  <!-- Show random text at the start -->
+  <!-- New li with random text at the start -->
   <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="random-text">
       Random text here <!-- You can make this dynamic or add more randomness -->
     </div>
   </li>
-  
+
   {% assign product_counter = 0 %}
   
   {%- for product in collection.products -%}
@@ -192,20 +192,18 @@
 
     {% assign skip_card_product_styles = true %}
     {% assign product_counter = product_counter | plus: 1 %}
-
-    <!-- Add random text li after every 6 products (i.e., after the 7th, 14th, 21st, etc.) -->
+    
+    <!-- Add random text li after every 7th product -->
     {% if product_counter == 6 %}
       <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <div class="random-text">
-          Random text Good Clothing very good clothing <!-- This can be dynamic if needed -->
+          Random text Good Clothing <!-- This can be dynamic if needed -->
         </div>
       </li>
       {% assign product_counter = 0 %} <!-- Reset counter after adding the random text -->
     {% endif %}
   {%- endfor -%}
 </ul>
-
-
 
 
 
