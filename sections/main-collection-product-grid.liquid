@@ -151,7 +151,7 @@
   "
 >
   {% assign skip_card_product_styles = false %}
-  {% assign button_count = 0 %}
+  {% assign text_count = 0 %}
 
   {%- for product in collection.products -%}
     {% assign lazy_load = false %}
@@ -160,24 +160,9 @@
     {% endif %}
 
     {% comment %}
-    Add a custom div with different text at the start and after every 7 products
+    Show custom text inside the li and change after every 7 products
     {% endcomment %}
     
-    {% if forloop.index == 1 %}
-      {% assign button_count = button_count | plus: 1 %}
-      <div class="custom-text-container">
-        <p>Special Offer 1: Check out our newest arrivals!</p>
-      </div>
-    {% elsif forloop.index > 1 %}
-      {% assign mod_check = forloop.index | modulo: 7 %}
-      {% if mod_check == 0 %}
-        {% assign button_count = button_count | plus: 1 %}
-        <div class="custom-text-container">
-          <p>Special Offer {{ button_count }}: Limited time discounts available!</p>
-        </div>
-      {% endif %}
-    {% endif %}
-
     <li
       class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
       {% if settings.animations_reveal_on_scroll %}
@@ -185,6 +170,13 @@
         style="--animation-order: {{ forloop.index }};"
       {% endif %}
     >
+      {% if forloop.index == 1 or forloop.index == 8 or forloop.index == 15 or forloop.index == 22 %}
+        {% assign text_count = text_count | plus: 1 %}
+        <div class="custom-text-container">
+          <p>Special Offer {{ text_count }}: Limited time only, grab them while they last!</p>
+        </div>
+      {% endif %}
+
       {% render 'card-product',
         card_product: product,
         media_aspect_ratio: section.settings.image_ratio,
@@ -203,6 +195,12 @@
     {% assign skip_card_product_styles = true %}
   {%- endfor -%}
 </ul>
+
+
+
+
+
+
 
 
 
