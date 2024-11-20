@@ -155,8 +155,7 @@
   <!-- New li with random text at the start -->
   <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="random-text">
-      {% assign random_texts = "Random text here, New collection for you, Fashionable looks, Trendy styles" | split: "," %}
-      {{ random_texts | sample }}
+      Random text here <!-- You can make this dynamic or add more randomness -->
     </div>
   </li>
 
@@ -198,35 +197,30 @@
     {% if forloop.index == 6 %}
       <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <div class="random-text">
-          {% assign random_texts = "Good Clothing, Amazing styles, Fresh looks, Hot picks" | split: "," %}
-          {{ random_texts | sample }}
+          Random text Good Clothing <!-- This can be dynamic if needed -->
         </div>
       </li>
-    {% elsif forloop.index == 13 %}
+      {% elsif forloop.index == 13 %}
       <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <div class="random-text">
-          {% assign random_texts = "Good Clothing very, Style you need, Perfect fit, Latest trends" | split: "," %}
-          {{ random_texts | sample }}
+          Random text Good Clothing very <!-- This can be dynamic if needed -->
         </div>
       </li>
-    {% elsif forloop.index == 20 %}
+       {% elsif forloop.index == 20 %}
       <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <div class="random-text">
-          {% assign random_texts = "Good Clothing very good, Shop now, Best styles, Unbeatable prices" | split: "," %}
-          {{ random_texts | sample }}
+          Random text Good Clothing very g<!-- This can be dynamic if needed -->
         </div>
       </li>
-    {% elsif forloop.index == 27 %}
+      {% elsif forloop.index == 27 %}
       <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <div class="random-text">
-          {% assign random_texts = "Good Clothing very great, Summer collection, Hot fashion, Now in stock" | split: "," %}
-          {{ random_texts | sample }}
+          Random text Good Clothing very g<!-- This can be dynamic if needed -->
         </div>
       </li>
     {% endif %}
   {%- endfor -%}
 </ul>
-
 
 
 
