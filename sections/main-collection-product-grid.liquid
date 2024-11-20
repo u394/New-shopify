@@ -160,20 +160,20 @@
     {% endif %}
 
     {% comment %}
-    Add a button at the start and after every 7 products
+    Add a custom div with different text at the start and after every 7 products
     {% endcomment %}
     
     {% if forloop.index == 1 %}
       {% assign button_count = button_count | plus: 1 %}
-      <div class="custom-button-container">
-        <button class="custom-button">Button {{ button_count }}</button>
+      <div class="custom-text-container">
+        <p>Special Offer 1: Check out our newest arrivals!</p>
       </div>
     {% elsif forloop.index > 1 %}
       {% assign mod_check = forloop.index | modulo: 7 %}
       {% if mod_check == 0 %}
         {% assign button_count = button_count | plus: 1 %}
-        <div class="custom-button-container">
-          <button class="custom-button">Button {{ button_count }}</button>
+        <div class="custom-text-container">
+          <p>Special Offer {{ button_count }}: Limited time discounts available!</p>
         </div>
       {% endif %}
     {% endif %}
@@ -203,6 +203,7 @@
     {% assign skip_card_product_styles = true %}
   {%- endfor -%}
 </ul>
+
 
 
 
