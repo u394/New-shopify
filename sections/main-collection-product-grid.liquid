@@ -200,6 +200,12 @@
           Random text Good Clothing <!-- This can be dynamic if needed -->
         </div>
       </li>
+      {% elsif forloop.index == 12 %}
+      <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <div class="random-text">
+          Random text Good Clothing very <!-- This can be dynamic if needed -->
+        </div>
+      </li>
     {% endif %}
   {%- endfor -%}
 </ul>
