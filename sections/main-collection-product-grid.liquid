@@ -151,15 +151,33 @@
   "
 >
   {% assign skip_card_product_styles = false %}
+  {% assign button_count = 0 %}
+
   {%- for product in collection.products -%}
     {% assign lazy_load = false %}
-    {%- if forloop.index > 2 -%}
-      {%- assign lazy_load = true -%}
-    {%- endif -%}
+    {% if forloop.index > 2 %}
+      {% assign lazy_load = true %}
+    {% endif %}
 
     {% comment %}
-    Render product card
+    Add a button at the start and after every 7 products
     {% endcomment %}
+    
+    {% if forloop.index == 1 %}
+      {% assign button_count = button_count | plus: 1 %}
+      <div class="custom-button-container">
+        <button class="custom-button">Button {{ button_count }}</button>
+      </div>
+    {% elsif forloop.index > 1 %}
+      {% assign mod_check = forloop.index | modulo: 7 %}
+      {% if mod_check == 0 %}
+        {% assign button_count = button_count | plus: 1 %}
+        <div class="custom-button-container">
+          <button class="custom-button">Button {{ button_count }}</button>
+        </div>
+      {% endif %}
+    {% endif %}
+
     <li
       class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
       {% if settings.animations_reveal_on_scroll %}
@@ -182,19 +200,18 @@
       %}
     </li>
 
-    {%- assign skip_card_product_styles = true -%}
-
-    {% comment %}
-    Add a div with a button after every 4th product
-    {% endcomment %}
-    {% assign remainder = forloop.index | modulo: 3 %}
-    {% if remainder == 0 %}
-      <div class="custom-button-container">
-        <button class="custom-button">Click Me</button>
-      </div>
-    {% endif %}
+    {% assign skip_card_product_styles = true %}
   {%- endfor -%}
 </ul>
+
+
+
+
+
+
+
+
+
 
 
 
