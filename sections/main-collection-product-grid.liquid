@@ -169,7 +169,7 @@
         <button class="custom-button">Button {{ button_count }}</button>
       </div>
     {% elsif forloop.index > 1 %}
-      {% assign mod_check = forloop.index | modulo: 7 %}
+      {% assign mod_check = forloop.index | modulo: 8 %}
       {% if mod_check == 0 %}
         {% assign button_count = button_count | plus: 1 %}
         <div class="custom-button-container">
