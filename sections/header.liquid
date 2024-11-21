@@ -103,6 +103,155 @@
   <button id="resetSelections" class="btn btn-secondary">Reset</button>
 </div>
 
+
+<script>
+  // Define the collections and URLs
+  const collections = [
+    {% for collection in collections %}
+      {% if collection.title contains 'Maker:' or collection.title contains 'Model:' or collection.title contains 'Part:' %}
+        "{{ collection.title }}",
+      {% endif %}
+    {% endfor %}
+  ];
+
+  const collectionURLs = {
+    {% for collection in collections %}
+      {% if collection.title contains 'Maker:' or collection.title contains 'Model:' or collection.title contains 'Part:' %}
+        "{{ collection.title }}": "{{ collection.url }}",
+      {% endif %}
+    {% endfor %}
+  };
+
+  console.log(collections, collectionURLs);  // Debugging collections and URLs
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get references to the select elements and buttons
+    const makerSelect = document.getElementById("makerSelect");
+    const modelSelect = document.getElementById("modelSelect");
+    const partsSelect = document.getElementById("partsSelect");
+    const goButton = document.getElementById("goButton");
+    const resetSelectionsButton = document.getElementById("resetSelections");
+
+    // Disable fields and button initially
+    modelSelect.disabled = true;
+    partsSelect.disabled = true;
+    goButton.disabled = true;
+
+    // Function to filter collections based on a prefix
+    function filterCollections(prefix, keyword) {
+      return collections.filter(collection => {
+        return collection.startsWith(prefix) && (!keyword || collection.includes(keyword));
+      });
+    }
+
+    // Populate Maker dropdown
+    const makerOptions = filterCollections('Maker:');
+    makerOptions.forEach(option => {
+      const makerName = option.replace('Maker: ', '');
+      makerSelect.options.add(new Option(makerName, makerName));
+    });
+
+    // Event listener for Maker select
+    makerSelect.addEventListener("change", function () {
+      const selectedMaker = makerSelect.value;
+      if (!selectedMaker) {
+        modelSelect.disabled = true;
+        partsSelect.disabled = true;
+        goButton.disabled = true;
+        return;
+      }
+
+      // Filter and populate Model dropdown based on selected Maker
+      const modelOptions = filterCollections('Model:', `(${selectedMaker})`);
+      modelSelect.innerHTML = '<option value="">Select Model</option>';
+      modelOptions.forEach(option => {
+        const modelName = option.replace('Model: ', '').replace(`(${selectedMaker})`, '').trim();
+        modelSelect.options.add(new Option(modelName, modelName));
+      });
+      modelSelect.disabled = false;
+      partsSelect.disabled = true;
+      goButton.disabled = false;  // Enable Go button after selecting Maker
+    });
+
+    // Event listener for Model select
+    modelSelect.addEventListener("change", function () {
+      const selectedModel = modelSelect.value;
+      if (!selectedModel) {
+        partsSelect.disabled = true;
+        goButton.disabled = true;
+        return;
+      }
+
+      // Filter and populate Parts dropdown based on selected Model
+      const partsOptions = filterCollections('Part:', `(${selectedModel})`);
+      partsSelect.innerHTML = '<option value="">Select Part</option>';
+      partsOptions.forEach(option => {
+        const partName = option.replace('Part: ', '').replace(`(${selectedModel})`, '').trim();
+        partsSelect.options.add(new Option(partName, partName));
+      });
+
+      partsSelect.disabled = false;
+      goButton.disabled = false;  // Enable Go button after selecting Model
+    });
+
+    // Event listener for Parts select
+    partsSelect.addEventListener("change", function () {
+      const selectedPart = partsSelect.value;
+      if (!selectedPart) {
+        goButton.disabled = true;
+        return;
+      }
+      goButton.disabled = false;  // Enable Go button after selecting Part
+    });
+
+    // Event listener for Reset button
+    resetSelectionsButton.addEventListener("click", function () {
+      makerSelect.selectedIndex = 0;
+      modelSelect.selectedIndex = 0;
+      partsSelect.selectedIndex = 0;
+      modelSelect.disabled = true;
+      partsSelect.disabled = true;
+      goButton.disabled = true;
+    });
+
+    // Event listener for Go button
+    goButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      const selectedPart = partsSelect.value;
+      const selectedModel = modelSelect.value;
+      const selectedMaker = makerSelect.value;
+
+      // Dynamically build the collectionKey based on selected values
+      let collectionKey = '';
+
+      // Check if Maker is selected and build the key for Maker
+      if (selectedMaker) {
+        collectionKey = `Maker: ${selectedMaker}`;
+      }
+
+      // Check if Model is selected and build the key for Model
+      if (selectedModel) {
+        collectionKey = `Model: ${selectedModel} (${selectedMaker})`;
+      }
+
+      // Check if Part is selected and build the key for Part
+      if (selectedPart) {
+        collectionKey = `Part: ${selectedPart} (${selectedModel})`;
+      }
+
+      console.log("Collection Key:", collectionKey); // Debugging
+      const collectionURL = collectionURLs[collectionKey];
+
+      // Ensure that the correct collection URL is selected
+      if (collectionURL) {
+        window.location.href = collectionURL;
+      } else {
+        console.error("Collection URL not found:", collectionKey);
+      }
+    });
+  });
+</script>
+
 <h1>header</h1>
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         {%- liquid
