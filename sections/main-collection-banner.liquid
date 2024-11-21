@@ -14,7 +14,21 @@
     <div class="collection-hero__text-wrapper">
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
-        {{- collection.title | escape -}}
+
+
+
+        {% assign collection_title = collection.title | escape %}
+
+{%- if collection_title contains ":" or collection_title contains "(" or collection_title contains ")" %}
+{% assign collection_title = collection.title | escape %}
+{% assign model_name = collection_title | split: ":" %}
+{% assign model = model_name[1] | split: "(" %}
+{{- model[0] | strip -}}
+
+{%- else %}
+  {{- collection_title | strip -}}
+{%- endif %}
+        
       </h1>
 
       {%- if section.settings.show_collection_description -%}
