@@ -80,10 +80,16 @@
 
 </style>
 <div class="dropdown-container">
-  <!-- Maker Dropdown -->
-  <label for="makerSelect">Choose Maker:</label>
-  <select id="makerSelect" class="form-select">
-    <option value="">Select Maker</option>
+  <!-- Car Dropdown -->
+  <label for="carSelect">Choose Car:</label>
+  <select id="carSelect" class="form-select">
+    <option value="">Select Car</option>
+  </select>
+
+  <!-- Make Dropdown -->
+  <label for="makeSelect">Choose Make:</label>
+  <select id="makeSelect" class="form-select" disabled>
+    <option value="">Select Make</option>
   </select>
 
   <!-- Model Dropdown -->
@@ -92,23 +98,16 @@
     <option value="">Select Model</option>
   </select>
 
-  <!-- Parts Dropdown -->
-  <label for="partsSelect">Choose Part:</label>
-  <select id="partsSelect" class="form-select" disabled>
-    <option value="">Select Part</option>
-  </select>
-
   <!-- Action Buttons -->
   <button id="goButton" class="btn btn-primary" disabled>Go</button>
   <button id="resetSelections" class="btn btn-secondary">Reset</button>
 </div>
 
-
 <script>
   // Define the collections and URLs
   const collections = [
     {% for collection in collections %}
-      {% if collection.title contains 'Maker:' or collection.title contains 'Model:' or collection.title contains 'Part:' %}
+      {% if collection.title contains 'Car:' or collection.title contains 'Make:' or collection.title contains 'Model:' %}
         "{{ collection.title }}",
       {% endif %}
     {% endfor %}
@@ -116,7 +115,7 @@
 
   const collectionURLs = {
     {% for collection in collections %}
-      {% if collection.title contains 'Maker:' or collection.title contains 'Model:' or collection.title contains 'Part:' %}
+      {% if collection.title contains 'Car:' or collection.title contains 'Make:' or collection.title contains 'Model:' %}
         "{{ collection.title }}": "{{ collection.url }}",
       {% endif %}
     {% endfor %}
@@ -126,15 +125,15 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     // Get references to the select elements and buttons
-    const makerSelect = document.getElementById("makerSelect");
+    const carSelect = document.getElementById("carSelect");
+    const makeSelect = document.getElementById("makeSelect");
     const modelSelect = document.getElementById("modelSelect");
-    const partsSelect = document.getElementById("partsSelect");
     const goButton = document.getElementById("goButton");
     const resetSelectionsButton = document.getElementById("resetSelections");
 
     // Disable fields and button initially
+    makeSelect.disabled = true;
     modelSelect.disabled = true;
-    partsSelect.disabled = true;
     goButton.disabled = true;
 
     // Function to filter collections based on a prefix
@@ -144,99 +143,89 @@
       });
     }
 
-    // Populate Maker dropdown
-    const makerOptions = filterCollections('Maker:');
-    makerOptions.forEach(option => {
-      const makerName = option.replace('Maker: ', '');
-      makerSelect.options.add(new Option(makerName, makerName));
+    // Populate Car dropdown
+    const carOptions = filterCollections('Car:');
+    carOptions.forEach(option => {
+      const carName = option.replace('Car: ', '');
+      carSelect.options.add(new Option(carName, carName));
     });
 
-    // Event listener for Maker select
-    makerSelect.addEventListener("change", function () {
-      const selectedMaker = makerSelect.value;
-      if (!selectedMaker) {
+    // Event listener for Car select
+    carSelect.addEventListener("change", function () {
+      const selectedCar = carSelect.value;
+      if (!selectedCar) {
+        makeSelect.disabled = true;
         modelSelect.disabled = true;
-        partsSelect.disabled = true;
         goButton.disabled = true;
         return;
       }
 
-      // Filter and populate Model dropdown based on selected Maker
-      const modelOptions = filterCollections('Model:', `(${selectedMaker})`);
+      // Filter and populate Make dropdown based on selected Car
+      const makeOptions = filterCollections('Make:', `(${selectedCar})`);
+      makeSelect.innerHTML = '<option value="">Select Make</option>';
+      makeOptions.forEach(option => {
+        const makeName = option.replace('Make: ', '').replace(`(${selectedCar})`, '').trim();
+        makeSelect.options.add(new Option(makeName, makeName));
+      });
+      makeSelect.disabled = false;
+      modelSelect.disabled = true;
+      goButton.disabled = false;  // Enable Go button after selecting Car
+    });
+
+    // Event listener for Make select
+    makeSelect.addEventListener("change", function () {
+      const selectedMake = makeSelect.value;
+      if (!selectedMake) {
+        modelSelect.disabled = true;
+        goButton.disabled = true;
+        return;
+      }
+
+      // Filter and populate Model dropdown based on selected Make
+      const modelOptions = filterCollections('Model:', `(${selectedMake})`);
       modelSelect.innerHTML = '<option value="">Select Model</option>';
       modelOptions.forEach(option => {
-        const modelName = option.replace('Model: ', '').replace(`(${selectedMaker})`, '').trim();
+        const modelName = option.replace('Model: ', '').replace(`(${selectedMake})`, '').trim();
         modelSelect.options.add(new Option(modelName, modelName));
       });
+
       modelSelect.disabled = false;
-      partsSelect.disabled = true;
-      goButton.disabled = false;  // Enable Go button after selecting Maker
-    });
-
-    // Event listener for Model select
-    modelSelect.addEventListener("change", function () {
-      const selectedModel = modelSelect.value;
-      if (!selectedModel) {
-        partsSelect.disabled = true;
-        goButton.disabled = true;
-        return;
-      }
-
-      // Filter and populate Parts dropdown based on selected Model
-      const partsOptions = filterCollections('Part:', `(${selectedModel})`);
-      partsSelect.innerHTML = '<option value="">Select Part</option>';
-      partsOptions.forEach(option => {
-        const partName = option.replace('Part: ', '').replace(`(${selectedModel})`, '').trim();
-        partsSelect.options.add(new Option(partName, partName));
-      });
-
-      partsSelect.disabled = false;
-      goButton.disabled = false;  // Enable Go button after selecting Model
-    });
-
-    // Event listener for Parts select
-    partsSelect.addEventListener("change", function () {
-      const selectedPart = partsSelect.value;
-      if (!selectedPart) {
-        goButton.disabled = true;
-        return;
-      }
-      goButton.disabled = false;  // Enable Go button after selecting Part
+      goButton.disabled = false;  // Enable Go button after selecting Make
     });
 
     // Event listener for Reset button
     resetSelectionsButton.addEventListener("click", function () {
-      makerSelect.selectedIndex = 0;
+      carSelect.selectedIndex = 0;
+      makeSelect.selectedIndex = 0;
       modelSelect.selectedIndex = 0;
-      partsSelect.selectedIndex = 0;
+      makeSelect.disabled = true;
       modelSelect.disabled = true;
-      partsSelect.disabled = true;
       goButton.disabled = true;
     });
 
     // Event listener for Go button
     goButton.addEventListener("click", function (e) {
       e.preventDefault();
-      const selectedPart = partsSelect.value;
       const selectedModel = modelSelect.value;
-      const selectedMaker = makerSelect.value;
+      const selectedMake = makeSelect.value;
+      const selectedCar = carSelect.value;
 
       // Dynamically build the collectionKey based on selected values
       let collectionKey = '';
 
-      // Check if Maker is selected and build the key for Maker
-      if (selectedMaker) {
-        collectionKey = `Maker: ${selectedMaker}`;
+      // Check if Car is selected and build the key for Car
+      if (selectedCar) {
+        collectionKey = `Car: ${selectedCar}`;
+      }
+
+      // Check if Make is selected and build the key for Make
+      if (selectedMake) {
+        collectionKey = `Make: ${selectedMake} (${selectedCar})`;
       }
 
       // Check if Model is selected and build the key for Model
       if (selectedModel) {
-        collectionKey = `Model: ${selectedModel} (${selectedMaker})`;
-      }
-
-      // Check if Part is selected and build the key for Part
-      if (selectedPart) {
-        collectionKey = `Part: ${selectedPart} (${selectedModel})`;
+        collectionKey = `Model: ${selectedModel} (${selectedMake})`;
       }
 
       console.log("Collection Key:", collectionKey); // Debugging
@@ -251,6 +240,7 @@
     });
   });
 </script>
+
 
 <h1>header</h1>
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
