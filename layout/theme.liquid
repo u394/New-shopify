@@ -349,6 +349,16 @@
 
 
 <a href="/account/orders" class="btn btn--primary">Reorder</a>
+{% if customer %}
+  <h2>Your Previous Orders</h2>
+  <ul>
+    {% for order in customer.orders %}
+      <li>Order ID: {{ order.id }} - Total: {{ order.total_price | money }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Please log in to view your orders.</p>
+{% endif %}
 
 <script>
     document.querySelector('.btn--primary').addEventListener('click', function(e) {
