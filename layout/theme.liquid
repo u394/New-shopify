@@ -346,26 +346,44 @@
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
 
 
-<script>
-    document.querySelector('.btn--primary').addEventListener('click', function(e) {
-        e.preventDefault();
-        // You can customize this to get the last order details dynamically
-        var lastOrder = 'product_id'; // Replace with actual product ID
-        var quantity = 1; // Adjust quantity if needed
-        fetch('/cart/add.js', {
-            method: 'POST',
-            body: JSON.stringify({ id: lastOrder, quantity: quantity }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function(response) {
-            window.location.href = '/cart'; // Redirect to cart page after adding
-        });
-    });
-</script>
+
 
 <a href="/account/orders" class="btn btn--primary">Reorder</a>
 
+<script>
+    document.querySelector('.btn--primary').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Get the product variant ID dynamically (ensure it's the correct variant ID)
+        var lastOrderVariantId = 'variant_id'; // Replace this with the actual variant ID dynamically
+        var quantity = 1; // Adjust quantity if needed
+
+        fetch('/cart/add.js', {
+            method: 'POST',
+            body: JSON.stringify({ 
+                items: [
+                    {
+                        id: lastOrderVariantId,  // Use the correct variant ID
+                        quantity: quantity
+                    }
+                ]
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            return response.json(); // Ensure it's in JSON format
+        })
+        .then(function(data) {
+            // Redirect to cart page after adding
+            window.location.href = '/cart'; 
+        })
+        .catch(function(error) {
+            console.log("Error adding to cart: ", error);
+        });
+    });
+</script>
 
 
           <!-- Google Tag Manager (noscript) -->
