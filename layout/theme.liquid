@@ -353,12 +353,25 @@
   <h2>Your Previous Orders</h2>
   <ul>
     {% for order in customer.orders %}
-      <li>Order ID: {{ order.id }} - Total: {{ order.total_price | money }}</li>
+      <li>
+        <strong>Order #{{ order.id }}</strong> - Total: {{ order.total_price | money }}
+        <ul>
+          {% for line_item in order.line_items %}
+            <li>
+              Product: {{ line_item.title }}<br>
+              Quantity: {{ line_item.quantity }}<br>
+              Price: {{ line_item.price | money }}<br>
+              <strong>Product ID:</strong> {{ line_item.product_id }}
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
     {% endfor %}
   </ul>
 {% else %}
   <p>Please log in to view your orders.</p>
 {% endif %}
+
 
 <script>
     document.querySelector('.btn--primary').addEventListener('click', function(e) {
