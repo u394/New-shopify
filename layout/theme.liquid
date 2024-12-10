@@ -354,36 +354,36 @@
     document.querySelector('.btn--primary').addEventListener('click', function(e) {
         e.preventDefault();
 
-        // Get the product variant ID dynamically (ensure it's the correct variant ID)
-        var lastOrderVariantId = 'variant_id'; // Replace this with the actual variant ID dynamically
-        var quantity = 1; // Adjust quantity if needed
+        // Correct variant ID and quantity
+        var lastOrderVariantId = 'your_variant_id'; // Replace this with the correct variant ID
+        var quantity = 1; // Adjust as needed
 
+        // Adding product to cart via AJAX
         fetch('/cart/add.js', {
             method: 'POST',
-            body: JSON.stringify({ 
-                items: [
-                    {
-                        id: lastOrderVariantId,  // Use the correct variant ID
-                        quantity: quantity
-                    }
-                ]
+            body: JSON.stringify({
+                items: [{
+                    id: lastOrderVariantId,  // Correct variant ID here
+                    quantity: quantity
+                }]
             }),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
         .then(function(response) {
-            return response.json(); // Ensure it's in JSON format
+            return response.json(); // Get the response in JSON format
         })
         .then(function(data) {
-            // Redirect to cart page after adding
-            window.location.href = '/cart'; 
+            console.log(data); // Check if the product is added correctly
+            window.location.href = '/cart'; // Redirect to cart page
         })
         .catch(function(error) {
-            console.log("Error adding to cart: ", error);
+            console.log("Error:", error); // Log any errors
         });
     });
 </script>
+
 
 
           <!-- Google Tag Manager (noscript) -->
